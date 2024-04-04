@@ -1,0 +1,121 @@
+{
+
+  "home": "الصفحة الرئيسية",
+  "shop": "المتجر",
+  "blog": "المدونة",
+  "about": "حول",
+  "contact": "اتصل بنا",
+  "createAccount": "إنشاء حساب",
+  "logIn": "تسجيل الدخول",
+
+  "searchText": "ابحث عن منتجك من بين آلاف المنتجات",
+  "desc": "لدينا أكبر مجموعة من المنتجات",
+  "womenBtn": "نساء",
+  "menBtn": "رجال",
+  "childrenBtn": "أطفال",
+
+  "chooseAnyProducts": "اختر أي منتج",
+  "buyEverythingWithUs": "اشتري كل شيء معنا",
+  "getStartedNow": "ابدأ الآن",
+ 
+  "ourProducts": "منتجاتنا",
+  "shoes": "أحذية",
+  "bags": "حقائب",
+  "phones": "هواتف",
+  "beauty": "جمال",
+
+  "saveTheDay": "أنقذ اليوم!",
+  "joinWorkshop": "انضم إلى ورشة العمل طويلة اليوم لـ",
+  "advance": "تقدم",
+  "mastering": "الإتقان",
+  "onSales": "في المبيعات",
+  "limitedTimeOffer": "عرض محدود الوقت، سارع",
+  "registerNow": "سجل الآن",
+  "userName": "اسم المستخدم",
+  "email": "البريد الإلكتروني",
+  "phone": "الهاتف",
+
+  "descAbout": "خذ متجرك على أي جهاز باستخدام تطبيقنا وموقع الويب الخاص بنا ، كله يتعلق بما تريد. ما عليك سوى تنزيل وتثبيت وبدء التسوق",
+  "marchantEnrolled": "تجار مسجلين",
+  "certifiedCourses": "دورات معتمدة",
+  "rewardsAndGiftCards": "مكافآت وبطاقات هدايا",
+  "whyChooseUs": "لماذا تختارنا",
+  "becomeOurClient": "كن عميلاً لدينا",
+  "joinUsNow": "انضم إلينا الآن",
+
+  "appSectionDesc": "قم بالتسوق بسهولة بنقرة واحدة ، لا تنسى استخدام تطبيقنا ، ... كن فخورًا",
+  "signUpForFree": "سجل مجانًا",
+  "shopAnyTimeAnywhere": "تسوق في أي وقت وفي أي مكان"
+
+  ,"showResult": "عرض 01 - 12 من 139 نتيجة",
+  "pageHeaderTitle": "صفحة متجرنا" 
+  ,
+  "searchPlaceholder": "ابحث...",
+
+  "allCategories": "جميع الفئات",
+  "allColors": "جميع الألوان",
+  "allSizes": "جميع المقاسات",
+  "price": "السعر",
+
+  "ourProduct": "منتجاتنا",
+  "shopSingleProduct": "المتجر / منتج فردي",
+  "selectSize": "اختر المقاس",
+  "selectColor": "اختر اللون",
+  "addToCart": "أضف إلى السلة",
+  "checkOut": "الدفع",
+  
+    "descProduitSingle": "استكشف التفاصيل الرائعة لهذا المنتج المذهل. صُنع بدقة وعناية، ويقدم مزيجًا فريدًا من الأناقة والوظائف. سواء كنت تبحث عن الراحة اليومية أو لمسة من الأناقة، يحتوي هذا المنتج على كل شيء. قم بتعزيز تجربتك بجودة تتحدث بذاتها."
+  
+  ,
+  "Shop Cart": "عربة التسوق",
+  "cart Page": "صفحة العربة",
+  "Product": "المنتج",
+  "Price": "السعر",
+  "Quantity": "الكمية",
+  "Total": "الإجمالي",
+  "Edit": "تحرير",
+  "Update Cart": "تحديث العربة",
+  "Product Order Form": "نموذج طلب المنتج",
+  "Select Pays": "اختر البلد",
+  "Numéro de Rue": "رقم الشارع",
+  "Ville": "المدينة",
+  "Postal Code /ZIP": "الرمز البريدي / الرمز البريدي",
+  "Update Address": "تحديث العنوان",
+  "Cart Subtotal": "المجموع الفرعي للعربة",
+  "Shiping And Handling": "الشحن والتسليم",
+  "Order Total": "المجموع الكلي للطلب",
+  "subTitle": "ابق على اتصال معنا",
+  "title": "نحن دائما حريصون على سماع أفكارك!",
+  "conSubTitle": "ابق على اتصال معنا",
+  "conTitle": "املأ النموذج أدناه حتى نتعرف عليك وعلى احتياجاتك بشكل أفضل.",
+  "btnText": "إرسال رسالتنا",
+  "contactList": [
+    {
+      "imgUrl": "/src/assets/images/icon/01.png",
+      "imgAlt": "رمز الاتصال",
+      "title": "عنوان المكتب",
+      "desc": "OFPPT NTIC1، الدار البيضاء",
+      "link": "mailto:youssefassad158@gmail.com"
+    },
+    {
+      "imgUrl": "/src/assets/images/icon/02.png",
+      "imgAlt": "رمز الاتصال",
+      "title": "رقم الهاتف",
+      "desc": "+212 638048315",
+      "link": "mailto:youssefassad158@gmail.com"
+    },
+    {
+      "imgUrl": "/src/assets/images/icon/03.png",
+      "imgAlt": "رمز الاتصال",
+      "title": "إرسال بريد إلكتروني",
+      "desc": "assad@assadShop.com",
+      "link": "mailto:youssefassad158@gmail.com"
+    },
+    {
+      "imgUrl": "/src/assets/images/icon/04.png",
+      "imgAlt": "رمز الاتصال",
+      "title": "موقعنا على الويب",
+      "desc": "www.assadshop.com",
+      "link": "localhost:5173"
+    }]
+}

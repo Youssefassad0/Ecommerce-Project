@@ -1,0 +1,122 @@
+{
+  "home": "Home",
+  "shop": "Shop",
+  "blog": "Blog",
+  "about": "About",
+  "contact": "Contact",
+  "createAccount": "Create Account",
+  "logIn": "Log In",
+
+  "searchText": "Search Your One From Thousand of Products",
+  "desc": "We Have the Largest Collection of Products",
+  "womenBtn": "Women",
+  "menBtn": "Men",
+  "childrenBtn": "Children",
+
+  "chooseAnyProducts": "Choose Any Products",
+  "buyEverythingWithUs": "Buy Everything with Us",
+  "getStartedNow": "Get Started Now",
+
+  "ourProducts": "Our Products",
+  "shoes": "Shoes",
+  "bags": "Bags",
+  "phones": "Phones",
+  "beauty": "Beauty",
+
+  "saveTheDay": "Save The Day!",
+  "joinWorkshop": "Join on Day Long Workshop For",
+  "advance": "Advance",
+  "mastering": "Mastering",
+  "onSales": "On Sales",
+  "limitedTimeOffer": "Limited Time Offer Hurry Up",
+  "registerNow": "Register Now",
+  "userName": "UserName",
+  "email": "Email",
+  "phone": "Phone",
+
+  "descAbout": "Take your Shop on your any device with our app & our Website, it's all about what you want. Just download & install & start to shop",
+  "marchantEnrolled": "Marchant Enrolled",
+  "certifiedCourses": "Certified Courses",
+  "rewardsAndGiftCards": "Rewards and Gift Cards",
+  "whyChooseUs": "Why Choose Us",
+  "becomeOurClient": "Become Our Client",
+  "joinUsNow": "Join Us Now",
+
+  "appSectionDesc": "Take A Good Shop With Just Click, Don't Forget to use Our Application, ...Be Proud",
+  "signUpForFree": "Sign up For Free",
+  "shopAnyTimeAnywhere": "Shop Any Time, Anywhere",
+
+  "showResult": "Showing 01 - 12 of 139 Results",
+  "pageHeaderTitle": "Our Shop Page",
+
+  "searchPlaceholder": "Search...",
+
+  "allCategories": "All Categories",
+
+  "allColors": "All Colors",
+  "allSizes": "All Sizes",
+  "price": "Price",
+
+  "ourProduct": "OUR PRODUCT",
+  "shopSingleProduct": "shop / Single Product",
+
+  "descProduitSingle": "Explore the exquisite details of this fantastic product. Crafted with precision and care, it offers a unique blend of style and functionality. Whether you're looking for everyday comfort or a touch of elegance, this product has it all. Elevate your experience with quality that speaks for itself.",
+  "selectSize": "Select Size",
+  "selectColor": "Select Color",
+  "addToCart": "Add To Cart",
+  "checkOut": "Check Out"
+,
+"Shop Cart": "Shop Cart",
+  "cart Page": "Cart Page",
+  "Product": "Product",
+  "Price": "Price",
+  "Quantity": "Quantity",
+  "Total": "Total",
+  "Edit": "Edit",
+  "Update Cart": "Update Cart",
+  "Product Order Form": "Product Order Form",
+  "Select Pays": "Select Pays",
+  "Numéro de Rue": "Street Number",
+  "Ville": "City",
+  "Postal Code /ZIP": "Postal Code / ZIP",
+  "Update Address": "Update Address",
+  "Cart Subtotal": "Cart Subtotal",
+  "Shiping And Handling": "Shipping and Handling",
+  "Order Total": "Order Total",
+
+  "subTitle": "Get in touch with us",
+  "title": "We're Always Eager To Hear From You!",
+  "conSubTitle": "Get in touch with Contact us",
+  "conTitle": "Fill The Form Below So We Can Get To Know You And Your Needs Better.",
+  "btnText": "Send our Message",
+  "contactList": [
+    {
+      "imgUrl": "/src/assets/images/icon/01.png",
+      "imgAlt": "contact icon",
+      "title": "Office Address",
+      "desc": "OFPPT NTIC1, Casa Blanca",
+      "link": "mailto:youssefassad158@gmail.com"
+    },
+    {
+      "imgUrl": "/src/assets/images/icon/02.png",
+      "imgAlt": "contact icon",
+      "title": "Phone number",
+      "desc": "+212 638048315",
+      "link": "mailto:youssefassad158@gmail.com"
+    },
+    {
+      "imgUrl": "/src/assets/images/icon/03.png",
+      "imgAlt": "contact icon",
+      "title": "Send email",
+      "desc": "assad@assadShop.com",
+      "link": "mailto:youssefassad158@gmail.com"
+    },
+    {
+      "imgUrl": "/src/assets/images/icon/04.png",
+      "imgAlt": "contact icon",
+      "title": "Our website",
+      "desc": "www.assadshop.com",
+      "link": "localhost:5173"
+    }
+  ]
+}

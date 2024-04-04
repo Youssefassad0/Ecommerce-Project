@@ -1,0 +1,26 @@
+.color-option {
+    height: 30px;
+    width: 30px;
+  }
+  
+  .black {
+    background-color: black;
+    color: white;
+  }
+  
+  .red {
+    background-color: red;
+  }
+  
+  .Pink {
+    background-color: pink;
+  }
+  
+  .white {
+    background-color: white;
+  }
+  
+  .green {
+    background-color: green;
+  }
+  
