@@ -116,7 +116,7 @@ const CartPage = () => {
                     <tr key={i}>
                       <td className="product-item cart-product">
                         <div className="p-thumb">
-                          <Link to="/shop">
+                          <Link to={`/product/${item.id}`}>
                             <img
                               src={item.img}
                               alt=""
@@ -125,7 +125,8 @@ const CartPage = () => {
                           </Link>
                         </div>
                         <div className="p-content">
-                          <Link to="/shop"> {item.name} </Link>
+                        <Link to={`/product/${item.id}`}>
+                          {item.name} </Link>
                         </div>
                       </td>
                       <td className="cat-price">${item.price}</td>

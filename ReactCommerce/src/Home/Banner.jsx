@@ -42,7 +42,7 @@ const Banner = () => {
           </form>
           <p style={{ color: "green" }}> {t("desc")}</p>
           <div>
-            <Link to="/shop/woman" style={{ marginRight: "20px" }}>
+            <Link to="/shop/woman" style={{ marginRight:"20px" }}>
               <button className="btn-31">
                 <span className="text-container">
                   <span className="text">{t("womenBtn")}</span>
