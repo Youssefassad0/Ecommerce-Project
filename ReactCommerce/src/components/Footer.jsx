@@ -213,9 +213,9 @@ const Footer = () => {
                       <ul className="lab-ul office-address">
                         {ItemList.map((val, i) => (
                           <li key={i}>
-                            <a href="#" className={val.iconName}>
+                            <Link to={val.text} className={val.iconName}>
                               {val.text}
-                            </a>
+                            </Link>
                           </li>
                         ))}
                       </ul>

@@ -77,7 +77,7 @@ const NavItems = () => {
               </div>
 
               <Link
-                to="signup"
+                to="/register"
                 className="lab-btn me-3 d-none d-md-block"
                 style={{ color: "white", backgroundColor: "green" }}
               >

@@ -24,6 +24,8 @@ import SingleBlog from "./blog/SingleBlog.jsx";
 import About from "./About/About.jsx";
 import Contact from "./contact/Contact.jsx";
 import SupportAdmin from "./ChatSupport/SupportAdmin/chatAdmine.jsx";
+import LoginPage from "./components/PageHeader.jsx";
+import RegisterPage from "./components/Auth/RegisterPage.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -68,6 +70,12 @@ const router = createBrowserRouter([
   },{
     path:'/messages',
     element:<SupportAdmin/>
+  },{
+    path:'/login',
+    element:<LoginPage/>
+  },{
+    path:'/register',
+    element:<RegisterPage/>
   }
 ]);
 ReactDOM.createRoot(document.getElementById("root")).render(
