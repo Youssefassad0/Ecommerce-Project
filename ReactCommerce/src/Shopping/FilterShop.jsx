@@ -18,11 +18,10 @@ const FilterShop = ({ filterByColor, filterBySize, filterByPrice }) => {
   return (
     <div className="filter-shop">
       <h3>{t("filterBy")}</h3>
-
       {/* Color filter */}
       <div>
         <h4>{t("color")}</h4>
-        <select className="" onChange={(e) => filterByColor(e.target.value)}>
+        <select className="selectColor" onChange={(e) => filterByColor(e.target.value)}>
           <option value="">{t("allColors")}</option>
           {colorOptions.map((color) => (
             <option key={color} value={color}>

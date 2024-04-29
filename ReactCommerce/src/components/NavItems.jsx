@@ -1,14 +1,60 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/images/logo/AssadShopLogo.png";
 import { useTranslation } from "react-i18next";
 import Select from "react-select";
+import axios from "axios";
 
 const NavItems = () => {
   const { t, i18n } = useTranslation();
+  const navigate = useNavigate(); // Hook for navigation
   const [menuToggle, setMenuToggle] = useState(false);
   const [socialToggle, setSocialToggle] = useState(false);
   const [headerFixed, setHeaderFixed] = useState(false);
+
+  // Function to handle logout
+  // const logOut = () => {
+  //   // Clear auth tokens and navigate to home page
+  //   localStorage.removeItem('auth-token');
+  //   localStorage.removeItem('auth-name');
+  //   navigate('/');
+  // }
+
+  const logOut = () => {
+    localStorage.removeItem("auth-token");
+    localStorage.removeItem("auth-name");
+    axios.post("http://localhost:8001/api/logout")
+      .then(response => {
+        navigate("/login");
+      })
+      .catch(error => {
+        console.error("Logout failed:", error);
+      });
+  };
+
+  const renderAuthButton = () => {
+    if (!localStorage.getItem('auth-token')) {
+      return (
+        <>
+          <Link
+            to="/register"
+            className="lab-btn me-3 d-none d-md-block"
+            style={{ color: "white", backgroundColor: "green" }}
+          >
+            {t("createAccount")}
+          </Link>
+          <Link to="/login" className="d-none d-md-block">
+            {t("logIn")}
+          </Link>
+        </>
+      );
+    } else {
+      return (
+        <Link onClick={logOut} className="d-none d-md-block">Logout</Link>
+      );
+    }
+  }
+
   const languageOptions = [
     { value: "en", label: "En" },
     { value: "fr", label: "Fr" },
@@ -38,7 +84,8 @@ const NavItems = () => {
               <span>{t("createAccount")}</span>
             </Link>
             <Link to="/login">{t("logIn")}</Link>
-            <Link to="/logout">Logout</Link> 
+            {/* If you have a specific logout route, you can link it here */}
+            <Link to="#" onClick={logOut}>Logout</Link>
           </div>
         </div>
       </div>
@@ -76,19 +123,8 @@ const NavItems = () => {
                   </li>
                 </ul>
               </div>
-
-              <Link
-                to="/register"
-                className="lab-btn me-3 d-none d-md-block"
-                style={{ color: "white", backgroundColor: "green" }}
-              >
-                {t("createAccount")}
-              </Link>
-              <Link to="/login" className="d-none d-md-block">
-                {t("logIn")}
-              </Link>
-              <Link to="/logout"  className="d-none d-md-block">Logout</Link> 
-
+              {/* Render either login/register or logout link based on auth status */}
+              {renderAuthButton()}
               <div
                 onClick={() => setMenuToggle(!menuToggle)}
                 className={`header-bar d-lg-none ${menuToggle ? "active" : ""}`}
