@@ -4,6 +4,7 @@ import logo from "../assets/images/logo/AssadShopLogo.png";
 import { useTranslation } from "react-i18next";
 import Select from "react-select";
 import axios from "axios";
+import { Dropdown, Nav, NavDropdown } from "react-bootstrap";
 
 const NavItems = () => {
   const { t, i18n } = useTranslation();
@@ -41,6 +42,33 @@ const NavItems = () => {
       }
     })
   };
+  const infouser=()=>{
+    if(localStorage.getItem('auth-token')){
+      return(
+        <>
+        <Nav>
+        <NavDropdown alignRight title={<span>ahmed</span>}>
+          <Dropdown.Item>
+            <Link to="/profile">Your Profile</Link>
+          </Dropdown.Item>
+          {/* {user.user.role === 'admin' && <Dropdown.Item><Link to="/dashboard">Dashboard</Link></Dropdown.Item>} */}
+          <Dropdown.Item onClick={logOut}>Logout</Dropdown.Item>
+        </NavDropdown>
+      </Nav>
+        </>
+      )
+    }
+    else{
+      return (
+        <>
+        <Link to="/register" className="lab-btn me-3">
+              <span>{t("createAccount")}</span>
+            </Link>
+            <Link to="/login">{t("logIn")}</Link>
+        </>
+      )
+    }
+  }
 
   const renderAuthButton = () => {
     if (!localStorage.getItem('auth-token')) {
@@ -60,7 +88,15 @@ const NavItems = () => {
       );
     } else {
       return (
-        <Link onClick={logOut} className="d-none d-md-block">Logout</Link>
+        <Nav className="me-3 d-none d-md-block" >
+        <NavDropdown alignRight title={<span>ahmed</span>}>
+          <Dropdown.Item>
+            <Link to="/profile">Your Profile</Link>
+          </Dropdown.Item>
+          {/* {user.user.role === 'admin' && <Dropdown.Item><Link to="/dashboard">Dashboard</Link></Dropdown.Item>} */}
+          <Dropdown.Item onClick={logOut}>Logout</Dropdown.Item>
+        </NavDropdown>
+      </Nav>
       );
     }
   }
@@ -89,12 +125,9 @@ const NavItems = () => {
       <div className={`header-top d-md-none ${socialToggle ? "open" : ""}`}>
         <div className="container">
           <div className="header-top-area">
-            <Link to="/register" className="lab-btn me-3">
-              <span>{t("createAccount")}</span>
-            </Link>
-            <Link to="/login">{t("logIn")}</Link>
+            {infouser()}
             {/* If you have a specific logout route, you can link it here */}
-            <Link to="#" onClick={logOut}>Logout</Link>
+           
           </div>
         </div>
       </div>

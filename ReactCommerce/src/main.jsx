@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./i18n";
 import App from "./App.jsx";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider  } from "react-router-dom";
 import "swiper/css";
 
 // bootstrap css
@@ -27,7 +27,7 @@ import SupportAdmin from "./ChatSupport/SupportAdmin/chatAdmine.jsx";
 import RegisterPage from "./components/Auth/RegisterPage.jsx";
 import axios from "axios";
 import LoginPage from "./components/Auth/LoginPage.jsx";
-
+import AlreadyLogin from "./components/Auth/AlreadyLogin.jsx";
 axios.defaults.headers.post['Accept'] = 'application/json';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 axios.defaults.withCredentials = true;
@@ -83,10 +83,11 @@ const router = createBrowserRouter([
   }, 
   {
     path: '/login',
-    element: <LoginPage />
+    element: localStorage.getItem('auth-token') ? <AlreadyLogin/> : <LoginPage/>
   }, {
     path: '/register',
-    element: <RegisterPage />
+    element: localStorage.getItem('auth-token') ? <AlreadyLogin/> : <RegisterPage/>
+
   }
 ]);
 ReactDOM.createRoot(document.getElementById("root")).render(
