@@ -20,16 +20,26 @@ const NavItems = () => {
   //   navigate('/');
   // }
 
-  const logOut = () => {
-    localStorage.removeItem("auth-token");
-    localStorage.removeItem("auth-name");
-    axios.post("http://localhost:8001/api/logout")
-      .then(response => {
+  const logOut = (e) => {
+    // localStorage.removeItem("auth-token");
+    // localStorage.removeItem("auth-name");
+    // axios.post("http://localhost:8001/api/logout")
+    //   .then(response => {
+    //     navigate("/login");
+    //   })
+    //   .catch(error => { 
+    //     console.error("Logout failed:", error);
+    //   });
+    e.preventDefault();
+    axios.post('http://localhost:8001/api/logout').then(res => {
+      if (res.data.status === 200) {
+        localStorage.removeItem("auth-token");
+        localStorage.removeItem("auth-name");
+        console.log('deleted successfuly');
         navigate("/login");
-      })
-      .catch(error => {
-        console.error("Logout failed:", error);
-      });
+
+      }
+    })
   };
 
   const renderAuthButton = () => {
@@ -73,9 +83,8 @@ const NavItems = () => {
 
   return (
     <header
-      className={`header-section style-4 ${
-        headerFixed ? "header-fixed fadeInUp" : ""
-      }`}
+      className={`header-section style-4 ${headerFixed ? "header-fixed fadeInUp" : ""
+        }`}
     >
       <div className={`header-top d-md-none ${socialToggle ? "open" : ""}`}>
         <div className="container">

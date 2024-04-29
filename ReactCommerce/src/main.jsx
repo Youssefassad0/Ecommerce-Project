@@ -28,9 +28,14 @@ import RegisterPage from "./components/Auth/RegisterPage.jsx";
 import axios from "axios";
 import LoginPage from "./components/Auth/LoginPage.jsx";
 
-axios.defaults.headers.post['Accept']='application/json';
-axios.defaults.headers.post['Content-Type']='application/json';
+axios.defaults.headers.post['Accept'] = 'application/json';
+axios.defaults.headers.post['Content-Type'] = 'application/json';
 axios.defaults.withCredentials = true;
+axios.interceptors.request.use(function (config) {
+  const token = localStorage.getItem('auth-token');
+  config.headers.Authorization = token ? `Bearer ${token}` : '';
+  return config;
+})
 const router = createBrowserRouter([
   {
     path: "/",
@@ -60,27 +65,28 @@ const router = createBrowserRouter([
       {
         path: "/cart-page",
         element: <CartPage />,
-      },{
-        path:"/about",
-        element:<About/>
-      },{
-        path:"/contact",
-        element:<Contact/>
+      }, {
+        path: "/about",
+        element: <About />
+      }, {
+        path: "/contact",
+        element: <Contact />
       }
     ],
   },
   {
     path: "/aboutAssad",
     element: <App2 />,
-  },{
-    path:'/messages',
-    element:<SupportAdmin/>
-  },{
-    path:'/login',
-    element:<LoginPage/>
-  },{
-    path:'/register',
-    element:<RegisterPage/>
+  }, {
+    path: '/messages',
+    element: <SupportAdmin />
+  }, 
+  {
+    path: '/login',
+    element: <LoginPage />
+  }, {
+    path: '/register',
+    element: <RegisterPage />
   }
 ]);
 ReactDOM.createRoot(document.getElementById("root")).render(
