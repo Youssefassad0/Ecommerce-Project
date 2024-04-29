@@ -34,10 +34,11 @@ const NavItems = () => {
       <div className={`header-top d-md-none ${socialToggle ? "open" : ""}`}>
         <div className="container">
           <div className="header-top-area">
-            <Link to="/signup" className="lab-btn me-3">
+            <Link to="/register" className="lab-btn me-3">
               <span>{t("createAccount")}</span>
             </Link>
             <Link to="/login">{t("logIn")}</Link>
+            <Link to="/logout">Logout</Link> 
           </div>
         </div>
       </div>
@@ -83,9 +84,10 @@ const NavItems = () => {
               >
                 {t("createAccount")}
               </Link>
-              <Link to="login" className="d-none d-md-block">
+              <Link to="/login" className="d-none d-md-block">
                 {t("logIn")}
               </Link>
+              <Link to="/logout"  className="d-none d-md-block">Logout</Link> 
 
               <div
                 onClick={() => setMenuToggle(!menuToggle)}

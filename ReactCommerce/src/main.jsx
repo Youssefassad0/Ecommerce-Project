@@ -24,8 +24,13 @@ import SingleBlog from "./blog/SingleBlog.jsx";
 import About from "./About/About.jsx";
 import Contact from "./contact/Contact.jsx";
 import SupportAdmin from "./ChatSupport/SupportAdmin/chatAdmine.jsx";
-import LoginPage from "./components/PageHeader.jsx";
 import RegisterPage from "./components/Auth/RegisterPage.jsx";
+import axios from "axios";
+import LoginPage from "./components/Auth/LoginPage.jsx";
+
+axios.defaults.headers.post['Accept']='application/json';
+axios.defaults.headers.post['Content-Type']='application/json';
+axios.defaults.withCredentials = true;
 const router = createBrowserRouter([
   {
     path: "/",
