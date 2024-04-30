@@ -28,6 +28,7 @@ import RegisterPage from "./components/Auth/RegisterPage.jsx";
 import axios from "axios";
 import LoginPage from "./components/Auth/LoginPage.jsx";
 import AlreadyLogin from "./components/Auth/AlreadyLogin.jsx";
+import DashBoard from "./Dashboard/DashBoard.jsx";
 axios.defaults.headers.post['Accept'] = 'application/json';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 axios.defaults.withCredentials = true;
@@ -87,7 +88,9 @@ const router = createBrowserRouter([
   }, {
     path: '/register',
     element: localStorage.getItem('auth-token') ? <AlreadyLogin/> : <RegisterPage/>
-
+  },{
+    path:'/dashboard',
+    element: <DashBoard />
   }
 ]);
 ReactDOM.createRoot(document.getElementById("root")).render(

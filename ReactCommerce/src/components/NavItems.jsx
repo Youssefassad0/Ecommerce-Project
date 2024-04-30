@@ -37,7 +37,7 @@ const NavItems = () => {
         localStorage.removeItem("auth-token");
         localStorage.removeItem("auth-name");
         console.log('deleted successfuly');
-        navigate("/login");
+        navigate("/");
 
       }
     })
