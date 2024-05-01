@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import Select from "react-select";
 import axios from "axios";
 import { Dropdown, Nav, NavDropdown } from "react-bootstrap";
+import Swal from "sweetalert2";
 
 const NavItems = () => {
   const { t, i18n } = useTranslation();
@@ -36,6 +37,7 @@ const NavItems = () => {
       if (res.data.status === 200) {
         localStorage.removeItem("auth-token");
         localStorage.removeItem("auth-user");
+        Swal.fire('LogOut ', `Good Bay  Mr `, 'warning'); 
         console.log('deleted successfuly');
         navigate("/");
 
