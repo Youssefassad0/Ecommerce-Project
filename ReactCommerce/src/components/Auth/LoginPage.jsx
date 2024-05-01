@@ -35,23 +35,22 @@ function LoginPage() {
     }
     const loginSubmit = (e) => {
         e.preventDefault();
-    
+
         const data = {
             email: loginInputs.email,
             password: loginInputs.password,
         };
-    
+
         axios.get('/sanctum/csrf-cookie')
             .then(response => {
                 axios.post('http://localhost:8001/api/login', data)
                     .then(res => {
                         if (res.data.status === 200) {
                             localStorage.setItem('auth-token', res.data.token);
-                            localStorage.setItem('auth-name', res.data.data.name);
-                            Swal.fire('Success', `Welcome Back Mr. ${res.data.data.name}`, 'success'); // Change Swal to Swal.fire
-                            navigate('/');
+                            localStorage.setItem('auth-user', JSON.stringify(res.data.data));
+                            Swal.fire('Success', `Welcome Back Mr. ${res.data.data.name}`, 'success'); navigate('/');
                         } else if (res.data.status === 404) {
-                            Swal.fire('Warning', res.data.message, 'warning'); // Change Swal to Swal.fire
+                            Swal.fire('Warning', res.data.message, 'warning');
                         } else {
                             setLogin({
                                 ...loginInputs,
@@ -67,7 +66,7 @@ function LoginPage() {
                 console.error('Error:', error);
             });
     };
-    
+
     return (
         <>
             <NavItems />

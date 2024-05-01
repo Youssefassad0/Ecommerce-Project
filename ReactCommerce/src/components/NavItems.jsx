@@ -12,7 +12,7 @@ const NavItems = () => {
   const [menuToggle, setMenuToggle] = useState(false);
   const [socialToggle, setSocialToggle] = useState(false);
   const [headerFixed, setHeaderFixed] = useState(false);
-
+  const user = JSON.parse(localStorage.getItem('auth-user'));
   // Function to handle logout
   // const logOut = () => {
   //   // Clear auth tokens and navigate to home page
@@ -35,36 +35,36 @@ const NavItems = () => {
     axios.post('http://localhost:8001/api/logout').then(res => {
       if (res.data.status === 200) {
         localStorage.removeItem("auth-token");
-        localStorage.removeItem("auth-name");
+        localStorage.removeItem("auth-user");
         console.log('deleted successfuly');
         navigate("/");
 
       }
     })
   };
-  const infouser=()=>{
-    if(localStorage.getItem('auth-token')){
-      return(
+  const infouser = () => {
+    if (localStorage.getItem('auth-token')) {
+      return (
         <>
-        <Nav>
-        <NavDropdown alignRight title={<span>ahmed</span>}>
-          <Dropdown.Item>
-            <Link to="/profile">Your Profile</Link>
-          </Dropdown.Item>
-          {/* {user.user.role === 'admin' && <Dropdown.Item><Link to="/dashboard">Dashboard</Link></Dropdown.Item>} */}
-          <Dropdown.Item onClick={logOut}>Logout</Dropdown.Item>
-        </NavDropdown>
-      </Nav>
+          <Nav>
+            <NavDropdown alignRight title={<span>ahmed</span>}>
+              <Dropdown.Item>
+                <Link to="/profile">Your Profile</Link>
+              </Dropdown.Item>
+              {user.role === 'admin' && <Dropdown.Item><Link to="/dashboard">Dashboard</Link></Dropdown.Item>}
+              <Dropdown.Item onClick={logOut}>Logout</Dropdown.Item>
+            </NavDropdown>
+          </Nav>
         </>
       )
     }
-    else{
+    else {
       return (
         <>
-        <Link to="/register" className="lab-btn me-3">
-              <span>{t("createAccount")}</span>
-            </Link>
-            <Link to="/login">{t("logIn")}</Link>
+          <Link to="/register" className="lab-btn me-3">
+            <span>{t("createAccount")}</span>
+          </Link>
+          <Link to="/login">{t("logIn")}</Link>
         </>
       )
     }
@@ -89,14 +89,15 @@ const NavItems = () => {
     } else {
       return (
         <Nav className="me-3 d-none d-md-block" >
-        <NavDropdown alignRight title={<span>ahmed</span>}>
-          <Dropdown.Item>
-            <Link to="/profile">Your Profile</Link>
-          </Dropdown.Item>
-          {/* {user.user.role === 'admin' && <Dropdown.Item><Link to="/dashboard">Dashboard</Link></Dropdown.Item>} */}
-          <Dropdown.Item onClick={logOut}>Logout</Dropdown.Item>
-        </NavDropdown>
-      </Nav>
+          {/* { user && user.name  }  */}
+          <NavDropdown alignRight title={<span> <img src="/src/assets/images/author/03.jpg" alt="profile image" style={{ width: '50px', height: '50px' , borderRadius:'25px' }} /> </span>}>
+            <Dropdown.Item>
+              <Link to="/profile">Your Profile</Link>
+            </Dropdown.Item>
+            {user.role === 'admin' && <Dropdown.Item><Link to="/dashboard">Dashboard</Link></Dropdown.Item>}
+            <Dropdown.Item onClick={logOut}>Logout</Dropdown.Item>
+          </NavDropdown>
+        </Nav>
       );
     }
   }
@@ -126,8 +127,6 @@ const NavItems = () => {
         <div className="container">
           <div className="header-top-area">
             {infouser()}
-            {/* If you have a specific logout route, you can link it here */}
-           
           </div>
         </div>
       </div>

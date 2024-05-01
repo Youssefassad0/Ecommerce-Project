@@ -8,8 +8,6 @@ const CategoryShow = () => {
    const Title =  t(`ourProducts`);
  const category = [ t(`shoes`) , t(`bags`), t(`phones`),t(`beauty`) ];
   const [items, setItems] = useState(ProductData);
-
-  // Filtre Categories
   const FiltreItem = (cate) => {
     const filterupdate=ProductData.filter((e)=>{
       return (e.cate===cate)
@@ -24,9 +22,7 @@ const CategoryShow = () => {
       <div className="course-shape two">
         <img src="/src/assets/images/shape-img/icon/shape2-removebg.png" alt="" />
       </div>
-      {/* Main Section  */}
       <div className="container">
-        {/* Section Header  */}
         <div className="section-header">
           <h2 className="title"> {Title} </h2>
           <div className="course-filter-group">
@@ -34,9 +30,7 @@ const CategoryShow = () => {
               <li onClick={()=>setItems(ProductData)} >All</li>
               {category.map((cate, index) => {
                 return (
-                  
                   <li key={index} onClick={() => FiltreItem(`${cate}`)}>
-                    
                     {cate}
                   </li>
                 );
@@ -44,7 +38,6 @@ const CategoryShow = () => {
             </ul>
           </div>
         </div>
-        {/* section Body : products  */}
         <div className="section-wrapper">
           <div className="row g-4 justify-content-center  row-cols-xl-4 row-cols-lg-3 row-cols-md-2 row-cols-1 course-filter ">
             {items.map((e) => {
@@ -63,14 +56,12 @@ const CategoryShow = () => {
                           </div>
                         </div>
                       </div>
-                      {/* content  */}
                       <div className="course-content">
                         <h5>
                           <Link to={`/shop/${e.id}`}> {e.title} </Link>
                         </h5>
                         <div className="course-footer">
                           <div className="course-author">
-                            {" "}
                             <Link to="/" className="ca-name">
                               {e.brand}
                             </Link>

@@ -26,21 +26,19 @@ function RegisterPage() {
             password: registerInput.password,
         };
         axios
-            .get("http://127.0.0.1:8001/sanctum/csrf-cookie") // Changed the URL to include the protocol and port number
-            .then((response) => {
+            .get("http://127.0.0.1:8001/sanctum/csrf-cookie").then((response) => {
                 axios
                     .post("http://127.0.0.1:8001/api/register", data)
                     .then((res) => {
                         if (res.data.status !== 201) {
-                            // Fixed the condition
                             setRegisterInput({
                                 ...registerInput,
                                 error_list: res.data.errors,
-                            }); // Changed the key to errors
+                            });
                         }
                         else {
                             localStorage.setItem('auth-token', res.data.token)
-                            localStorage.setItem('auth-name', res.data.data.name)
+                            localStorage.setItem('auth-user', JSON.stringify(res.data.data));
                             setMessage('Welcome Mr ' + registerInput.name)
                             setTimeout(() => {
                                 navigate('/')
@@ -63,9 +61,9 @@ function RegisterPage() {
                             </div>
                             <div className="card-body">
                                 {message && (
-                                   <Alert variant="outlined" severity="success">
-                                   {message}
-                                 </Alert>
+                                    <Alert variant="outlined" severity="success">
+                                        {message}
+                                    </Alert>
                                 )}
                                 <form onSubmit={registerSubmit}>
                                     <div className="form-group mb-3">
