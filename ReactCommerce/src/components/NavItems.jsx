@@ -148,14 +148,14 @@ const NavItems = () => {
 
             <div className="menu-area">
               <div className="menu">
-                <ul className={`lab-ul ${menuToggle ? "active" : ""}`}>
+                <ul className={`lab-ul ${menuToggle ? "active" : ""}`}  style={{ color:'red' }}>
                   <Select
                     options={languageOptions}
                     onChange={handleLanguageChange}
                     isSearchable={false}
                     defaultValue={languageOptions[0]}
                   />
-                  <li>
+                  <li  >
                     <Link to="/">{t("home")}</Link>
                     <Link to="/shop">{t("shop")}</Link>
                     <Link to="/blog">{t("blog")}</Link>

@@ -21,11 +21,23 @@ const Banner = () => {
 
   return (
     <div className="banner-section style-4">
+      <video autoPlay loop muted style={{
+        position: 'absolute',
+        width: '100%',
+        left: '50%',
+        top: '50%',
+        height: '100%',
+        objectFit: 'cover',
+        transform: 'translate(-50%, -50%)',
+        zIndex :'-1'
+      }} >
+        <source src="bg-1.mp4" type="video/mp4" />
+      </video>
       <div className="container">
         <div className="banner-content">
-        <h2 style={{backgroundImage: 'linear-gradient(to right, blue,purple)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent'}}>
-  {t(`searchText`)}
-</h2>
+          <h2 style={{ backgroundImage: 'linear-gradient(to right, blue,purple)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+            {t(`searchText`)}
+          </h2>
           <form action="">
             <SelectCategorie select={"all"} />
             <input
@@ -42,7 +54,7 @@ const Banner = () => {
           </form>
           <p style={{ color: "green" }}> {t("desc")}</p>
           <div>
-            <Link to="/shop/woman" style={{ marginRight:"20px" }}>
+            <Link to="/shop/woman" style={{ marginRight: "20px" }}>
               <button className="btn-31">
                 <span className="text-container">
                   <span className="text">{t("womenBtn")}</span>
