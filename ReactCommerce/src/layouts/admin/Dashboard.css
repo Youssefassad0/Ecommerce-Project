@@ -1,0 +1,49 @@
+.a1 {
+    inline-size: "50%"
+        aria-valuenow="50"
+        aria-valuemin="0"
+        aria-valuemax="100"
+}
+
+.a2 {
+    inline-size: 20%"
+ aria-valuenow="20"
+        aria-valuemin="0"
+        aria-valuemax="100"
+}
+
+.a3 {
+    inline-size: 40%"
+ aria-valuenow="40"
+        aria-valuemin="0"
+        aria-valuemax="100"
+}
+
+.a4 {
+    inline-size: 80%"
+ aria-valuenow="80"
+        aria-valuemin="0"
+        aria-valuemax="100"
+}
+
+.a5 {
+    inline-size: 100%"
+ aria-valuenow="100"
+        aria-valuemin="0"
+        aria-valuemax="100"
+}
+
+.a6 {
+    inline-size: 25rem;
+}
+
+.a7 {
+    inline-size: 60%"
+ aria-valuenow="60"
+        aria-valuemin="0"
+        aria-valuemax="100"
+}
+.toggled{
+overflow: visible;
+width: 6.5rem!important;
+}
