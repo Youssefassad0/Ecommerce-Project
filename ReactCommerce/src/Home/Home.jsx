@@ -1,25 +1,24 @@
-import React from "react";
-import Banner from "./Banner";
-import HomeCategory from "./HomeCategory";
-import CategoryShow from "./CategoryShow";
-import Register from "./Register";
-import About from "./About";
-import AppSection from "./AppSection";
-import Sponsor from "./Sponsor";
-import Chat from "../ChatSupport/Home/IndexHome";
+import React from 'react'
+import Banner from './Banner'
+import HomeCategory from './HomeCategory'
+import CategoryShow from './CategoryShow'
+import Register from './Register'
+import AppSection from './AppSection'
+import About from './About'
+import Sponsor from './Sponsor'
 
-const Home = () => {
+function Home() {
   return (
     <div>
       <Banner />
       <HomeCategory />
-      <CategoryShow />
-      <Register />
+      <CategoryShow/>
+      <Register/>
       <About />
       <AppSection />
       <Sponsor />
     </div>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

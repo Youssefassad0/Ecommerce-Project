@@ -1,20 +1,47 @@
-import { Outlet } from "react-router-dom";
-import "./App.css";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./Home/Home";
+import Blog from "./blog/Blog";
 import NavItems from "./components/NavItems";
 import Footer from "./components/Footer";
-import IndexHome from "./ChatSupport/Home/IndexHome";
+import SingleBlog from "./blog/SingleBlog";
+import Shop from "./Shopping/Shop";
+import SingleProduct from "./Shopping/SingleProduct";
+import Contact from "./contact/Contact";
+import About from './About/About'
+import axios from "axios";
+import Login from './components/Auth/LoginPage'
+import Register from "./components/Auth/RegisterPage";
+import MasterLAyouts from './layouts/admin/MasterLAyouts'
+axios.defaults.headers.post['Accept'] = 'application/json';
+axios.defaults.headers.post['Content-Type'] = 'application/json';
+axios.defaults.withCredentials = true;
+axios.interceptors.request.use(function (config) {
+    const token = localStorage.getItem('auth-token');
+    config.headers.Authorization = token ? `Bearer ${token}` : '';
+    return config;
+})
 
-function App() {
-  return (
-    <>
-      <NavItems />
-      <div className="">
-        <Outlet />
-        <IndexHome />
-      </div>
-      <Footer />
-    </>
-  );
+export default function App() {
+    return (
+        <BrowserRouter>
+            
+            <NavItems />
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/blog" element={<Blog />} />
+                <Route path="/blog/singleblog/:id" element={<SingleBlog />} />
+                <Route path="/shop" element={<Shop />} />
+                <Route path="/shop/:gender" element={<Shop />} />
+                <Route path="/product/:id" element={<SingleProduct />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/login" element={<Login/>} />
+                <Route path="/register" element={<Register/>} />
+                <Route path="/dashboard" element={<MasterLAyouts/>} />
+            </Routes>
+            
+            <Footer />
+        </BrowserRouter>
+    );
 }
-
-export default App;
