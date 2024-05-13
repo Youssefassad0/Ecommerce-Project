@@ -26,7 +26,7 @@ export default function App() {
     return (
         <BrowserRouter>
             
-            <NavItems />
+            {/* <NavItems /> */}
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/blog" element={<Blog />} />
