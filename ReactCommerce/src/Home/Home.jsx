@@ -6,17 +6,21 @@ import Register from './Register'
 import AppSection from './AppSection'
 import About from './About'
 import Sponsor from './Sponsor'
+import NavItems from '../components/NavItems'
+import Footer from '../components/Footer'
 
 function Home() {
   return (
     <div>
+      <NavItems />
       <Banner />
       <HomeCategory />
-      <CategoryShow/>
-      <Register/>
+      <CategoryShow />
+      <Register />
       <About />
       <AppSection />
       <Sponsor />
+      <Footer/>
     </div>
   )
 }
