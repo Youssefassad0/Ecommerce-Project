@@ -34,15 +34,14 @@ function Chart() {
                               <a className="dropdown-item" href="#">Another action</a>
                               <div className="dropdown-divider"></div>
                               <a className="dropdown-item" href="#"
-                              >Something else here</a
-                              >
+                              >Something else here</a>
                             </div>
                           </div>
                         </div>
                         {/* <!-- Card Body --> */}
                         <div className="card-body">
                           <div className="chart-area">
-                            <canvas id="myAreaChart"></canvas>
+                            {/* <canvas id="myAreaChart"></canvas> */}
                           </div>
                         </div>
                       </div>

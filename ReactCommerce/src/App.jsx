@@ -37,10 +37,8 @@ export default function App() {
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/login" element={localStorage.getItem('auth-token') ? <AlreadyLogin /> : <AuthPage etat={true} />} />
                 <Route path="/register" element={localStorage.getItem('auth-token') ? <AlreadyLogin /> : <AuthPage etat={false}  />} />
-                <Route path="/dashboard/*" element={<MasterLAyouts />} />
-           
+                <Route path="/dashboard/*" element={localStorage.getItem('auth_token') ? <MasterLAyouts  /> : 'wallloo'} />
             </Routes>
-
         </BrowserRouter>
     );
 }
