@@ -62,7 +62,7 @@ function SideBar() {
           >
             <div className="bg-white py-2 collapse-inner rounded">
               <h6 className="collapse-header">Custom Components:</h6>
-              <a className="collapse-item" href="buttons.html">Products</a>
+              <Link className="collapse-item" to={'/dashboard/profile'}>Profile</Link>
               <a className="collapse-item" href="cards.html">Categories</a>
             </div>
           </div>
@@ -143,8 +143,7 @@ function SideBar() {
         <li className="nav-item">
           <a className="nav-link" href="charts.html">
             <i className="fas fa-fw fa-chart-area"></i>
-            <span>Charts</span></a
-          >
+            <span>Charts</span></a  >
         </li>
 
         {/* <!-- Nav Item - Tables --> */}
