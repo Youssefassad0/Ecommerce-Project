@@ -7,6 +7,8 @@ import { Autoplay } from "swiper/modules";
 import ProductDisplay from "./ProductDisplay";
 import Review from "./Review";
 import { useTranslation } from "react-i18next"; // Import useTranslation
+import NavItems from "../components/NavItems";
+import Footer from "../components/Footer";
 
 const SingleProduct = () => {
   const { t } = useTranslation(); // Use useTranslation hook
@@ -24,6 +26,7 @@ const SingleProduct = () => {
   return (
     <>
       <div>
+        <NavItems/>
         <PageHeader title={t("ourProduct")} curPage={t("shopSingleProduct")} />
         <div className="shop-single padding-tb aside-bg">
           <div className="container">
@@ -93,6 +96,7 @@ const SingleProduct = () => {
             </div>
           </div>
         </div>
+        <Footer/>
       </div>
     </>
   );

@@ -100,8 +100,8 @@ function LoginPage() {
                                     <div className="form-group mb-3">
                                         <label htmlFor="password">Password </label>
                                         <input
-                                            onChange={handleInputs}
                                             type="password"
+                                            onChange={handleInputs}
                                             name="password"
                                             value={loginInputs.password}
                                             className="form-control"

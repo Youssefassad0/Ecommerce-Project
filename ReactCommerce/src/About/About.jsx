@@ -1,5 +1,7 @@
 import React from "react";
 import PageHeader from "../components/PageHeader";
+import NavItems from "../components/NavItems";
+import Footer from "../components/Footer";
 const subTitle = "About Us";
 const title = "Good Qualification Services And Better Expriences";
 const desc =
@@ -31,6 +33,7 @@ const aboutList = [
 const About = () => {
   return (
     <div>
+      <NavItems/>
       <PageHeader title={"Abour US "} curPage={"About"} />
       <div className="about-section style-3 padding-tb section-bg">
         <div className="container">
@@ -77,6 +80,7 @@ const About = () => {
           </div>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 };

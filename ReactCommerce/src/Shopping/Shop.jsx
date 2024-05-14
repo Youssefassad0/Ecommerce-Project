@@ -8,6 +8,8 @@ import Pagination from "./pagination";
 import SearchShop from "./SearchShop";
 import ShopCategory from "./ShopCategory";
 import FilterShop from "./FilterShop";
+import NavItems from "../components/NavItems";
+import Footer from "../components/Footer";
 
 const Shop = () => {
   const { t } = useTranslation(); // Initialize useTranslation
@@ -90,6 +92,7 @@ const Shop = () => {
 
   return (
     <div>
+      <NavItems/>
       <PageHeader title={t("pageHeaderTitle")} curPage="Shop" />
       {/* Shop Page */}
       <div className="shop-page padding-tb ">
@@ -147,6 +150,7 @@ const Shop = () => {
           </div>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 };

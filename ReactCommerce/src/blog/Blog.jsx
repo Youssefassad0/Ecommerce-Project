@@ -2,10 +2,13 @@ import React from "react";
 import PageHeader from "../components/PageHeader";
 import BlogList from "../utilis/blogdata";
 import { Link } from "react-router-dom";
+import NavItems from "../components/NavItems";
+import Footer from "../components/Footer";
 const Blog = () => {
   const btnText= 'Read More';
   return (
     <div>
+      <NavItems/>
       <PageHeader title="Blog Page" curPage="Blogs" />
       <div className="blog-section padding-tb section-bg">
         <div className="container">
@@ -52,6 +55,7 @@ const Blog = () => {
           </div>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 };

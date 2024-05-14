@@ -2,6 +2,8 @@ import React from "react";
 import PageHeader from "../components/PageHeader";
 import GoogleMap from "../components/GoogleMap";
 import { useTranslation } from "react-i18next";
+import NavItems from "../components/NavItems";
+import Footer from "../components/Footer";
 const title = "We're Always Eager To Hear From You!";
 const conSubTitle = "Get in touch with Contact us";
 const conTitle =
@@ -41,6 +43,7 @@ const Contact = () => {
   const {t}=useTranslation();
   return (
     <div>
+      <NavItems/>
       <PageHeader title={"Get In Touch With Us "} curPage={"Contact Us"} />
       <div className="map-address-section padding-tb section-bg">
         <div className="container">
@@ -106,6 +109,7 @@ const Contact = () => {
           </div>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 };

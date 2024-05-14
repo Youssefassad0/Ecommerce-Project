@@ -97,8 +97,8 @@ function RegisterPage() {
                                     <div className="form-group mb-3">
                                         <label htmlFor="password">Password </label>
                                         <input
-                                            onChange={handleInputs}
                                             type="password"
+                                            onChange={handleInputs}
                                             name="password"
                                             value={registerInput.password}
                                             className="form-control"
