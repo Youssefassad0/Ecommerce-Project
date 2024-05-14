@@ -31,7 +31,7 @@ const Banner = () => {
         transform: 'translate(-50%, -50%)',
         zIndex :'-1'
       }} >
-        <source src="bg-1.mp4" type="video/mp4" />
+        <source src="bg-3.mp4" type="video/mp4" />
       </video>
       <div className="container">
         <div className="banner-content">
