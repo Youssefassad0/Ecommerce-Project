@@ -6,13 +6,13 @@ const routes = [
         path: '/dashboard',
         exact: true,
         name: 'admin'
-    }, 
+    },
     {
         path: '/dashboard/profile',
         exact: true,
         name: 'profile',
         component: Profile
-    }, 
+    },
     {
         path: '/dashboard/admin',
         exact: true,

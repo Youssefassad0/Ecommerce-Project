@@ -112,8 +112,7 @@ function Navbar() {
                 <div>
                   <div className="small text-gray-500">December 12, 2019</div>
                   <span className="font-weight-bold"
-                  >A new monthly report is ready to download!</span
-                  >
+                  >A new monthly report is ready to download!</span>
                 </div>
               </a>
               <a className="dropdown-item d-flex align-items-center" href="#">
@@ -142,8 +141,7 @@ function Navbar() {
               <a
                 className="dropdown-item text-center small text-gray-500"
                 href="#"
-              >Show All Alerts</a
-              >
+              >Show All Alerts</a>
             </div>
           </li>
 
@@ -242,8 +240,7 @@ function Navbar() {
               <a
                 className="dropdown-item text-center small text-gray-500"
                 href="#"
-              >Read More Messages</a
-              >
+              >Read More Messages</a>
             </div>
           </li>
 
@@ -261,8 +258,7 @@ function Navbar() {
               aria-expanded="false"
             >
               <span className="mr-2 d-none d-lg-inline text-gray-600 small"
-              >Douglas McGee</span
-              >
+              >Douglas McGee</span>
               <img
                 className="img-profile rounded-circle"
                 src="img/undraw_profile.svg"
@@ -318,7 +314,7 @@ function Navbar() {
                     data-dismiss="modal"
                     aria-label="Close"
                   >
-                    <span aria-hidden="true">×</span>
+                    <span aria-hidden="true"> × </span>
                   </button>
                 </div>
                 <div className="modal-body">

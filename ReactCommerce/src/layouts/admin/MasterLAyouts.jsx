@@ -30,7 +30,6 @@ function MasterLAyouts() {
                   <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/profile" element={<Profile />} />
-                    {/* Add more routes as needed */}
                   </Routes>
                 </div>
               </div>

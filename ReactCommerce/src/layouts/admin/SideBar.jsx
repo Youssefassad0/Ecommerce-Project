@@ -92,8 +92,7 @@ function SideBar() {
               <a className="collapse-item" href="utilities-color.html">Colors</a>
               <a className="collapse-item" href="utilities-border.html">Borders</a>
               <a className="collapse-item" href="utilities-animation.html"
-              >Animations</a
-              >
+              >Animations</a>
               <a className="collapse-item" href="utilities-other.html">Other</a>
             </div>
           </div>
@@ -129,8 +128,7 @@ function SideBar() {
               <a className="collapse-item" href="login.html">Login</a>
               <a className="collapse-item" href="register.html">Register</a>
               <a className="collapse-item" href="forgot-password.html"
-              >Forgot Password</a
-              >
+              >Forgot Password</a >
               <div className="collapse-divider"></div>
               <h6 className="collapse-header">Other Pages:</h6>
               <a className="collapse-item" href="404.html">404 Page</a>
@@ -150,8 +148,7 @@ function SideBar() {
         <li className="nav-item">
           <a className="nav-link" href="tables.html">
             <i className="fas fa-fw fa-table"></i>
-            <span>Tables</span></a
-          >
+            <span>Tables</span></a>
         </li>
 
         {/* <!-- Divider --> */}
