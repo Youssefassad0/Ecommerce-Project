@@ -34,15 +34,14 @@ function Pie() {
                             <a className="dropdown-item" href="#">Another action</a>
                             <div className="dropdown-divider"></div>
                             <a className="dropdown-item" href="#"
-                            >Something else here</a
-                            >
+                            >Something else here</a>
                         </div>
                     </div>
                 </div>
                 {/* <!-- Card Body --> */}
                 <div className="card-body">
                     <div className="chart-pie pt-4 pb-2">
-                        <canvas id="myPieChart"></canvas>
+                        
                     </div>
                     <div className="mt-4 text-center small">
                         <span className="mr-2">
