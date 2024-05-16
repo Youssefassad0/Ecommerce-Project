@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller
@@ -127,17 +128,22 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        Category::find($id)->delete();
+        Category::find($id);
         $category = Category::find($id);
 
         if (!$category) {
             return response()->json(['message' => 'Category not found'], 404);
         }
 
+        $imagePath = public_path('uploads/category/' . $category->image);
+
+        // Delete the image file if it exists
+        if (file_exists($imagePath)) {
+            unlink($imagePath);
+        }
         // Get the image path
-        $imagePath = $category->image;
-        return response()->json([
-            'message' => 'Deleted With Success !'
-        ]);
+        $category->delete();
+
+        return response()->json(['message' => 'Deleted With Success!']);
     }
 }
