@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unknown-property */
 import axios from 'axios';
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 function Navbar() {
   const [style, setStyle] = useState("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion");
   const changeStyle = () => {
@@ -283,7 +283,7 @@ function Navbar() {
               >Douglas McGee</span>
               <img
                 className="img-profile rounded-circle"
-                src="img/undraw_profile.svg"
+                src="src/assets/images/author/03.jpg"
               />
             </a>
             {/* <!-- Dropdown - User Information --> */}
@@ -299,10 +299,10 @@ function Navbar() {
                 <i className="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                 Settings
               </a>
-              <a className="dropdown-item" href="#">
+              <Link className="dropdown-item" to={'/'}>
                 <i className="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                Activity Log
-              </a>
+               WebSite
+              </Link>
               <div className="dropdown-divider"></div>
               <a
                 className="dropdown-item"

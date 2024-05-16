@@ -5,7 +5,9 @@ import NavItems from '../NavItems';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-
+import { MdOutlineAlternateEmail } from "react-icons/md";
+import { RiLockPasswordFill } from "react-icons/ri";
+import { CiUser } from "react-icons/ci";
 function LoginForm() {
   const navigate = useNavigate();
   const [loginInputs, setLogin] = useState({
@@ -56,19 +58,19 @@ function LoginForm() {
     <form onSubmit={loginSubmit} className="formAuth">
       <h2 className="title">Sign in</h2>
       <div className="input-field">
-        <i className="fas fa-user"></i>
-        <input type="text"
+        <MdOutlineAlternateEmail />
+        <input type="email"
           className='inputauth'
           onChange={handleInputs}
           name="email"
           value={loginInputs.email}
-          placeholder="Username" />
+          placeholder="Email Adresse" />
       </div>
       <span className="text-danger">
         {loginInputs.error_list && loginInputs.error_list.email}
       </span>
       <div className="input-field">
-        <i className="fas fa-lock"></i>
+        <RiLockPasswordFill />
         <input type="password"
           className='inputauth'
           onChange={handleInputs}
@@ -82,7 +84,6 @@ function LoginForm() {
       <input type="submit" value="Login" className="btnS" />
       <p className="social-text">Or Sign in with social platforms</p>
       <div className="social-media">
-        {/* Add links to social platforms here */}
       </div>
     </form>
   );
@@ -138,7 +139,7 @@ function RegisterForm() {
     <form onSubmit={registerSubmit} className="formAuth"  >
       <h2 className="title">Sign up</h2>
       <div className="input-field">
-        <i className="fas fa-user"></i>
+        <CiUser />
         <input type="text"
           className='inputauth'
           onChange={handleInputs}
@@ -152,7 +153,7 @@ function RegisterForm() {
           registerInput.error_list.name}{" "}
       </span>
       <div className="input-field">
-        <i className="fas fa-envelope"></i>
+        <MdOutlineAlternateEmail />
         <input type="email"
           className='inputauth'
           onChange={handleInputs}
@@ -165,7 +166,7 @@ function RegisterForm() {
           registerInput.error_list.email}{" "}
       </span>
       <div className="input-field">
-        <i className="fas fa-lock"></i>
+        <RiLockPasswordFill />
         <input type="password"
           className='inputauth'
           onChange={handleInputs}
@@ -208,8 +209,7 @@ function AuthPage({ etat }) {
             <div className="content">
               <h3>New here ?</h3>
               <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis,
-                ex ratione. Aliquid!
+              Rejoignez-nous pour découvrir une large sélection de produits de qualité, des vêtements tendance aux gadgets high-tech
               </p>
               <button className="btn transparent" onClick={toggleMode}>Sign up</button>
             </div>
@@ -219,8 +219,7 @@ function AuthPage({ etat }) {
             <div className="content">
               <h3>One of us ?</h3>
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum
-                laboriosam ad deleniti.
+              Rejoignez-nous pour découvrir une large sélection de produits de qualité, des vêtements tendance aux gadgets high-tech
               </p>
               <button className="btn transparent" onClick={toggleMode}>Sign in</button>
             </div>

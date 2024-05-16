@@ -4,11 +4,14 @@ import BlogList from "../utilis/blogdata";
 import { Link } from "react-router-dom";
 import NavItems from "../components/NavItems";
 import Footer from "../components/Footer";
+import IndexHome from "../ChatSupport/Home/IndexHome";
 const Blog = () => {
   const btnText= 'Read More';
   return (
     <div>
       <NavItems/>
+      <div className="">
+       
       <PageHeader title="Blog Page" curPage="Blogs" />
       <div className="blog-section padding-tb section-bg">
         <div className="container">
@@ -54,6 +57,8 @@ const Blog = () => {
             </div>
           </div>
         </div>
+      </div>
+      <IndexHome/>
       </div>
       <Footer/>
     </div>

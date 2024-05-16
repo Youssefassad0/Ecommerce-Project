@@ -1,5 +1,5 @@
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route  } from "react-router-dom";
 import Home from "./Home/Home";
 import Blog from "./blog/Blog";
 import SingleBlog from "./blog/SingleBlog";
@@ -23,10 +23,12 @@ axios.interceptors.request.use(function (config) {
 })
 
 export default function App() {
+    const user = JSON.parse(localStorage.getItem('auth-user'));
     return (
         <BrowserRouter>
 
             <Routes>
+                
                 <Route exact path="/" element={<Home />} />
                 <Route path="/blog" element={<Blog />} />
                 <Route path="/blog/singleblog/:id" element={<SingleBlog />} />
@@ -37,7 +39,7 @@ export default function App() {
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/login" element={localStorage.getItem('auth-token') ? <AlreadyLogin /> : <AuthPage etat={true} />} />
                 <Route path="/register" element={localStorage.getItem('auth-token') ? <AlreadyLogin /> : <AuthPage etat={false}  />} />
-                <Route path="/dashboard/*" element={localStorage.getItem('auth_token') ? <MasterLAyouts  /> : 'wallloo'} />
+                <Route path="/dashboard/*" element={user  ? <MasterLAyouts  /> : 'wallloo'} />
             </Routes>
         </BrowserRouter>
     );

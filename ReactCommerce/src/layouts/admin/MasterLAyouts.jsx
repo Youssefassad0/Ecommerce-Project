@@ -4,10 +4,14 @@ import SideBar from './SideBar';
 import './Dashboard.css';
 import FootterD from './components/FootterD';
 import Home from './components/Home';
-import Profile from './components/Profile/Profile';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
+import Category from './components/Category/Category';
+import AddCategory from './components/Category/AddCategory';
+import Edit from './components/Category/Edit';
+import Product from './components/Products/Product';
 
 function MasterLAyouts() {
+  
   const [style, setStyle] = useState("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion");
   const changeStyle = () => {
     if (style === "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion") {
@@ -16,6 +20,7 @@ function MasterLAyouts() {
       setStyle('navbar-nav bg-gradient-primary sidebar sidebar-dark accordion');
     }
   };
+  // console.log(user.role);
 
   return (
     <>
@@ -27,9 +32,13 @@ function MasterLAyouts() {
               <Navbar changeStyle={changeStyle} />
               <div id="content">
                 <div className="container-fluid">
+                  
                   <Routes>
                     <Route path="/" element={<Home />} />
-                    <Route path="/profile" element={<Profile />} />
+                    <Route path="/products" element={<Product />} />
+                    <Route path="/category" element={<Category />} />
+                    <Route path="/new/cate" element={<AddCategory />} />
+                    <Route path="/edit/cate/:id" element={<Edit />} />
                   </Routes>
                 </div>
               </div>

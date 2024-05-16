@@ -8,11 +8,13 @@ import About from './About'
 import Sponsor from './Sponsor'
 import NavItems from '../components/NavItems'
 import Footer from '../components/Footer'
+import IndexHome from '../ChatSupport/Home/IndexHome'
 
 function Home() {
   return (
     <div>
       <NavItems />
+      <div className="">
       <Banner />
       <HomeCategory />
       <CategoryShow />
@@ -20,6 +22,8 @@ function Home() {
       <About />
       <AppSection />
       <Sponsor />
+      <IndexHome/>
+      </div>
       <Footer/>
     </div>
   )

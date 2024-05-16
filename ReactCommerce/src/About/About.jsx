@@ -2,6 +2,7 @@ import React from "react";
 import PageHeader from "../components/PageHeader";
 import NavItems from "../components/NavItems";
 import Footer from "../components/Footer";
+import IndexHome from "../ChatSupport/Home/IndexHome";
 const subTitle = "About Us";
 const title = "Good Qualification Services And Better Expriences";
 const desc =
@@ -33,54 +34,58 @@ const aboutList = [
 const About = () => {
   return (
     <div>
-      <NavItems/>
-      <PageHeader title={"Abour US "} curPage={"About"} />
-      <div className="about-section style-3 padding-tb section-bg">
-        <div className="container">
-          <div className="row justify-content-center row-cols-xl-2 row-cols-1 align-items-center ">
-            <div className="col">
-              <div className="about-left">
-                <div className="about-thumb">
-                  <img src="/src/assets/images/about/01.jpg" alt="" />
-                </div>
-                <div className="abs-thumb">
-                  <img src="/src/assets/images/about/02.jpg" alt="" />
-                </div>
-                <div className="about-left-content">
-                  <h3>{year}</h3>
-                  <p>{expareance}</p>
+      <NavItems />
+      <div className="">
+
+        <PageHeader title={"Abour US "} curPage={"About"} />
+        <div className="about-section style-3 padding-tb section-bg">
+          <div className="container">
+            <div className="row justify-content-center row-cols-xl-2 row-cols-1 align-items-center ">
+              <div className="col">
+                <div className="about-left">
+                  <div className="about-thumb">
+                    <img src="/src/assets/images/about/01.jpg" alt="" />
+                  </div>
+                  <div className="abs-thumb">
+                    <img src="/src/assets/images/about/02.jpg" alt="" />
+                  </div>
+                  <div className="about-left-content">
+                    <h3>{year}</h3>
+                    <p>{expareance}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-            {/* 2 eme col */}
-            <div className="col">
-              <div className="about-right">
-                <div className="section-header">
-                  <span className="subtitle">{subTitle}</span>
-                  <h2> {title} </h2>
-                  <p>{desc}</p>
-                </div>
-                <div className="section-wrapper">
-                  <ul className="lab-ul">
-                    {aboutList.map((a, i) => (
-                      <li key={i}>
-                        <div className="sr-left">
-                          <img src={a.imgUrl} alt="" />
-                        </div>
-                        <div className="sr-right">
-                          <h5>{a.title}</h5>
-                          <p>{a.desc}</p>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
+              {/* 2 eme col */}
+              <div className="col">
+                <div className="about-right">
+                  <div className="section-header">
+                    <span className="subtitle">{subTitle}</span>
+                    <h2> {title} </h2>
+                    <p>{desc}</p>
+                  </div>
+                  <div className="section-wrapper">
+                    <ul className="lab-ul">
+                      {aboutList.map((a, i) => (
+                        <li key={i}>
+                          <div className="sr-left">
+                            <img src={a.imgUrl} alt="" />
+                          </div>
+                          <div className="sr-right">
+                            <h5>{a.title}</h5>
+                            <p>{a.desc}</p>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+        <IndexHome />
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 };

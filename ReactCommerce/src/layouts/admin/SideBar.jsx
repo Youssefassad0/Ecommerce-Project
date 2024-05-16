@@ -62,8 +62,8 @@ function SideBar() {
           >
             <div className="bg-white py-2 collapse-inner rounded">
               <h6 className="collapse-header">Custom Components:</h6>
-              <Link className="collapse-item" to={'/dashboard/profile'}>Profile</Link>
-              <a className="collapse-item" href="cards.html">Categories</a>
+              <Link className="collapse-item" to={'/dashboard/products'}>products</Link>
+              <Link className="collapse-item" to="/dashboard/category">Categories</Link>
             </div>
           </div>
         </li>

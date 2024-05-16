@@ -48,13 +48,13 @@ class AuthController extends Controller
             ]);
         } else {
             $user = User::where('email', $request->email)->first();
-
             if (!$user || !Hash::check($request->password, $user->password)) {
                 return response()->json([
                     'status' => 404,
                     'message' => 'invalid Password or email'
                 ]);
             } else {
+                // $request->session()->regenerate();
                 $token =   $user->createToken($user->email . '_Token')->plainTextToken;
                 return response()->json([
                     'status' => 200,
@@ -69,7 +69,6 @@ class AuthController extends Controller
     public function logout()
     {
         Auth::user()->tokens()->delete();
-
         return response()->json([
             'status' => 200,
             'message' => 'Logged out successfully'

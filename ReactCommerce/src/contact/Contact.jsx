@@ -4,6 +4,7 @@ import GoogleMap from "../components/GoogleMap";
 import { useTranslation } from "react-i18next";
 import NavItems from "../components/NavItems";
 import Footer from "../components/Footer";
+import IndexHome from "../ChatSupport/Home/IndexHome";
 const title = "We're Always Eager To Hear From You!";
 const conSubTitle = "Get in touch with Contact us";
 const conTitle =
@@ -44,6 +45,8 @@ const Contact = () => {
   return (
     <div>
       <NavItems/>
+      <div className="">
+     
       <PageHeader title={"Get In Touch With Us "} curPage={"Contact Us"} />
       <div className="map-address-section padding-tb section-bg">
         <div className="container">
@@ -108,6 +111,8 @@ const Contact = () => {
             </form>
           </div>
         </div>
+      </div>
+      <IndexHome/>
       </div>
       <Footer/>
     </div>
