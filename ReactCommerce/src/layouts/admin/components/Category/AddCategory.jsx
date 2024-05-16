@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import './AddC.scss';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 function AddCategory() {
   const [nom, setNom] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState(null);
   const [errors, setErrors] = useState({});
+  const nav=useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,6 +33,7 @@ function AddCategory() {
         setDescription('');
         setImage(null);
         setErrors({}); 
+nav('/dashboard/category')
       }
     } catch (error) {
       if (error.response) {

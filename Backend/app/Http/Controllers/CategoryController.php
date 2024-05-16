@@ -85,16 +85,19 @@ class CategoryController extends Controller
     {
         try {
             $validator = Validator::make($request->all(), [
-                'nom' => 'required|string|unique:categories,nom',
+                'nom' => 'nullable|string',
                 'description' => 'nullable|string',
                 'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             ]);
+
             if ($validator->fails()) {
                 return response()->json(['errors' => $validator->errors()], 422);
             }
+
             $category = Category::find($id);
+
             if (!$category) {
-                return response()->json(['data' => $category, 'message' => 'Category Not Found.'], 404);
+                return response()->json(['message' => 'Category Not Found.'], 404);
             } else {
                 if ($request->hasFile('image')) {
                     $path = $category->image;
@@ -107,9 +110,11 @@ class CategoryController extends Controller
                     $image->move($imagePath, $imageName);
                     $category->image = $imagePath . '/' . $imageName;
                 }
+
                 $category->nom = $request->input('nom');
-                $category->description = $request->input('description'); // 
+                $category->description = $request->input('description'); // Mise à jour de la description
                 $category->save();
+
                 return response()->json(['data' => $category, 'message' => 'Category Updated successfully.'], 200);
             }
         } catch (\Exception $e) {
@@ -123,6 +128,14 @@ class CategoryController extends Controller
     public function destroy(string $id)
     {
         Category::find($id)->delete();
+        $category = Category::find($id);
+
+        if (!$category) {
+            return response()->json(['message' => 'Category not found'], 404);
+        }
+
+        // Get the image path
+        $imagePath = $category->image;
         return response()->json([
             'message' => 'Deleted With Success !'
         ]);

@@ -4,7 +4,8 @@ import { useTranslation } from "react-i18next";
 import PageHeader from "../components/PageHeader";
 import delIMG from "../assets/images/shop/del.png";
 import CheckOut from "./CheckOut";
-
+import NavItems from "../components/NavItems";
+import Footer from "../components/Footer";
 const CartPage = () => {
   const { t } = useTranslation();
 
@@ -86,6 +87,7 @@ const CartPage = () => {
 
   return (
     <div>
+      <NavItems/>
       <PageHeader title={t("Shop Cart")} curPage={t("cart Page")} />
       <div className="shop-cart padding-tb">
         <div className="container">
@@ -273,8 +275,9 @@ const CartPage = () => {
               </div>
             </div>
           </div>
-        </div>a
+        </div>
       </div>
+      <Footer/>
     </div>
   );
 };

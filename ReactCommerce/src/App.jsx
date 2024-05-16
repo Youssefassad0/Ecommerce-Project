@@ -13,6 +13,7 @@ import AlreadyLogin from "./components/Auth/AlreadyLogin";
 import LoginPage from "./components/Auth/LoginPage";
 import RegisterPage from "./components/Auth/RegisterPage";
 import AuthPage from "./components/Auth/Auth";
+import CartPage from "./Shopping/CartPage";
 axios.defaults.headers.post['Accept'] = 'application/json';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 axios.defaults.withCredentials = true;
@@ -36,6 +37,7 @@ export default function App() {
                 <Route path="/shop/:gender" element={<Shop />} />
                 <Route path="/product/:id" element={<SingleProduct />} />
                 <Route path="/about" element={<About />} />
+                <Route  path= "/cart-page" element={<CartPage/>} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/login" element={localStorage.getItem('auth-token') ? <AlreadyLogin /> : <AuthPage etat={true} />} />
                 <Route path="/register" element={localStorage.getItem('auth-token') ? <AlreadyLogin /> : <AuthPage etat={false}  />} />
