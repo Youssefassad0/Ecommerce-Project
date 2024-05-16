@@ -87,7 +87,7 @@ function Category() {
                                     <td>{d.nom}</td>
                                     <td>{truncateDescription(d.description, 50)}</td>
                                     <td style={{ display: 'flex', justifyContent: 'space-between', marginTop: '10px' }}>
-                                        <Link to={`/dashboard/edit/cate/${d.id}`} className="btn btn-primary">Edit</Link>
+                                        <Link to={`/dashboard/edit/cate/${d.id}`} style={{ color:'white' }} className="btn btn-primary">Edit</Link>
                                         <button className="btn btn-danger" onClick={() => deleteCategory(d.id)}>Delete</button>
                                     </td>
                                 </tr>
