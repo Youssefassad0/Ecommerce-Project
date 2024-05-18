@@ -1,7 +1,8 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
-
+import { FaSolarPanel } from "react-icons/fa";
+import LayersIcon from '@mui/icons-material/Layers';
 function SideBar() {
   const [style, setStyle] = useState("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion");
   const changeStyle = () => {
@@ -32,7 +33,9 @@ function SideBar() {
         {/* <!-- Nav Item - Dashboard --> */}
         <li className="nav-item active">
           <Link className="nav-link" to={'/dashboard'}>
-            <i className="fas fa-fw fa-tachometer-alt"></i>
+            <i>
+              <FaSolarPanel/>
+            </i>
             <span>Dashboard</span></Link >
         </li>
 
@@ -51,7 +54,9 @@ function SideBar() {
             aria-expanded="true"
             aria-controls="collapseTwo"
           >
-            <i className="fas fa-fw fa-cog"></i>
+            <i >
+              <LayersIcon />
+            </i>
             <span>Pages </span>
           </a>
           <div

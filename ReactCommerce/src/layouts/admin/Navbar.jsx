@@ -2,6 +2,10 @@
 import axios from 'axios';
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
+import { FaRegMessage } from "react-icons/fa6";
+import { IoNotificationsOutline } from "react-icons/io5";
+import { CiSearch } from "react-icons/ci";
+
 function Navbar() {
   const [style, setStyle] = useState("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion");
   const changeStyle = () => {
@@ -59,8 +63,7 @@ function Navbar() {
             />
             <div className="input-group-append">
               <button className="btn btn-primary" type="button">
-                <i className="fas fa-search fa-sm"></i>
-              </button>
+<CiSearch></CiSearch>              </button>
             </div>
           </div>
         </form>
@@ -115,7 +118,7 @@ function Navbar() {
               aria-haspopup="true"
               aria-expanded="false"
             >
-              <i className="fas fa-bell fa-fw"></i>
+    <IoNotificationsOutline/>
               {/* <!-- Counter - Alerts --> */}
               <span className="badge badge-danger badge-counter">3+</span>
             </a>
@@ -178,7 +181,7 @@ function Navbar() {
               aria-haspopup="true"
               aria-expanded="false"
             >
-              <i className="fas fa-envelope fa-fw"></i>
+            <FaRegMessage/>
               {/* <!-- Counter - Messages --> */}
               <span className="badge badge-danger badge-counter">7</span>
             </a>
@@ -199,7 +202,7 @@ function Navbar() {
                 </div>
                 <div className="font-weight-bold">
                   <div className="text-truncate">
-                    Hi there! I am wondering if you can help me with a
+                    Hi there ! I am wondering if you can help me with a
                     problem I ve been having.
                   </div>
                   <div className="small text-gray-500">Emily Fowler · 58m</div>

@@ -1,0 +1,49 @@
+.cardP {
+  margin: 20px;
+  border-radius: 10px;
+}
+.cardP .hd {
+  font-size: 18px;
+  font-weight: bold;
+  color: #403e57;
+}
+
+.cardFilters .col h4 {
+  font-size: 14px;
+  font-weight: 800;
+  text-transform: capitalize;
+  color: 403e57;
+}
+.table .thead-dark th {
+  background-color: #1866ee !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  font-size: 14px !important;
+}
+
+.table .tbody td {
+  font-size: 13px !important;
+  color: #403e57;
+  font-weight: 500;
+}
+
+.table .tbody .actions .btnP {
+  min-width: 30px !important;
+  width: 30px !important;
+  height: 30px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 !important;
+  margin-right: 5px; /* Add some spacing between buttons */
+}
+.table tbody .actions .btnP svg {
+  font-size: 25px !important ;
+}
+.cardP h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #403e57;
+}
