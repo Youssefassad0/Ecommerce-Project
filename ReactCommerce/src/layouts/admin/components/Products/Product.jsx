@@ -129,7 +129,7 @@ function Product() {
                       <div className="d-flex align-items-center productBox">
                         <div className="imgPWapper">
                           <div className="imgP">
-                          <img src={`http://localhost:8001/storage/${product.first_image}`} alt="Product" className='w-100' />
+                            <img src={`http://localhost:8001/storage/${product.first_image}`} alt="Product" className='w-100' />
                           </div>
                         </div>
                         <div className="info pl-0">
@@ -156,7 +156,9 @@ function Product() {
                     <td>{product.rating}</td>
                     <td>
                       <div className="actions d-flex align-items-center">
-                        <button className="btnP btn-primary"><FaEye className='svg1' /></button>
+                        <Link to={"/dashboard/product/" + product.id} >
+                          <button className="btnP btn-primary"><FaEye className='svg1' /></button>
+                        </Link>
                         <button className="btnP btn-success"><FaPencil className='svg2' /></button>
                         <button className="btnP btn-danger"><MdDelete className='svg3' /></button>
                       </div>
