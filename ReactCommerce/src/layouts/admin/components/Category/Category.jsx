@@ -30,13 +30,19 @@ function Category() {
     };
 
     const truncateDescription = (description, maxLength) => {
-        if (description.length > maxLength) {
-            return `${description.substring(0, maxLength)}...`;
+        if (description) {
+
+            if (description.length > maxLength) {
+                return `${description.substring(0, maxLength)}...`;
+            }
         }
         return description;
     };
 
-    const deleteCategory = async (id) => {
+    const deleteCategory = async (e, id) => {
+        e.preventDefault();
+        const thisClicked = e.currentTarget;
+        thisClicked.innerText = 'Deleting ..'
         try {
             await axios.delete(`http://127.0.0.1:8001/api/category/${id}`);
             fetchData();
@@ -87,8 +93,8 @@ function Category() {
                                     <td>{d.nom}</td>
                                     <td>{truncateDescription(d.description, 50)}</td>
                                     <td style={{ display: 'flex', justifyContent: 'space-between', marginTop: '10px' }}>
-                                        <Link to={`/dashboard/edit/cate/${d.id}`} style={{ color:'white' }} className="btn btn-primary">Edit</Link>
-                                        <button className="btn btn-danger" onClick={() => deleteCategory(d.id)}>Delete</button>
+                                        <Link to={`/dashboard/edit/cate/${d.id}`} style={{ color: 'white' }} className="btn btn-primary">Edit</Link>
+                                        <button className="btn btn-danger" onClick={(e) => deleteCategory(e, d.id)}>Delete</button>
                                     </td>
                                 </tr>
                             ))}

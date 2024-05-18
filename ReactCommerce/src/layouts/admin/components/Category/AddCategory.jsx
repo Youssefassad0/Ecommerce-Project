@@ -39,7 +39,6 @@ nav('/dashboard/category')
       if (error.response) {
         if (error.response.status === 422) {
           setErrors(error.response.data.errors);
-          // setErrors(error.response.data.errors);
           console.log(errors);
         }
       } else {

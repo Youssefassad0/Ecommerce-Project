@@ -6,6 +6,8 @@ function Edit() {
     const { id } = useParams();
     const [inputs, setInputs] = useState([]);
     const [image, setImage] = useState('');
+    const [errors, setErrors] = useState({});
+
     const nav = useNavigate();
     const handleChange = (event) => {
         const name = event.target.name;
@@ -18,7 +20,6 @@ function Edit() {
         formData.append('nom', inputs.nom);
         formData.append('description', inputs.description);
         formData.append('image', image)
-
         const response = await axios.post("http://127.0.0.1:8001/api/category/" + id, formData, {
             headers: { 'Content-Type': "multipart/form-data" },
         })
@@ -26,6 +27,7 @@ function Edit() {
         setTimeout(() => {
             nav('/dashboard/category')
         }, 1000)
+
     }
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -48,14 +50,14 @@ function Edit() {
                 <div className="formInput">
                     <label>Name :</label>
                     <input type='text' name='nom' value={inputs.nom} onChange={handleChange} />
-                    {/* { errors.nom && <span className='text-danger'>{errors.nom[0]}</span>} */}
+                    {errors.nom && <span className='text-danger'>{errors.nom[0]}</span>}
                     <label>Description :</label>
                     <input type='text' name='description' value={inputs.description} onChange={handleChange} />
-                    {/* { errors.description && <span className='text-danger'>{errors.description[0]}</span>} */}
+                    {errors.description && <span className='text-danger'>{errors.description[0]}</span>}
                     <label>Image</label>
                     <img src={`http://127.0.0.1:8001/${inputs.image}`} alt="img category" style={{ width: '30px', height: '30px' }} />
                     <input type='file' name='image' onChange={(e) => setImage(e.target.files[0])} />
-                    {/* { errors.image && <span className='text-danger'>{errors.image[0]}</span>} */}
+                    {errors.image && <span className='text-danger'>{errors.image[0]}</span>}
                 </div>
                 <button type="submit" className='addCateg'>Update</button>
             </form>
