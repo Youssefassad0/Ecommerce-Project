@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\ProductImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -39,31 +40,32 @@ class ProductController extends Controller
             'original_price' => 'required|numeric',
             'new_price' => 'nullable|numeric',
             'stock' => 'required|integer',
-            'image' => 'required|image|mimes:jpeg,png,jpg,avif,svg|max:2048',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'category_id' => 'required|integer|exists:categories,id',
             'brand' => 'required|string|max:255',
-            'rating' => 'numeric|min:0|max:5',
-            'rating_count' => 'integer|min:0',
+            'rating' => 'required|numeric|min:0|max:5',
+            'rating_count' => 'required|integer|min:0',
             'sizes' => 'nullable|json',
             'colors' => 'nullable|json',
         ]);
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $extension = $file->getClientOriginalExtension();
-            $fileName = time() . '.' . $extension;
-            $path = 'uploads/category';
-            $file->move($path, $fileName);
-
-            // Set image path
-            $validated['image'] = $path . '/' . $fileName;
-        }
 
         $validated['sizes'] = json_decode($validated['sizes'], true);
         $validated['colors'] = json_decode($validated['colors'], true);
 
         $product = Product::create($validated);
 
-        return response()->json($product, 201);
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $imagePath = $image->store('uploads/products', 'public');
+
+                ProductImage::create([
+                    'product_id' => $product->id,
+                    'path' => $imagePath,
+                ]);
+            }
+        }
+
+        return response()->json($product->load('images'), 201);
     }
 
     /**

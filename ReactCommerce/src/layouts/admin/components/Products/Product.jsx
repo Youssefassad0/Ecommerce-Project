@@ -55,6 +55,12 @@ function Product() {
 
   return (
     <>
+      <div className="datatableTitle">
+                <p>Add New Product</p>
+                <Link to="/dashboard/add-product" className="link">
+                    Add New
+                </Link>
+            </div>
       {loading ? (
         <Loader />
       ) : products.length === 0 ? (
