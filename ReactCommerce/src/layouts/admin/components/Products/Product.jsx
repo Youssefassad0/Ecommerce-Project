@@ -129,7 +129,7 @@ function Product() {
                       <div className="d-flex align-items-center productBox">
                         <div className="imgPWapper">
                           <div className="imgP">
-                            <img src={`http://localhost:8001/api/${product.first_image}`} alt="Product" className='w-100' />
+                          <img src={`http://localhost:8001/storage/${product.first_image}`} alt="Product" className='w-100' />
                           </div>
                         </div>
                         <div className="info pl-0">

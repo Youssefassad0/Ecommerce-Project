@@ -29,9 +29,10 @@ class ProductResource extends JsonResource
             'sizes' => $this->sizes,
             'colors' => $this->colors,
             'nom' => $this->nom,
-            'first_image' => $this->images->first() ? asset('storage/' . $this->images->first()->path) : null,
+            // 'first_image' => $this->images->first() ? asset('storage/' . $this->images->first()->path) : null,
+            'first_image' => $this->images->first() ?  $this->images->first()->path : null,
             'images' => $this->images->map(function ($image) {
-                return asset('storage/' . $image->path);
+                return  $image->path;
             }),
         ];
     }
