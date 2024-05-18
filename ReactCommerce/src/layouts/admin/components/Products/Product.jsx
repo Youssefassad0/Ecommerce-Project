@@ -94,43 +94,58 @@ function Product() {
             </div>
           </div>
           <div className="table-responsive mt-3">
-      <table className="table table-bordered">
-        <thead className="thead-dark">
-          <tr>
-            <th>Uid</th>
-            <th>PRODUCT</th>
-            <th>SEXE</th>
-            <th>CATEGORY</th>
-            <th>PRICE</th>
-            <th>STOCK</th>
-            <th>RATING</th>
-            <th>ORDER</th>
-            <th>SALES</th>
-            <th>ACTION</th>
-          </tr>
-        </thead>
-        <tbody className="tbody">
-          <tr>
-            <td>#1</td>
-            <td>Name of product</td>
-            <td>Female</td>
-            <td>Adidas</td>
-            <td>$300</td>
-            <td>5</td>
-            <td>4.5 (16)</td>
-            <td>380</td>
-            <td>1k</td>
-            <td>
-              <div className="actions d-flex align-items-center">
-                <button className="btnP btn-primary"><FaEye /></button>
-                <button className="btnP btn-success"><FaPencil /></button>
-                <button className="btnP btn-danger"><MdDelete /></button>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+            <table className="table table-bordered v-align">
+              <thead className="thead-dark">
+                <tr>
+                  <th>Uid</th>
+                  <th>PRODUCT</th>
+                  <th>SEXE</th>
+                  <th>CATEGORY</th>
+                  <th>PRICE</th>
+                  <th>STOCK</th>
+                  <th>RATING</th>
+                  <th>ORDER</th>
+                  <th>SALES</th>
+                  <th>ACTION</th>
+                </tr>
+              </thead>
+              <tbody className="tbody">
+                <tr>
+                  <td>#1</td>
+                  <td>
+                    <div className="d-flex productBox  ">
+                      <div className="info">
+                        <h6>Name of product</h6>
+                        <p>
+                          Product Descreption ......
+                        </p>
+                      </div>
+                    </div>
+                  </td>
+                  <td>Female</td>
+                  <td>Adidas</td>
+                  <td>
+                    <del className="old">
+                      $300.00
+                    </del> <span className="new text-danger ">
+                      $300.00
+                    </span>
+                  </td>
+                  <td>5</td>
+                  <td>4.5 (16)</td>
+                  <td>380</td>
+                  <td>1k</td>
+                  <td>
+                    <div className="actions d-flex align-items-center">
+                      <button className="btnP btn-primary"><FaEye className='svg1' /></button>
+                      <button className="btnP btn-success"><FaPencil className='svg2' /></button>
+                      <button className="btnP btn-danger"><MdDelete className='svg3z' /></button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       )}
     </>

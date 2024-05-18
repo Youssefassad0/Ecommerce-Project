@@ -21,15 +21,15 @@
 }
 
 .table .tbody td {
-  font-size: 13px !important;
+  font-size: 14px !important;
   color: #403e57;
   font-weight: 500;
 }
 
 .table .tbody .actions .btnP {
-  min-width: 30px !important;
-  width: 30px !important;
-  height: 30px !important;
+  min-width: 35px !important;
+  width: 35px !important;
+  height: 35px !important;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -37,13 +37,61 @@
   margin-right: 5px; /* Add some spacing between buttons */
 }
 .table tbody .actions .btnP svg {
-  font-size: 25px !important ;
+  font-size: 20px !important ;
+}
+.table tbody .actions .btn-primary {
+  background: rgba(203, 60, 231, 0.1) !important ;
+}
+.table tbody .actions .btn-success {
+  background: rgba(26, 159, 83, 0.1) !important ;
+}
+.table tbody .actions .btn-danger {
+  background: rgba(241, 17, 51, 0.1) !important ;
 }
 .cardP h1,
 h2,
 h3,
 h4,
 h5,
-h6 {
+h6,p {
   color: #403e57;
+}
+.svg1 {
+  color: #491042;
+}
+.svg2 {
+  color: green;
+}
+.svg3 {
+  color: red;
+}
+table.v-align td {
+  vertical-align: middle !important;
+}
+.table td .old,
+table td .new {
+  display: block;
+  width: 100%;
+}
+table td .info h6 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+table td .info p {
+  font-size: 13px;
+  line-height: 18px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #5e5d72;
+}
+table.v-align td .productBox{
+    width: 150px;
+}
+table.v-align td .productBox .info{
+  width: 100%;
 }
