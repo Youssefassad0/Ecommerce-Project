@@ -18,10 +18,12 @@ class Product extends Model
         'sizes' => 'array',
         'colors' => 'array',
     ];
+
     public function category()
     {
         return $this->belongsTo(Category::class);
     }
+
     public function images()
     {
         return $this->hasMany(ProductImage::class);

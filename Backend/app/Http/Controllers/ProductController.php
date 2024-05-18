@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use App\Models\ProductImage;
 use Illuminate\Http\Request;
@@ -14,10 +15,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
-        return response()->json([
-            'data' => $products
-        ]);
+
+        $products = Product::with('images')->get();
+        return ProductResource::collection($products);
     }
 
     /**
@@ -40,7 +40,7 @@ class ProductController extends Controller
             'original_price' => 'required|numeric',
             'new_price' => 'nullable|numeric',
             'stock' => 'required|integer',
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'images.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'category_id' => 'required|integer|exists:categories,id',
             'brand' => 'required|string|max:255',
             'rating' => 'required|numeric|min:0|max:5',
@@ -49,15 +49,20 @@ class ProductController extends Controller
             'colors' => 'nullable|json',
         ]);
 
+        // Decode JSON fields
         $validated['sizes'] = json_decode($validated['sizes'], true);
         $validated['colors'] = json_decode($validated['colors'], true);
 
+        // Create the product
         $product = Product::create($validated);
 
+        // Handle image uploads
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
+                // Store the image and get its path
                 $imagePath = $image->store('uploads/products', 'public');
 
+                // Create a new ProductImage record
                 ProductImage::create([
                     'product_id' => $product->id,
                     'path' => $imagePath,
@@ -65,6 +70,7 @@ class ProductController extends Controller
             }
         }
 
+        // Load images relationship and return the product
         return response()->json($product->load('images'), 201);
     }
 
@@ -73,7 +79,8 @@ class ProductController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $product = Product::with('images')->findOrFail($id);
+        return new ProductResource($product);
     }
 
     /**

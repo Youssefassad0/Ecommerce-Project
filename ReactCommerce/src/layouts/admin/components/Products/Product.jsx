@@ -10,6 +10,7 @@ import { MdDelete } from "react-icons/md";
 import Pagination from '@mui/material/Pagination';
 
 import './Product.css';
+import axios from 'axios';
 
 function Product() {
   const [loading, setLoading] = useState(true);
@@ -20,32 +21,16 @@ function Product() {
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 10;
 
-  useEffect(() => {
-    // Generate fake data
-    const generateFakeData = () => {
-      const data = [];
-      for (let i = 1; i <= 20; i++) {
-        data.push({
-          uid: i,
-          name: `Product ${i}`,
-          description: `Product Description for product ${i}`,
-          sex: i % 2 === 0 ? 'Male' : 'Female',
-          category: ['Adidas', 'Nike', 'Gucci'][i % 3],
-          price: (i * 10).toFixed(2),
-          stock: Math.floor(Math.random() * 10) + 1,
-          rating: (Math.random() * 5).toFixed(1),
-          order: Math.floor(Math.random() * 500),
-          sales: `${Math.floor(Math.random() * 1000)}k`,
-          imageUrl: 'https://via.placeholder.com/150'
-        });
-      }
-      setProducts(data);
-    };
 
-    generateFakeData();
-    setLoading(false);
-  }, []);
-
+    useEffect(() => {
+        axios.get('http://127.0.0.1:8001/api/products')
+            .then(response => {
+                setProducts(response.data.data);
+            })
+            .catch(error => {
+                console.error('There was an error fetching the products!', error);
+            });
+    }, []);
   const handlePageChange = (event, value) => {
     setCurrentPage(value);
   };
@@ -141,8 +126,8 @@ function Product() {
               </thead>
               <tbody className="tbody">
                 {currentProducts.map((product) => (
-                  <tr key={product.uid}>
-                    <td>#{product.uid}</td>
+                  <tr key={product.id}>
+                    <td>#{product.id}</td>
                     <td>
                       <div className="d-flex align-items-center productBox">
                         <div className="imgPWapper">
@@ -165,9 +150,9 @@ function Product() {
                       </div>
                     </td>
                     <td>{product.stock}</td>
-                    <td>{product.rating}</td>
+                    <td>{product.rating_count}</td>
                     <td>{product.order}</td>
-                    <td>{product.sales}</td>
+                    <td>{product.colors}</td>
                     <td>
                       <div className="actions d-flex align-items-center">
                         <button className="btnP btn-primary"><FaEye className='svg1' /></button>
