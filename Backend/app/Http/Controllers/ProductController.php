@@ -16,7 +16,7 @@ class ProductController extends Controller
     public function index()
     {
 
-        $products = Product::with('images')->get();
+        $products = Product::with('images')->join('categories', 'products.category_id', '=', 'categories.id')->get();
         return ProductResource::collection($products);
     }
 

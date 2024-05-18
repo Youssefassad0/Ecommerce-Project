@@ -28,4 +28,8 @@ class Product extends Model
     {
         return $this->hasMany(ProductImage::class);
     }
+    public function getCategory($id)
+    {
+        return Category::find($id)->nom;
+    }
 }

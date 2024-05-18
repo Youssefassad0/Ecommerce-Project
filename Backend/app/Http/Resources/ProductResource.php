@@ -28,6 +28,7 @@ class ProductResource extends JsonResource
             'rating_count' => $this->rating_count,
             'sizes' => $this->sizes,
             'colors' => $this->colors,
+            'nom' => $this->nom,
             'first_image' => $this->images->first() ? asset('storage/' . $this->images->first()->path) : null,
             'images' => $this->images->map(function ($image) {
                 return asset('storage/' . $image->path);

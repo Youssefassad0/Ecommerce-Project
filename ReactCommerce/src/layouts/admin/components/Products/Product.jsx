@@ -8,44 +8,56 @@ import { FaEye } from "react-icons/fa";
 import { FaPencil } from "react-icons/fa6";
 import { MdDelete } from "react-icons/md";
 import Pagination from '@mui/material/Pagination';
-
-import './Product.css';
 import axios from 'axios';
+import './Product.css';
 
 function Product() {
   const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState([]);
-  const [age, setAge] = useState('');
-  const [cate, setCate] = useState('');
+  const [categories, setCategories] = useState([]);
+  const [category, setCategory] = useState('');
   const [brand, setBrand] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 10;
 
+  useEffect(() => {
+    axios.get('http://127.0.0.1:8001/api/products')
+      .then(response => {
+        setProducts(response.data.data);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('There was an error fetching the products!', error);
+        setLoading(false);
+      });
 
-    useEffect(() => {
-        axios.get('http://127.0.0.1:8001/api/products')
-            .then(response => {
-                setProducts(response.data.data);
-            })
-            .catch(error => {
-                console.error('There was an error fetching the products!', error);
-            });
-    }, []);
+    axios.get('http://127.0.0.1:8001/api/category')
+      .then(response => {
+        setCategories(response.data.data);
+      })
+      .catch(error => {
+        console.error('There was an error fetching the categories!', error);
+      });
+  }, []);
+
   const handlePageChange = (event, value) => {
     setCurrentPage(value);
   };
+
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
 
+
+
   return (
     <>
       <div className="datatableTitle">
-                <p>Add New Product</p>
-                <Link to="/dashboard/add-product" className="link">
-                    Add New
-                </Link>
-            </div>
+        <p>Add New Product</p>
+        <Link to="/dashboard/add-product" className="link">
+          Add New
+        </Link>
+      </div>
       {loading ? (
         <Loader />
       ) : products.length === 0 ? (
@@ -57,10 +69,10 @@ function Product() {
           <h3 className="hd">Best Selling Products</h3>
           <div className="row cardFilters mt-3">
             <div className="col-md-3">
-              <h4>Show BY : </h4>
+              <h4>Category BY : </h4>
               <Select
-                value={age}
-                onChange={(e) => setAge(e.target.value)}
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
                 displayEmpty
                 inputProps={{ 'aria-label': 'Without label' }}
                 className='w-100'
@@ -68,26 +80,9 @@ function Product() {
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
-              </Select>
-            </div>
-            <div className="col-md-3">
-              <h4>Category  BY : </h4>
-              <Select
-                value={cate}
-                onChange={(e) => setCate(e.target.value)}
-                displayEmpty
-                inputProps={{ 'aria-label': 'Without label' }}
-                className='w-100'
-              >
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
-                <MenuItem value={10}>Homme</MenuItem>
-                <MenuItem value={20}>Femme</MenuItem>
-                <MenuItem value={30}>Enfant</MenuItem>
+                {categories.map(cat => (
+                  <MenuItem key={cat.id} value={cat.id}>{cat.nom}</MenuItem>
+                ))}
               </Select>
             </div>
             <div className="col-md-3">
@@ -102,9 +97,13 @@ function Product() {
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
-                <MenuItem value={10}>Adidas</MenuItem>
-                <MenuItem value={20}>Nike</MenuItem>
-                <MenuItem value={30}>Gucci</MenuItem>
+                {
+                  products.map(pro => (
+                    <MenuItem key={pro.id} value={pro.brand} >{pro.brand}</MenuItem>
+
+                  ))
+                }
+
               </Select>
             </div>
           </div>
@@ -114,13 +113,11 @@ function Product() {
                 <tr>
                   <th>Uid</th>
                   <th style={{ width: '300px' }}>PRODUCT</th>
-                  <th>SEXE</th>
+                  <th>GENDER</th>
                   <th>CATEGORY</th>
                   <th>PRICE</th>
                   <th>STOCK</th>
                   <th>RATING</th>
-                  <th>ORDER</th>
-                  <th>SALES</th>
                   <th>ACTION</th>
                 </tr>
               </thead>
@@ -132,7 +129,7 @@ function Product() {
                       <div className="d-flex align-items-center productBox">
                         <div className="imgPWapper">
                           <div className="imgP">
-                            <img src={product.imageUrl} alt="Product" className='w-100' />
+                            <img src={`http://localhost:8001/api/${product.first_image}`} alt="Product" className='w-100' />
                           </div>
                         </div>
                         <div className="info pl-0">
@@ -141,18 +138,22 @@ function Product() {
                         </div>
                       </div>
                     </td>
-                    <td>{product.sex}</td>
-                    <td>{product.category}</td>
+                    <td>{product.gender}</td>
+                    <td>{product.nom} </td>
                     <td>
                       <div style={{ width: '70px' }}>
-                        <del className="old">${(product.price * 1.2).toFixed(2)}</del>
-                        <span className="new text-danger ">${product.price}</span>
+                        {product.new_price ? (
+                          <>
+                            <del className="old">${product.original_price}</del>
+                            <span className="new text-danger ">${product.new_price}</span>
+                          </>
+                        ) : (
+                          <span>${product.original_price}</span>
+                        )}
                       </div>
                     </td>
                     <td>{product.stock}</td>
-                    <td>{product.rating_count}</td>
-                    <td>{product.order}</td>
-                    <td>{product.colors}</td>
+                    <td>{product.rating}</td>
                     <td>
                       <div className="actions d-flex align-items-center">
                         <button className="btnP btn-primary"><FaEye className='svg1' /></button>
