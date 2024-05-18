@@ -1,42 +1,70 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react';
 import Loader from '../../../frontend/Loader';
 import { Link } from 'react-router-dom';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-import FormHelperText from '@mui/material/FormHelperText';
-import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { FaEye } from "react-icons/fa";
 import { FaPencil } from "react-icons/fa6";
 import { MdDelete } from "react-icons/md";
+import Pagination from '@mui/material/Pagination';
 
-import './Product.css'
-import { Button } from 'react-bootstrap';
+import './Product.css';
+
 function Product() {
   const [loading, setLoading] = useState(true);
-  const [data, setDate] = useState(['m']);
+  const [products, setProducts] = useState([]);
   const [age, setAge] = useState('');
   const [cate, setCate] = useState('');
   const [brand, setBrand] = useState('');
-  setTimeout(() => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const productsPerPage = 10;
+
+  useEffect(() => {
+    // Generate fake data
+    const generateFakeData = () => {
+      const data = [];
+      for (let i = 1; i <= 20; i++) {
+        data.push({
+          uid: i,
+          name: `Product ${i}`,
+          description: `Product Description for product ${i}`,
+          sex: i % 2 === 0 ? 'Male' : 'Female',
+          category: ['Adidas', 'Nike', 'Gucci'][i % 3],
+          price: (i * 10).toFixed(2),
+          stock: Math.floor(Math.random() * 10) + 1,
+          rating: (Math.random() * 5).toFixed(1),
+          order: Math.floor(Math.random() * 500),
+          sales: `${Math.floor(Math.random() * 1000)}k`,
+          imageUrl: 'https://via.placeholder.com/150'
+        });
+      }
+      setProducts(data);
+    };
+
+    generateFakeData();
     setLoading(false);
-  }, 2000)
+  }, []);
+
+  const handlePageChange = (event, value) => {
+    setCurrentPage(value);
+  };
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+
   return (
     <>
-
       {loading ? (
         <Loader />
-      ) : data.length === 0 ? (
+      ) : products.length === 0 ? (
         <div style={{ textAlign: 'center', marginTop: '20px' }}>
           <p>No Products found.</p>
         </div>
       ) : (
         <div className="cardP shadow border-0 p-3 mt-4">
-          <h3 className="hd">
-            Best Selling Products
-          </h3>
+          <h3 className="hd">Best Selling Products</h3>
           <div className="row cardFilters mt-3">
-            {/* First select */}
             <div className="col-md-3">
               <h4>Show BY : </h4>
               <Select
@@ -54,8 +82,6 @@ function Product() {
                 <MenuItem value={30}>Thirty</MenuItem>
               </Select>
             </div>
-
-            {/* Category Select  */}
             <div className="col-md-3">
               <h4>Category  BY : </h4>
               <Select
@@ -73,8 +99,6 @@ function Product() {
                 <MenuItem value={30}>Enfant</MenuItem>
               </Select>
             </div>
-
-            {/* Brand Select  */}
             <div className="col-md-3">
               <h4>Brand  BY : </h4>
               <Select
@@ -98,7 +122,7 @@ function Product() {
               <thead className="thead-dark">
                 <tr>
                   <th>Uid</th>
-                  <th>PRODUCT</th>
+                  <th style={{ width: '300px' }}>PRODUCT</th>
                   <th>SEXE</th>
                   <th>CATEGORY</th>
                   <th>PRICE</th>
@@ -110,55 +134,63 @@ function Product() {
                 </tr>
               </thead>
               <tbody className="tbody">
-                <tr>
-                  <td>#1</td>
-                  <td>
-                    <div className="d-flex productBox">
-
-                      <div className="imgPWapper">
-                        <div className="imgP">
-                          <img src="https://assets.adidas.com/images/w_940,f_auto,q_auto/ced8691f76d2417bb0fead78011d53e8_9366/GY6348_01_standard.jpg" alt="img Produit" 
-                          className='w-100'
-                          />
+                {currentProducts.map((product) => (
+                  <tr key={product.uid}>
+                    <td>#{product.uid}</td>
+                    <td>
+                      <div className="d-flex align-items-center productBox">
+                        <div className="imgPWapper">
+                          <div className="imgP">
+                            <img src={product.imageUrl} alt="Product" className='w-100' />
+                          </div>
+                        </div>
+                        <div className="info pl-0">
+                          <h6>{product.name}</h6>
+                          <p>{product.description}</p>
                         </div>
                       </div>
-                      <div className="info pl-0">
-                        <h6>Name of product</h6>
-                        <p>
-                          Product Descreption ......
-                        </p>
+                    </td>
+                    <td>{product.sex}</td>
+                    <td>{product.category}</td>
+                    <td>
+                      <div style={{ width: '70px' }}>
+                        <del className="old">${(product.price * 1.2).toFixed(2)}</del>
+                        <span className="new text-danger ">${product.price}</span>
                       </div>
-                    </div>
-                  </td>
-                  <td>Female</td>
-                  <td>Adidas</td>
-                  <td>
-                    <del className="old">
-                      $300.00
-                    </del> <span className="new text-danger ">
-                      $300.00
-                    </span>
-                  </td>
-                  <td>5</td>
-                  <td>4.5 (16)</td>
-                  <td>380</td>
-                  <td>1k</td>
-                  <td>
-                    <div className="actions d-flex align-items-center">
-                      <button className="btnP btn-primary"><FaEye className='svg1' /></button>
-                      <button className="btnP btn-success"><FaPencil className='svg2' /></button>
-                      <button className="btnP btn-danger"><MdDelete className='svg3z' /></button>
-                    </div>
-                  </td>
-                </tr>
+                    </td>
+                    <td>{product.stock}</td>
+                    <td>{product.rating}</td>
+                    <td>{product.order}</td>
+                    <td>{product.sales}</td>
+                    <td>
+                      <div className="actions d-flex align-items-center">
+                        <button className="btnP btn-primary"><FaEye className='svg1' /></button>
+                        <button className="btnP btn-success"><FaPencil className='svg2' /></button>
+                        <button className="btnP btn-danger"><MdDelete className='svg3' /></button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
+            <div className="d-flex tableFooter ">
+              <p>Showing <b>{productsPerPage}</b> of <b>{products.length}</b> results</p>
+              <Pagination
+                count={Math.ceil(products.length / productsPerPage)}
+                page={currentPage}
+                onChange={handlePageChange}
+                variant="outlined"
+                color="primary"
+                className='pagination'
+                showFirstButton
+                showLastButton
+              />
+            </div>
           </div>
         </div>
       )}
     </>
-  )
+  );
 }
 
-export default Product
-
+export default Product;

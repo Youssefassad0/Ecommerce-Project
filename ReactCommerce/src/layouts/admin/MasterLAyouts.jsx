@@ -9,6 +9,7 @@ import Category from './components/Category/Category';
 import AddCategory from './components/Category/AddCategory';
 import Edit from './components/Category/Edit';
 import Product from './components/Products/Product';
+import { FaArrowUp } from "react-icons/fa";
 
 function MasterLAyouts() {
   
@@ -46,7 +47,8 @@ function MasterLAyouts() {
             </div>
           </div>
           <a className="scroll-to-top rounded" href="#page-top">
-            <i className="fas fa-angle-up"></i>
+            {/* <i className="fas fa-angle-up"></i> */}
+            <FaArrowUp/>
           </a>
         </body>
       </div>

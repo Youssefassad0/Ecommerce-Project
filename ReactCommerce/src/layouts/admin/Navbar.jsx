@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FaRegMessage } from "react-icons/fa6";
 import { IoNotificationsOutline } from "react-icons/io5";
 import { CiSearch } from "react-icons/ci";
+import { BsList } from "react-icons/bs";
 
 function Navbar() {
   const [style, setStyle] = useState("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion");
@@ -16,7 +17,7 @@ function Navbar() {
       setStyle('navbar-nav bg-gradient-primary sidebar sidebar-dark accordion')
     }
   }
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const logOut = (e) => {
     // localStorage.removeItem("auth-token");
     // localStorage.removeItem("auth-name");
@@ -38,7 +39,7 @@ function Navbar() {
   };
   return (
     <>
-      <nav
+      <nav 
         className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"
       >
         {/* <!-- Sidebar Toggle (Topbar) --> */}
@@ -47,7 +48,7 @@ function Navbar() {
           id="sidebarToggleTop"
           className="btn btn-link d-md-none rounded-circle mr-3"
         >
-          <i className="fa fa-bars"></i>
+         <BsList/>
         </button>
         {/* <!-- Topbar Search --> */}
         <form
@@ -63,7 +64,7 @@ function Navbar() {
             />
             <div className="input-group-append">
               <button className="btn btn-primary" type="button">
-<CiSearch></CiSearch>              </button>
+                <CiSearch></CiSearch>              </button>
             </div>
           </div>
         </form>
@@ -118,7 +119,7 @@ function Navbar() {
               aria-haspopup="true"
               aria-expanded="false"
             >
-    <IoNotificationsOutline/>
+              <IoNotificationsOutline />
               {/* <!-- Counter - Alerts --> */}
               <span className="badge badge-danger badge-counter">3+</span>
             </a>
@@ -181,7 +182,7 @@ function Navbar() {
               aria-haspopup="true"
               aria-expanded="false"
             >
-            <FaRegMessage/>
+              <FaRegMessage />
               {/* <!-- Counter - Messages --> */}
               <span className="badge badge-danger badge-counter">7</span>
             </a>
@@ -304,7 +305,7 @@ function Navbar() {
               </a>
               <Link className="dropdown-item" to={'/'}>
                 <i className="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-               WebSite
+                WebSite
               </Link>
               <div className="dropdown-divider"></div>
               <a

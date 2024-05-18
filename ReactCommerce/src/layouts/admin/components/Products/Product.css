@@ -48,6 +48,9 @@
 .table tbody .actions .btn-danger {
   background: rgba(241, 17, 51, 0.1) !important ;
 }
+.table-responsive::-webkit-scrollbar-thumb {
+  background: #ccc !important;
+}
 .cardP h1,
 h2,
 h3,
@@ -64,24 +67,26 @@ p {
   color: green;
 }
 .svg3 {
-  color: red;
+  color: rgb(2, 2, 2);
 }
 table.v-align td {
   vertical-align: middle !important;
 }
 .table td .old,
-table td .new {
+.table td .new {
   display: block;
   width: 100%;
 }
 
 table td .imgPWapper {
-  width: 30%;
-  flex:0 0 30% ;
+  width: 20%;
+  flex: 0 0 20%;
 }
-table td .info{
-width: 70% ;
-flex:  0 0 70%;
+table td .imgPWapper .imgP {
+}
+table td .info {
+  width: 65%;
+  flex: 0 0 65%;
 }
 table td .info h6 {
   overflow: hidden;
@@ -89,7 +94,7 @@ table td .info h6 {
   white-space: nowrap;
   font-size: 14px;
   font-weight: 600;
-  margin-bottom: 5px;
+  margin-bottom: 0px;
 }
 table td .info p {
   font-size: 13px;
@@ -98,10 +103,21 @@ table td .info p {
   text-overflow: ellipsis;
   white-space: nowrap;
   color: #5e5d72;
+  margin-bottom: 0px;
 }
 table.v-align td .productBox {
-  width: 150px;
+  width: 270px;
 }
-table.v-align td .productBox .info {
-  width: 100%;
+.tableFooter {
+  padding-bottom: 20px;
+}
+.tableFooter .pagination {
+  margin-left: auto;
+}
+.tableFooter p {
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 0px;
+}
+.css-1y7coo4-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected {
 }
