@@ -113,8 +113,16 @@ function Product() {
                 <tr>
                   <td>#1</td>
                   <td>
-                    <div className="d-flex productBox  ">
-                      <div className="info">
+                    <div className="d-flex productBox">
+
+                      <div className="imgPWapper">
+                        <div className="imgP">
+                          <img src="https://assets.adidas.com/images/w_940,f_auto,q_auto/ced8691f76d2417bb0fead78011d53e8_9366/GY6348_01_standard.jpg" alt="img Produit" 
+                          className='w-100'
+                          />
+                        </div>
+                      </div>
+                      <div className="info pl-0">
                         <h6>Name of product</h6>
                         <p>
                           Product Descreption ......

@@ -53,7 +53,8 @@ h2,
 h3,
 h4,
 h5,
-h6,p {
+h6,
+p {
   color: #403e57;
 }
 .svg1 {
@@ -73,6 +74,15 @@ table td .new {
   display: block;
   width: 100%;
 }
+
+table td .imgPWapper {
+  width: 30%;
+  flex:0 0 30% ;
+}
+table td .info{
+width: 70% ;
+flex:  0 0 70%;
+}
 table td .info h6 {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -89,9 +99,9 @@ table td .info p {
   white-space: nowrap;
   color: #5e5d72;
 }
-table.v-align td .productBox{
-    width: 150px;
+table.v-align td .productBox {
+  width: 150px;
 }
-table.v-align td .productBox .info{
+table.v-align td .productBox .info {
   width: 100%;
 }
