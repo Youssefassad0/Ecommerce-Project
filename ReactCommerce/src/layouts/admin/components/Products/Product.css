@@ -122,7 +122,9 @@ table.v-align td .productBox {
 .css-1y7coo4-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected {
 }
 
-.slick.slide{
-  outline: none !important;
-  
+.sliderSmall .slick-slide {
+  padding-right: 10px;
+}
+.sliderSmall .slick-slide .item{
+  a
 }
