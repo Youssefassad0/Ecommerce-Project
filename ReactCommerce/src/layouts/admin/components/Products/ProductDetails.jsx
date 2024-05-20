@@ -1,27 +1,52 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Slider from 'react-slick';
 import StoreIcon from '@mui/icons-material/Store';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 
 
 function ProductDetails() {
+    // const productSliderOptions = {
+    //     dots: false,
+    //     infinite: false,
+    //     speed: 500,
+    //     slidesToShow: 1,
+    //     slidesToScroll: 1,
+    //     arrows: false
+
+    // };
+    // const productSliderSmallOptions = {
+    //     dots: false,
+    //     infinite: false,
+    //     speed: 500,
+    //     slidesToShow: 4,
+    //     slidesToScroll: 1,
+    //     arrows: false
+    // };
+    const [currentImage, setCurrentImage] = useState("https://assets.adidas.com/images/w_600,f_auto,q_auto/bd43ce71f589498ab6b1aad6009a0e6e_9366/Superstar_Shoes_White_EG4958_07_standard.jpg");
+
     const productSliderOptions = {
         dots: false,
         infinite: false,
         speed: 500,
         slidesToShow: 1,
         slidesToScroll: 1,
-        arrows: false
-
+        arrows: false,
     };
+
     const productSliderSmallOptions = {
         dots: false,
         infinite: false,
         speed: 500,
         slidesToShow: 4,
         slidesToScroll: 1,
-        arrows: false
+        arrows: false,
     };
+    const smallImages = [
+        "https://assets.adidas.com/images/w_600,f_auto,q_auto/bd43ce71f589498ab6b1aad6009a0e6e_9366/Superstar_Shoes_White_EG4958_07_standard.jpg",
+        "https://assets.adidas.com/images/w_1880,f_auto,q_auto/ff2e419f1eda4ebab23faad6009a3a9e_9366/EG4958_04_standard.jpg",
+        "https://assets.adidas.com/images/w_600,f_auto,q_auto/bd43ce71f589498ab6b1aad6009a0e6e_9366/Superstar_Shoes_White_EG4958_07_standard.jpg",
+        "https://assets.adidas.com/images/w_600,f_auto,q_auto/bd43ce71f589498ab6b1aad6009a0e6e_9366/Superstar_Shoes_White_EG4958_07_standard.jpg"
+    ];
     return (
         <div className="right-content w-100">
             <div className="card shadow border-0 w-100 flex-row p-4">
@@ -34,50 +59,16 @@ function ProductDetails() {
                 <div className="row">
                     <div className="col-md-5">
                         <div className="sliderWrapper pt-3 pb-4 pl-4 pr-4">
-                            <h5 className='mb-4' > Product Gallery  </h5>
-                            <Slider {...productSliderOptions} className='sliderBig mn-2' >
-                                <div className="item">
-                                    <img
-                                        src="https://assets.adidas.com/images/w_600,f_auto,q_auto/bd43ce71f589498ab6b1aad6009a0e6e_9366/Superstar_Shoes_White_EG4958_07_standard.jpg"
-                                        alt="Product Image"
-                                        className="w-100"
-                                    />
-                                </div>
-                            </Slider>
-                            <Slider {...productSliderSmallOptions} className='sliderSmall' >
-                                <div className="item">
-                                    <img
-                                        src="https://assets.adidas.com/images/w_600,f_auto,q_auto/bd43ce71f589498ab6b1aad6009a0e6e_9366/Superstar_Shoes_White_EG4958_07_standard.jpg"
-                                        alt="Product Image"
-                                        className="w-100"
-                                    />
-                                </div>
-                                <div className="item">
-                                    <img
-                                        src="https://assets.adidas.com/images/w_1880,f_auto,q_auto/ff2e419f1eda4ebab23faad6009a3a9e_9366/EG4958_04_standard.jpg"
-                                        alt="Product Image"
-                                        className="w-100"
-                                    />
-                                </div>
-                                <div className="item">
-                                    <img
-                                        src="https://assets.adidas.com/images/w_600,f_auto,q_auto/bd43ce71f589498ab6b1aad6009a0e6e_9366/Superstar_Shoes_White_EG4958_07_standard.jpg"
-                                        alt="Product Image"
-                                        className="w-100"
-                                    />
-                                </div>  <div className="item">
-                                    <img
-                                        src="https://assets.adidas.com/images/w_600,f_auto,q_auto/bd43ce71f589498ab6b1aad6009a0e6e_9366/Superstar_Shoes_White_EG4958_07_standard.jpg"
-                                        alt="Product Image"
-                                        className="w-100"
-                                    />
-                                </div>  <div className="item">
-                                    <img
-                                        src="https://assets.adidas.com/images/w_600,f_auto,q_auto/bd43ce71f589498ab6b1aad6009a0e6e_9366/Superstar_Shoes_White_EG4958_07_standard.jpg"
-                                        alt="Product Image"
-                                        className="w-100"
-                                    />
-                                </div>
+                            <h5 className='mb-4'>Product Gallery</h5>
+                            <div className='sliderBig mb-2'>
+                                <img src={currentImage} alt="Product Image" className="w-100" />
+                            </div>
+                            <Slider {...productSliderSmallOptions} className='sliderSmall'>
+                                {smallImages.map((url, index) => (
+                                    <div className="item" key={index} onClick={() => setCurrentImage(url)}>
+                                        <img src={url} alt={`Product Image ${index + 1}`} className="w-100 cursor-pointer" />
+                                    </div>
+                                ))}
                             </Slider>
                         </div>
                     </div>
@@ -277,7 +268,7 @@ function ProductDetails() {
                                 <div className="reviewsRow">
                                     <div className="row">
                                         <div className="col-sm-7">
-                                            
+
                                         </div>
                                     </div>
                                 </div>
