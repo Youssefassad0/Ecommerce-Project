@@ -2,6 +2,7 @@ import React from 'react';
 import { Breadcrumbs } from '@mui/material';
 import Slider from 'react-slick';
 import StoreIcon from '@mui/icons-material/Store';
+import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 function ProductDetails() {
     const productSliderOptions = {
         dots: false,
@@ -238,6 +239,15 @@ function ProductDetails() {
 
                     </div>
                 </div>
+
+               <div className="p-4">
+               <h4 className="mt-4 mb-3">Product Descreption</h4>
+                <p style={{ fontWeight:'300' }} >
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Magni fuga illum beatae nostrum facilis id assumenda rerum commodi tempora numquam. Expedita corporis quidem asperiores culpa nulla architecto illum repellendus aut.
+                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Animi, cumque porro eaque repudiandae, corporis assumenda quam dolores architecto culpa laborum doloribus, eligendi tempore sunt rerum nam. Voluptas harum vero vel.
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Reprehenderit vitae praesentium quibusdam debitis, nemo earum incidunt maiores quaerat eveniet. Quidem aperiam natus eum laboriosam debitis non! Ut blanditiis minus tempore.
+                </p>
+               </div>
             </div>
         </div>
     );
