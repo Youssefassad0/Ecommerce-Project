@@ -32,4 +32,8 @@ class Product extends Model
     {
         return Category::find($id)->nom;
     }
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

@@ -47,4 +47,8 @@ class User extends Authenticatable
     // {
     //     return $this->hasMany(PersonalAccessToken::class);
     // }
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }
