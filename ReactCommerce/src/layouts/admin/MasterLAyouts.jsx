@@ -12,6 +12,7 @@ import Product from './components/Products/Product';
 import { FaArrowUp } from "react-icons/fa";
 import ProductForm from './components/Products/AddProduct';
 import ProductDetails from './components/Products/ProductDetails';
+import Profile from './components/Profile/profile';
 
 function MasterLAyouts() {
   
@@ -39,6 +40,7 @@ function MasterLAyouts() {
                   <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/products" element={<Product />} />
+                    <Route path="/Profile" element={<Profile />} />
                     <Route path="/category" element={<Category />} />
                     <Route path="/new/cate" element={<AddCategory />} />
                     <Route path="/edit/cate/:id" element={<Edit />} />

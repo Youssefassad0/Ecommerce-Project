@@ -190,9 +190,33 @@ table.v-align td .productBox {
 .ratingSection {
   width: 500px;
 }
-.ratingSection .ratingRow {
-  width: 100%;
-}
-.ratingSection .ratingRow .col1 {width: 25%; flex: 0 0 25%;display: flex;}
+.ratingSection .ratingRow {width: 100%;margin-bottom: 15px !important;}
+
+.ratingSection .ratingRow .col1 {width: 15%; flex: 0 0 15%;display: flex;}
 .ratingSection .ratingRow .col2 {width: 50%; flex: 0 0 50%;}
-.ratingSection .ratingRow .col3 {width: 25%; flex: 0 0 25%;}
+.ratingSection .ratingRow .col3 {width: 25%; flex: 0 0 25%;display: flex;padding-left: 20px;}
+.product-description {
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 25px;
+}
+
+.rating-section .rating-row {
+  display: flex;
+  align-items: center;
+}
+
+.rating-section .rating-row .progress {
+  width: 100%;
+  height: 5px !important ;
+}
+
+.total-review h5,
+.total-review h2,
+.total-review h6 {
+  margin: 0;
+}
+.reviewsSection{width: '100%';display: flex;flex-direction: column;}
+.reviewsSection .reviewsRow{width: 100%; height: 100px; background: #071739;padding: 35px;
+border-radius: 4px;
+}
