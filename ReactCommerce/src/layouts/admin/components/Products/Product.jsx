@@ -159,7 +159,8 @@ function Product() {
                         <Link to={"/dashboard/product/" + product.id} >
                           <button className="btnP btn-primary"><FaEye className='svg1' /></button>
                         </Link>
-                        <button className="btnP btn-success"><FaPencil className='svg2' /></button>
+                        <Link to={`/dashboard/edit-product/${product.id}`} > <button className="btnP btn-success"><FaPencil className='svg2' /></button>
+                        </Link>
                         <button className="btnP btn-danger"><MdDelete className='svg3' /></button>
                       </div>
                     </td>

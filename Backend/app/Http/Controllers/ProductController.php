@@ -99,7 +99,41 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'sometimes|required|string|max:255',
+            'description' => 'nullable|string',
+            'gender' => 'sometimes|required|string|max:255',
+            'original_price' => 'sometimes|required|numeric',
+            'new_price' => 'nullable|numeric',
+            'stock' => 'sometimes|required|integer',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'category_id' => 'sometimes|required|integer|exists:categories,id',
+            'brand' => 'sometimes|required|string|max:255',
+            'rating' => 'sometimes|required|numeric|min:0|max:5',
+            'rating_count' => 'sometimes|required|integer|min:0',
+            'sizes' => 'nullable|json',
+            'colors' => 'nullable|json',
+        ]);
+
+        $validated['sizes'] = isset($validated['sizes']) ? json_decode($validated['sizes'], true) : null;
+        $validated['colors'] = isset($validated['colors']) ? json_decode($validated['colors'], true) : null;
+        $product = Product::findOrFail($id);
+        $product->update($validated);
+
+        if ($request->hasFile('images')) {
+            $product->images()->delete();
+
+            foreach ($request->file('images') as $image) {
+                $imagePath = $image->store('uploads/products', 'public');
+
+                ProductImage::create([
+                    'product_id' => $product->id,
+                    'path' => $imagePath,
+                ]);
+            }
+        }
+
+        return response()->json($product->load('images'), 200);
     }
 
     /**
