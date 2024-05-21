@@ -38,20 +38,18 @@ const Review = ({ img }) => {
   return (
     <>
       <ul
-        className={`review-nav lab-ul ${
-          reviewShow ? "RevActive" : "DescActive"
-        } `}
+        className={`review-nav lab-ul ${reviewShow ? "RevActive" : "DescActive"
+          } `}
       >
-       
+
         <li className="rev" onClick={() => setReviewShow(!reviewShow)}>
           Reviews
         </li>
       </ul>
       {/* Review Content  */}
       <div
-        className={`review-content ${
-          reviewShow ? "review-content-show" : "description-show"
-        }`}
+        className={`review-content ${reviewShow ? "review-content-show" : "description-show"
+          }`}
       >
         <div className="review-showing">
           <ul className="content lab-ul">
@@ -88,7 +86,7 @@ const Review = ({ img }) => {
                     id="name"
                     placeholder="Full Name ..."
                   />
-                </div>{" "}
+                </div>
                 <div className="col-md-4 col-1">
                   <input
                     type="email"
@@ -105,10 +103,10 @@ const Review = ({ img }) => {
                     placeholder="Type Here Your Message"
                   ></textarea>
                 </div>
-               
-                <button className="sendReview" style={{background:'transparent' ,color:"black"}} >
-                    <span className="box">Send Review!</span>
-                  </button>
+
+                <button className="sendReview" style={{ background: 'transparent', color: "black" }} >
+                  <span className="box">Send Review!</span>
+                </button>
               </form>
             </div>
           </div>

@@ -23,7 +23,7 @@ const ProductForm = () => {
         images: [],
         category_id: '',
         brand: '',
-       
+
         rating: 0,
         rating_count: 0,
         sizes: '',
@@ -70,6 +70,7 @@ const ProductForm = () => {
             console.error('Error creating product:', error);
         }
     };
+
 
     return (
         <form onSubmit={handleSubmit}>

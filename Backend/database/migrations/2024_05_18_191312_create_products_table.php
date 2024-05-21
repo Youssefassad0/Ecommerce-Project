@@ -19,7 +19,7 @@ return new class extends Migration
             $table->decimal('original_price', 10, 2);
             $table->decimal('new_price', 10, 2)->nullable();
             $table->integer('stock');
-            $table->string('image');
+            $table->string('image')->nullable(); // Make the image column nullable
             $table->unsignedBigInteger('category_id');
             $table->string('brand');
             $table->decimal('rating', 2, 1)->default(0);

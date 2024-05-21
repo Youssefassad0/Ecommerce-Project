@@ -1,27 +1,22 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Slider from 'react-slick';
 import StoreIcon from '@mui/icons-material/Store';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 
 function ProductDetails() {
-    // const productSliderOptions = {
-    //     dots: false,
-    //     infinite: false,
-    //     speed: 500,
-    //     slidesToShow: 1,
-    //     slidesToScroll: 1,
-    //     arrows: false
-
-    // };
-    // const productSliderSmallOptions = {
-    //     dots: false,
-    //     infinite: false,
-    //     speed: 500,
-    //     slidesToShow: 4,
-    //     slidesToScroll: 1,
-    //     arrows: false
-    // };
+    const {id}=useParams();
+    const [product,setProduct]=useState(null);
+ useEffect(()=>{
+    async function getProduct(){
+        await axios.get('http://localhost:8001/api/products/'+id).then(res=>setProduct(res.data.data)).catch((err)=>{
+            console.log('ERROR :: ' +err);
+        })
+    } 
+    getProduct();
+ },[])
     const [currentImage, setCurrentImage] = useState("https://assets.adidas.com/images/w_600,f_auto,q_auto/bd43ce71f589498ab6b1aad6009a0e6e_9366/Superstar_Shoes_White_EG4958_07_standard.jpg");
 
     const productSliderOptions = {
@@ -44,7 +39,7 @@ function ProductDetails() {
     const smallImages = [
         "https://assets.adidas.com/images/w_600,f_auto,q_auto/bd43ce71f589498ab6b1aad6009a0e6e_9366/Superstar_Shoes_White_EG4958_07_standard.jpg",
         "https://assets.adidas.com/images/w_1880,f_auto,q_auto/ff2e419f1eda4ebab23faad6009a3a9e_9366/EG4958_04_standard.jpg",
-        "https://assets.adidas.com/images/w_600,f_auto,q_auto/bd43ce71f589498ab6b1aad6009a0e6e_9366/Superstar_Shoes_White_EG4958_07_standard.jpg",
+        "https://assets.adidas.com/images/w_1880,f_auto,q_auto/bd8f7ae244774097a60bab0300bea8de_9366/EF5394_01_standard.jpg",
         "https://assets.adidas.com/images/w_600,f_auto,q_auto/bd43ce71f589498ab6b1aad6009a0e6e_9366/Superstar_Shoes_White_EG4958_07_standard.jpg"
     ];
     return (
@@ -76,7 +71,7 @@ function ProductDetails() {
                         <div className="pt-3 pb-3 pl-4 pr-4">
                             <h5 className="mb-4">Product Details</h5>
                             <h4 style={{ lineHeight: '32px' }} >
-                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laborum, cupiditate quas
+                                {product.name}
                             </h4>
                             <div className="productInfo mt-3">
                                 <div className="row mb-2">
@@ -89,7 +84,7 @@ function ProductDetails() {
                                         </span>
                                     </div>
                                     <div className="col-sm-7">
-                                        :  <span>Adidas </span>
+                                        {/* :  <span> {product.brand} </span> */}
                                     </div>
                                 </div>
                                 <div className="row mb-2">

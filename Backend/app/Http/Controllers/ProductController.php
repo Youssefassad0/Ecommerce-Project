@@ -53,16 +53,20 @@ class ProductController extends Controller
         $validated['sizes'] = json_decode($validated['sizes'], true);
         $validated['colors'] = json_decode($validated['colors'], true);
 
+        // Store the first image path for the 'image' field if images are provided
+        if ($request->hasFile('images')) {
+            $imagePath = $request->file('images')[0]->store('uploads/products', 'public');
+            $validated['image'] = $imagePath;
+        }
+
         // Create the product
         $product = Product::create($validated);
 
-        // Handle image uploads
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
                 // Store the image and get its path
                 $imagePath = $image->store('uploads/products', 'public');
 
-                // Create a new ProductImage record
                 ProductImage::create([
                     'product_id' => $product->id,
                     'path' => $imagePath,
@@ -70,7 +74,6 @@ class ProductController extends Controller
             }
         }
 
-        // Load images relationship and return the product
         return response()->json($product->load('images'), 201);
     }
 
