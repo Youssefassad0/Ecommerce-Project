@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
@@ -29,4 +30,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
 });
 Route::resource('/category', CategoryController::class);
 Route::resource('/products', ProductController::class);
-Route::resource('/comments', CommentsController::class);
+// Route::resource('/comments', CommentsController::class);
+Route::post('/comments', [CommentController::class, 'store']);
+Route::get('/products/{productId}/comments', [CommentController::class, 'index']);
