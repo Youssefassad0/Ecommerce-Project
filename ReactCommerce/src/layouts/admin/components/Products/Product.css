@@ -220,3 +220,8 @@ table.v-align td .productBox {
 .reviewsSection .reviewsRow{width: 100%; height: 100px; background: #071739;padding: 35px;
 border-radius: 4px;
 }
+
+.slider-image {
+  height: 100px; /* Set a fixed height for small slider images */
+  /* object-fit: cover; Ensure the image covers the box without distorting */
+}

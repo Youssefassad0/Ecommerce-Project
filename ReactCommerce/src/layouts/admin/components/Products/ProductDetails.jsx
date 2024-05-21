@@ -1,23 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import Slider from 'react-slick';
 import StoreIcon from '@mui/icons-material/Store';
-import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
-
 function ProductDetails() {
-    const {id}=useParams();
-    const [product,setProduct]=useState(null);
- useEffect(()=>{
-    async function getProduct(){
-        await axios.get('http://localhost:8001/api/products/'+id).then(res=>setProduct(res.data.data)).catch((err)=>{
-            console.log('ERROR :: ' +err);
-        })
-    } 
-    getProduct();
- },[])
-    const [currentImage, setCurrentImage] = useState("https://assets.adidas.com/images/w_600,f_auto,q_auto/bd43ce71f589498ab6b1aad6009a0e6e_9366/Superstar_Shoes_White_EG4958_07_standard.jpg");
+    const { id } = useParams();
+    const [product, setProduct] = useState(null);
+    const [currentImage, setCurrentImage] = useState(null);
+
+    useEffect(() => {
+        async function getProduct() {
+            try {
+                const response = await axios.get(`http://localhost:8001/api/products/${id}`);
+                setProduct(response.data.data);
+                if (response.data.data.images.length > 0) {
+                    setCurrentImage(`http://localhost:8001/storage/${response.data.data.images[0]}`);
+                }
+            } catch (err) {
+                console.log('ERROR :: ' + err);
+            }
+        }
+        getProduct();
+    }, [id]);
+
+    if (!product) return <div>Loading...</div>;
 
     const productSliderOptions = {
         dots: false,
@@ -36,12 +43,10 @@ function ProductDetails() {
         slidesToScroll: 1,
         arrows: false,
     };
-    const smallImages = [
-        "https://assets.adidas.com/images/w_600,f_auto,q_auto/bd43ce71f589498ab6b1aad6009a0e6e_9366/Superstar_Shoes_White_EG4958_07_standard.jpg",
-        "https://assets.adidas.com/images/w_1880,f_auto,q_auto/ff2e419f1eda4ebab23faad6009a3a9e_9366/EG4958_04_standard.jpg",
-        "https://assets.adidas.com/images/w_1880,f_auto,q_auto/bd8f7ae244774097a60bab0300bea8de_9366/EF5394_01_standard.jpg",
-        "https://assets.adidas.com/images/w_600,f_auto,q_auto/bd43ce71f589498ab6b1aad6009a0e6e_9366/Superstar_Shoes_White_EG4958_07_standard.jpg"
-    ];
+    product.images.map(image=>{
+        console.log(image);
+    })
+
     return (
         <div className="right-content w-100">
             <div className="card shadow border-0 w-100 flex-row p-4">
@@ -59,9 +64,9 @@ function ProductDetails() {
                                 <img src={currentImage} alt="Product Image" className="w-100" />
                             </div>
                             <Slider {...productSliderSmallOptions} className='sliderSmall'>
-                                {smallImages.map((url, index) => (
-                                    <div className="item" key={index} onClick={() => setCurrentImage(url)}>
-                                        <img src={url} alt={`Product Image ${index + 1}`} className="w-100 cursor-pointer" />
+                                {product.images.map((image, index) => (
+                                    <div className="item" key={index} onClick={() => setCurrentImage(`http://localhost:8001/storage/${image}`)}>
+                                        <img src={`http://localhost:8001/storage/${image}`} alt={`Product Image ${index + 1}`} className="slider-image w-100 cursor-pointer" />
                                     </div>
                                 ))}
                             </Slider>
@@ -70,7 +75,7 @@ function ProductDetails() {
                     <div className="col-md-7">
                         <div className="pt-3 pb-3 pl-4 pr-4">
                             <h5 className="mb-4">Product Details</h5>
-                            <h4 style={{ lineHeight: '32px' }} >
+                            <h4 style={{ lineHeight: '32px' }}>
                                 {product.name}
                             </h4>
                             <div className="productInfo mt-3">
@@ -84,7 +89,7 @@ function ProductDetails() {
                                         </span>
                                     </div>
                                     <div className="col-sm-7">
-                                        {/* :  <span> {product.brand} </span> */}
+                                        : <span>{product.brand}</span>
                                     </div>
                                 </div>
                                 <div className="row mb-2">
@@ -97,7 +102,7 @@ function ProductDetails() {
                                         </span>
                                     </div>
                                     <div className="col-sm-7 ">
-                                        :  <span>Men </span>
+                                        : <span>{product.category_id}</span>
                                     </div>
                                 </div>
                                 <div className="row mb-2">
@@ -106,54 +111,19 @@ function ProductDetails() {
                                             <StoreIcon />
                                         </span>
                                         <span className="name">
-                                            Tags
+                                            Colors
                                         </span>
                                     </div>
                                     <div className="col-sm-7 ">
-                                        :  <span>Adidas </span>
-                                    </div>
-
-                                </div>
-                                <div className="row mb-2">
-                                    <div className="col-sm-5 d-flex align-items-center">
-                                        <span className="icon">
-                                            <StoreIcon />
-                                        </span>
-                                        <span className="name">
-                                            Color
-                                        </span>
-                                    </div>
-                                    <div className="col-sm-7 ">
-                                        :  <span>
+                                        : <span>
                                             <ul className="list list-inline colors sml">
-                                                <li className="list-inline-item">
-                                                    <span>
-                                                        Black
-                                                    </span>
-                                                </li>
-                                                <li className="list-inline-item">
-                                                    <span>
-                                                        white
-                                                    </span>
-                                                </li>
-                                                <li className="list-inline-item">
-                                                    <span>
-                                                        Gray
-                                                    </span>
-                                                </li><li className="list-inline-item">
-                                                    <span>
-                                                        Gray
-                                                    </span>
-                                                </li><li className="list-inline-item">
-                                                    <span>
-                                                        Gray
-                                                    </span>
-                                                </li><li className="list-inline-item">
-                                                    <span>
-                                                        Gray
-                                                    </span>
-                                                </li>
-                                            </ul> </span>
+                                                {product.colors.map((color, index) => (
+                                                    <li className="list-inline-item" key={index}>
+                                                        <span>{color}</span>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </span>
                                     </div>
                                 </div>
                                 <div className="row mb-2">
@@ -166,7 +136,13 @@ function ProductDetails() {
                                         </span>
                                     </div>
                                     <div className="col-sm-7 ">
-                                        :  <span>Adidas </span>
+                                        : <span> <ul className="list list-inline colors sml">
+                                            {product.sizes.map((color, index) => (
+                                                <li className="list-inline-item" key={index}>
+                                                    <span>{color}</span>
+                                                </li>
+                                            ))}
+                                        </ul></span>
                                     </div>
                                 </div>
                                 <div className="row mb-2">
@@ -179,7 +155,7 @@ function ProductDetails() {
                                         </span>
                                     </div>
                                     <div className="col-sm-7 ">
-                                        :  <span>Adidas </span>
+                                        : <span>${product.original_price}</span>
                                     </div>
                                 </div>
                                 <div className="row mb-2">
@@ -192,7 +168,7 @@ function ProductDetails() {
                                         </span>
                                     </div>
                                     <div className="col-sm-7 ">
-                                        :  <span>Adidas </span>
+                                        : <span>{product.stock}</span>
                                     </div>
                                 </div>
                                 <div className="row mb-2">
@@ -201,40 +177,25 @@ function ProductDetails() {
                                             <StoreIcon />
                                         </span>
                                         <span className="name">
-                                            Review
+                                            Rating
                                         </span>
                                     </div>
                                     <div className="col-sm-7 ">
-                                        :  <span>Adidas </span>
-                                    </div>
-                                </div>
-                                <div className="row mb-2">
-                                    <div className="col-sm-5 d-flex align-items-center">
-                                        <span className="icon">
-                                            <StoreIcon />
-                                        </span>
-                                        <span className="name">
-                                            Published
-                                        </span>
-                                    </div>
-                                    <div className="col-sm-7 ">
-                                        :  <span>Adidas </span>
+                                        : <span>{product.rating} ({product.rating_count} reviews)</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
 
                 <div className="p-4">
                     <h4 className="mt-4 mb-3">Product Description</h4>
                     <p className="product-description">
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Magni fuga illum beatae nostrum facilis id assumenda rerum commodi tempora numquam. Expedita corporis quidem asperiores culpa nulla architecto illum repellendus aut.
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Animi, cumque porro eaque repudiandae, corporis assumenda quam dolores architecto culpa laborum doloribus, eligendi tempore sunt rerum nam. Voluptas harum vero vel.
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Reprehenderit vitae praesentium quibusdam debitis, nemo earum incidunt maiores quaerat eveniet. Quidem aperiam natus eum laboriosam debitis non! Ut blanditiis minus tempore.
+                        {product.description}
                     </p>
-                    <div className="mt-4">
+                </div>
+                <div className="mt-4">
                         <h6 className="mt-4 mb-4">Rating Analytics</h6>
                         <div className="rating-section">
                             {[
@@ -252,27 +213,9 @@ function ProductDetails() {
                                     <span className="col-2 text-center">({rating.count})</span>
                                 </div>
                             ))}
-                        </div>
-                        <div className="total-review text-center mt-4">
-                            <h5>Total Review (38)</h5>
-                            <h2 className="display-4">4.9</h2>
-                            <h6>Your Average Star</h6>
-                        </div>
-                        <h6 className="mt-4 mb-4">
-                            <div className="reviewsSection">
-                                <div className="reviewsRow">
-                                    <div className="row">
-                                        <div className="col-sm-7">
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </h6>
-                    </div>
-                </div>
+                        </div></div>
             </div>
-        </div >
+        </div>
     );
 }
 
