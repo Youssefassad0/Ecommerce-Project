@@ -1,18 +1,15 @@
 // src/components/ProductForm.js
-
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useNavigate, useParams } from 'react-router-dom'; // To get the product ID from the URL
+import Swal from 'sweetalert2';
 
 const ProductForm = () => {
+    const { id } = useParams(); // Get product ID from URL params
     const [category, setCategory] = useState([]);
-    useEffect(() => {
-        async function getCategory() {
-            await axios.get('http://127.0.0.1:8001/api/category').then(res => {
-                setCategory(res.data.data)
-            }).catch((err) => console.log('Error fetching categry : ' + err))
-        }
-        getCategory();
-    }, [])
+    const [isUpdate, setIsUpdate] = useState(false);
+    const nav = useNavigate();
+
     const [formData, setFormData] = useState({
         name: '',
         description: '',
@@ -23,12 +20,42 @@ const ProductForm = () => {
         images: [],
         category_id: '',
         brand: '',
-
         rating: 0,
         rating_count: 0,
         sizes: '',
         colors: '',
     });
+
+    useEffect(() => {
+        async function getCategory() {
+            try {
+                const res = await axios.get('http://127.0.0.1:8001/api/category');
+                setCategory(res.data.data);
+            } catch (err) {
+                console.log('Error fetching category: ' + err);
+            }
+        }
+
+        async function getProduct() {
+            if (id) {
+                setIsUpdate(true);
+                try {
+                    const res = await axios.get(`http://127.0.0.1:8001/api/products/${id}`);
+                    const product = res.data;
+                    setFormData({
+                        ...product,
+                        sizes: product.sizes.join(','),
+                        colors: product.colors.join(','),
+                    });
+                } catch (err) {
+                    console.log('Error fetching product: ' + err);
+                }
+            }
+        }
+
+        getCategory();
+        getProduct();
+    }, [id]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -44,7 +71,6 @@ const ProductForm = () => {
             images: [...e.target.files],
         });
     };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -60,17 +86,33 @@ const ProductForm = () => {
         });
 
         try {
-            const response = await axios.post('http://127.0.0.1:8001/api/products', data, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-            });
-            console.log('Product created successfully:', response.data);
+            let response;
+            if (isUpdate) {
+                response = await axios.post(`http://127.0.0.1:8001/api/products/${id}`, data, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                });
+            } else {
+                response = await axios.post('http://127.0.0.1:8001/api/products', data, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                });
+                if (response.status === 201) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'Product added successfully!',
+                    })
+                    nav('/dashboard/products')
+                }
+            }
+            console.log('Product created/updated successfully:', response.data);
         } catch (error) {
-            console.error('Error creating product:', error);
+            console.error('Error creating/updating product:', error.response ? error.response.data : error.message);
         }
     };
-
 
     return (
         <form onSubmit={handleSubmit}>
@@ -80,21 +122,20 @@ const ProductForm = () => {
             <input type="number" step="0.01" name="original_price" value={formData.original_price} onChange={handleChange} placeholder="Original Price" required />
             <input type="number" step="0.01" name="new_price" value={formData.new_price} onChange={handleChange} placeholder="New Price" />
             <input type="number" name="stock" value={formData.stock} onChange={handleChange} placeholder="Stock" required />
-            <input type="file" name="images" onChange={handleFileChange} multiple required />
-            <select name="category_id" value={formData.category_id} onChange={handleChange} >
-                <option value="">Marque  de produit </option>
-                {
-                    category.map((c, i) => (
-                        <option value={c.id} key={i} >{c.nom}</option>
-                    ))
-                }
+            <input type="file" name="images" onChange={handleFileChange} multiple />
+            <select name="category_id" value={formData.category_id} onChange={handleChange}>
+                <option value="">Marque de produit</option>
+                {category.map((c, i) => (
+                    <option value={c.id} key={i}>{c.nom}</option>
+                ))}
             </select>
             <input type="text" name="brand" value={formData.brand} onChange={handleChange} placeholder="Brand" required />
             <input type="number" step="0.1" name="rating" value={formData.rating} onChange={handleChange} placeholder="Rating" readOnly />
             <input type="number" name="rating_count" value={formData.rating_count} onChange={handleChange} placeholder="Rating Count" readOnly />
             <input type="text" name="sizes" value={formData.sizes} onChange={handleChange} placeholder="Sizes (comma-separated)" />
             <input type="text" name="colors" value={formData.colors} onChange={handleChange} placeholder="Colors (comma-separated)" />
-            <button type="submit">Create Product</button> </form>
+            <button type="submit">{isUpdate ? 'Update Product' : 'Create Product'}</button>
+        </form>
     );
 };
 

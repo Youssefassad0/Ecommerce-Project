@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import Slider from 'react-slick';
 import StoreIcon from '@mui/icons-material/Store';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
-
+import { Link, useParams } from 'react-router-dom';
+import HouseSidingIcon from '@mui/icons-material/HouseSiding';
 function ProductDetails() {
     const { id } = useParams();
     const [product, setProduct] = useState(null);
@@ -43,18 +43,23 @@ function ProductDetails() {
         slidesToScroll: 1,
         arrows: false,
     };
-    product.images.map(image=>{
-        console.log(image);
-    })
 
     return (
         <div className="right-content w-100">
             <div className="card shadow border-0 w-100 flex-row p-4">
                 <h5 className="mb-0">Product View</h5>
-                <div className="ml-auto">
-                    Dashboard Home
+                <div className="ml-auto breadcrumb">
+                    <span className="mr-2">
+                        <i> <HouseSidingIcon /> </i>
+                        <Link to="/dashboard" className="text-decoration-none">Dashboard</Link>
+                    </span>
+                    <span>/</span>
+                    <span className="ml-2">
+                        <Link to="/dashboard/products" className="text-decoration-none">Home</Link>
+                    </span>
                 </div>
             </div>
+
             <div className="cardP productDetailsSection">
                 <div className="row">
                     <div className="col-md-5">
@@ -196,24 +201,36 @@ function ProductDetails() {
                     </p>
                 </div>
                 <div className="mt-4">
-                        <h6 className="mt-4 mb-4">Rating Analytics</h6>
-                        <div className="rating-section">
-                            {[
-                                { star: '5 Star', width: '80%', count: 22 },
-                                { star: '4 Star', width: '60%', count: 14 },
-                                { star: '2 Star', width: '20%', count: 5 }
-                            ].map((rating, index) => (
-                                <div className="rating-row d-flex align-items-center mb-2" key={index}>
-                                    <span className="col-2">{rating.star}</span>
-                                    <div className="col-8">
-                                        <div className="progress">
-                                            <div className="progress-bar" role="progressbar" style={{ width: rating.width }}></div>
-                                        </div>
+                    <h6 className="mt-4 mb-4">Rating Analytics</h6>
+                    <div className="rating-section">
+                        {[
+                            { star: '5 Star', width: '80%', count: 22 },
+                            { star: '4 Star', width: '60%', count: 14 },
+                            { star: '2 Star', width: '20%', count: 5 }
+                        ].map((rating, index) => (
+                            <div className="rating-row d-flex align-items-center mb-2" key={index}>
+                                <span className="col-2">{rating.star}</span>
+                                <div className="col-8">
+                                    <div className="progress">
+                                        <div className="progress-bar" role="progressbar" style={{ width: rating.width }}></div>
                                     </div>
-                                    <span className="col-2 text-center">({rating.count})</span>
                                 </div>
-                            ))}
-                        </div></div>
+                                <span className="col-2 text-center">({rating.count})</span>
+                            </div>
+                        ))}
+                    </div>
+                    <br />
+                    <h6 className="mt-4 mb0-">Customer_reviews</h6>
+                    <div className="reviewsSection">
+                        <div className="reviewsRow">
+                            <div className="row">
+                                <div className="col-sm-8">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     );

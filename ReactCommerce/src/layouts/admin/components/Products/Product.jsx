@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Loader from '../../../frontend/Loader';
 import { Link } from 'react-router-dom';
-import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import { FaEye } from "react-icons/fa";
@@ -10,6 +9,7 @@ import { MdDelete } from "react-icons/md";
 import Pagination from '@mui/material/Pagination';
 import axios from 'axios';
 import './Product.css';
+import Swal from 'sweetalert2';
 
 function Product() {
   const [loading, setLoading] = useState(true);
@@ -44,11 +44,41 @@ function Product() {
     setCurrentPage(value);
   };
 
-  const indexOfLastProduct = currentPage * productsPerPage;
-  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+  const deleteProduct = async (id) => {
+    const confirmation = await Swal.fire({
+      title: 'Are you sure?',
+      text: 'You will not be able to recover this product!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    });
 
+    if (confirmation.isConfirmed) {
+      try {
+        await axios.delete(`http://127.0.0.1:8001/api/products/${id}`);
+        Swal.fire('Deleted!', 'Your product has been deleted.', 'success');
+      } catch (error) {
+        console.error('Error deleting product:', error);
+        Swal.fire('Error!', 'Failed to delete product.', 'error');
+      }
+    }
+  }
 
+  const handleCategoryChange = (e) => {
+    setCategory(e.target.value);
+  };
+
+  const handleBrandChange = (e) => {
+    setBrand(e.target.value);
+  };
+
+  const filteredProducts = products.filter(product => {
+    if (category && product.category_id !== parseInt(category)) return false;
+    if (brand && product.brand !== brand) return false;
+    return true;
+  });
 
   return (
     <>
@@ -58,55 +88,51 @@ function Product() {
           Add New
         </Link>
       </div>
-      {loading ? (
-        <Loader />
-      ) : products.length === 0 ? (
-        <div style={{ textAlign: 'center', marginTop: '20px' }}>
-          <p>No Products found.</p>
-        </div>
-      ) : (
-        <div className="cardP shadow border-0 p-3 mt-4">
-          <h3 className="hd">Best Selling Products</h3>
-          <div className="row cardFilters mt-3">
-            <div className="col-md-3">
-              <h4>Category BY : </h4>
-              <Select
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-                displayEmpty
-                inputProps={{ 'aria-label': 'Without label' }}
-                className='w-100'
-              >
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
-                {categories.map(cat => (
-                  <MenuItem key={cat.id} value={cat.id}>{cat.nom}</MenuItem>
-                ))}
-              </Select>
-            </div>
-            <div className="col-md-3">
-              <h4>Brand  BY : </h4>
-              <Select
-                value={brand}
-                onChange={(e) => setBrand(e.target.value)}
-                displayEmpty
-                inputProps={{ 'aria-label': 'Without label' }}
-                className='w-100'
-              >
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
-                {
-                  products.map(pro => (
-                    <MenuItem key={pro.id} value={pro.brand} >{pro.brand}</MenuItem>
-
-                  ))
-                }
-
-              </Select>
-            </div>
+      <div className="cardP shadow border-0 p-3 mt-4">
+        <h3 className="hd">Best Selling Products</h3>
+        <div className="row cardFilters mt-3">
+          <div className="col-md-3">
+            <h4>Category BY : </h4>
+            <Select
+              value={category}
+              onChange={handleCategoryChange}
+              displayEmpty
+              inputProps={{ 'aria-label': 'Without label' }}
+              className='w-100'
+            >
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
+              {categories.map(cat => (
+                <MenuItem key={cat.id} value={cat.id}>{cat.nom}</MenuItem>
+              ))}
+            </Select>
           </div>
+          <div className="col-md-3">
+            <h4>Brand  BY : </h4>
+            <Select
+              value={brand}
+              onChange={handleBrandChange}
+              displayEmpty
+              inputProps={{ 'aria-label': 'Without label' }}
+              className='w-100'
+            >
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
+              {filteredProducts.map(pro => (
+                <MenuItem key={pro.id} value={pro.brand}>{pro.brand}</MenuItem>
+              ))}
+            </Select>
+          </div>
+        </div>
+        {loading ? (
+          <Loader />
+        ) : filteredProducts.length === 0 ? (
+          <div style={{ textAlign: 'center', marginTop: '20px' }}>
+            <p>No Products found.</p>
+          </div>
+        ) : (
           <div className="table-responsive mt-3">
             <table className="table table-bordered v-align">
               <thead className="thead-dark">
@@ -114,7 +140,7 @@ function Product() {
                   <th>Uid</th>
                   <th style={{ width: '300px' }}>PRODUCT</th>
                   <th>GENDER</th>
-                  <th>CATEGORY</th>
+          
                   <th>PRICE</th>
                   <th>STOCK</th>
                   <th>RATING</th>
@@ -122,8 +148,8 @@ function Product() {
                 </tr>
               </thead>
               <tbody className="tbody">
-                {currentProducts.map((product) => (
-                  <tr key={product.id}>
+                {filteredProducts.map((product, i) => (
+                  <tr key={i}>
                     <td>#{product.id}</td>
                     <td>
                       <div className="d-flex align-items-center productBox">
@@ -139,7 +165,7 @@ function Product() {
                       </div>
                     </td>
                     <td>{product.gender}</td>
-                    <td>{product.nom} </td>
+             
                     <td>
                       <div style={{ width: '70px' }}>
                         {product.new_price ? (
@@ -161,7 +187,7 @@ function Product() {
                         </Link>
                         <Link to={`/dashboard/edit-product/${product.id}`} > <button className="btnP btn-success"><FaPencil className='svg2' /></button>
                         </Link>
-                        <button className="btnP btn-danger"><MdDelete className='svg3' /></button>
+                        <button className="btnP btn-danger" onClick={() => { deleteProduct(product.id) }} ><MdDelete className='svg3' /></button>
                       </div>
                     </td>
                   </tr>
@@ -169,9 +195,9 @@ function Product() {
               </tbody>
             </table>
             <div className="d-flex tableFooter ">
-              <p>Showing <b>{productsPerPage}</b> of <b>{products.length}</b> results</p>
+              <p>Showing <b>{productsPerPage}</b> of <b>{filteredProducts.length}</b> results</p>
               <Pagination
-                count={Math.ceil(products.length / productsPerPage)}
+                count={Math.ceil(filteredProducts.length / productsPerPage)}
                 page={currentPage}
                 onChange={handlePageChange}
                 variant="outlined"
@@ -182,8 +208,8 @@ function Product() {
               />
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </>
   );
 }
