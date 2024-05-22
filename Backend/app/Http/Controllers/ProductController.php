@@ -112,24 +112,31 @@ class ProductController extends Controller
             'colors' => 'nullable|json',
         ]);
 
-        // Decode JSON fields
-        $validated['sizes'] = json_decode($validated['sizes'], true);
-        $validated['colors'] = json_decode($validated['colors'], true);
+        // Decode JSON fields if they are present
+        if (!empty($validated['sizes'])) {
+            $validated['sizes'] = json_decode($validated['sizes'], true);
+        }
+        if (!empty($validated['colors'])) {
+            $validated['colors'] = json_decode($validated['colors'], true);
+        }
 
+        // Find the product by ID or fail if not found
         $product = Product::findOrFail($id);
         $product->update($validated);
 
+        // Check if images are provided
         if ($request->hasFile('images')) {
-            // Delete old images if needed
+            // Delete old images
             foreach ($product->images as $image) {
                 Storage::disk('public')->delete($image->path);
                 $image->delete();
             }
 
-            // Store the first image path for the 'image' field if images are provided
+            // Store the first image path for the 'image' field
             $imagePath = $request->file('images')[0]->store('uploads/products', 'public');
             $product->update(['image' => $imagePath]);
 
+            // Store all images
             foreach ($request->file('images') as $image) {
                 $imagePath = $image->store('uploads/products', 'public');
                 ProductImage::create([
@@ -139,6 +146,7 @@ class ProductController extends Controller
             }
         }
 
+        // Return the updated product with its images
         return response()->json($product->load('images'), 200);
     }
 

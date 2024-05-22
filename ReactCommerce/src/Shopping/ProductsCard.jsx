@@ -17,7 +17,7 @@ const ProductsCard = ({ GridList, products }) => {
             <div className="product-thumb">
               <div className="pro-thumb">
                 <img
-                  src={product.img}
+                  src={`http://localhost:8001/storage/${product.first_image}`}
                   alt={product.name}
                   style={{ height: "230px" }}
                 />
@@ -43,7 +43,7 @@ const ProductsCard = ({ GridList, products }) => {
               <p className="productRatting">
                 <Ratting />
               </p>
-              <h6>$ {product.price}</h6>
+              <h6>$ {product.original_price}</h6>
             </div>
           </div>
           {/* List style */}
@@ -52,7 +52,7 @@ const ProductsCard = ({ GridList, products }) => {
             {/* Product-image */}
             <div className="product-thumb">
               <div className="pro-thumb">
-                <img src={product.img} alt={product.name} />
+                <img src={`http://localhost:8001/storage/${product.first_image}`} alt={product.name} />
               </div>
               {/* Products-actionsLink */}
               <div className="product-action-link">
@@ -75,7 +75,7 @@ const ProductsCard = ({ GridList, products }) => {
               <p className="productRatting">
                 <Ratting />
               </p>
-              <h6>$ {product.price}</h6>
+              <h6>$ {product.original_price}</h6>
             </div>
           </div>
         </div>

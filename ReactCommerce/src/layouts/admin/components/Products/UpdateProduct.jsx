@@ -49,7 +49,6 @@ const ProductUpdateForm = () => {
                 console.error('Error fetching data:', error);
             }
         }
-
         fetchData();
     }, [id]);
 
@@ -72,6 +71,7 @@ const ProductUpdateForm = () => {
         e.preventDefault();
 
         const data = new FormData();
+        data.append('_method', 'PUT');
         Object.keys(formData).forEach((key) => {
             if (key === 'sizes' || key === 'colors') {
                 const value = formData[key].trim();
@@ -84,10 +84,8 @@ const ProductUpdateForm = () => {
         });
 
         try {
-            const response = await axios.put(`http://127.0.0.1:8001/api/products/${id}`, data, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
+            const response = await axios.post(`http://127.0.0.1:8001/api/products/${id}`, data, {
+                headers: { 'Content-Type': "multipart/form-data" },
             });
             console.log('Product updated successfully:', response.data);
         } catch (error) {

@@ -7,8 +7,8 @@ const ProductDisplay = ({ item }) => {
   const { t } = useTranslation(); // Use useTranslation hook
   const descProduitSingle = t("descProduitSingle");
   const [prequantity, setPrequantity] = useState(item.quantity);
-  const color = item.color;
-  const size = item.size;
+  const color = item.colors;
+  const size = item.sizes;
   const [selectSize, setSelectSize] = useState("");
   const [selectColor, setSelectColor] = useState("");
 
@@ -16,13 +16,14 @@ const ProductDisplay = ({ item }) => {
     e.preventDefault();
     const product = {
       id: item.id,
-      img: item.img,
+      img: item.first_image,
       name: item.name,
-      price: item.price,
+      price: item.original_price,
       quantity: prequantity,
       size: selectSize,
       color: selectColor,
     };
+    console.log(product);
 
     const existingCart = JSON.parse(localStorage.getItem("cart")) || [];
     const existingProductIndex = existingCart.findIndex(
@@ -54,13 +55,13 @@ const ProductDisplay = ({ item }) => {
           <i className="icofont-star"></i>
           <span>
             {" "}
-            {item.ratingsCount}
+            {item.rating_count}
             review
           </span>
         </p>
-        <h4>$ {item.price}</h4>
-        <h6>{item.seller}</h6>
-        <p> {descProduitSingle} </p>
+        <h4>$ {item.original_price}</h4>
+        <h6>{item.brand}</h6>
+        <p> {item.description} </p>
       </div>
       {/* Cart component */}
       <div>

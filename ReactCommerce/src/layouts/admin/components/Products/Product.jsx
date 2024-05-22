@@ -79,6 +79,11 @@ function Product() {
     if (brand && product.brand !== brand) return false;
     return true;
   });
+  const getCategoryName = (id) => {
+    const category = categories.find(cat => cat.id === id);
+    return category ? category.nom : 'Unknown';
+  };
+
 
   return (
     <>
@@ -140,7 +145,7 @@ function Product() {
                   <th>Uid</th>
                   <th style={{ width: '300px' }}>PRODUCT</th>
                   <th>GENDER</th>
-          
+                  <th>CATEGORY</th>
                   <th>PRICE</th>
                   <th>STOCK</th>
                   <th>RATING</th>
@@ -165,7 +170,8 @@ function Product() {
                       </div>
                     </td>
                     <td>{product.gender}</td>
-             
+                    <td>{getCategoryName(product.category_id)}</td>
+
                     <td>
                       <div style={{ width: '70px' }}>
                         {product.new_price ? (

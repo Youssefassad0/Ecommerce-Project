@@ -172,7 +172,7 @@ const Contact = () => {
                   />
                   {errors.subject && <span className='text-danger'>{errors.subject[0]}</span>}
 
-                </div>
+            °    </div>
                 <div className="form-group w-100">
                   <textarea
                     name="message"

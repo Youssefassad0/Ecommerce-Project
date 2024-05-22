@@ -36,7 +36,7 @@ export default function App() {
                 <Route path="/shop" element={<Shop />} />
                 <Route path="/shop/:gender" element={<Shop />} />
                 <Route path="/product/:id" element={<SingleProduct />} />
-                <Route path="/about" element={<About />} />
+                <Route path="/about" element={<About />} />               
                 <Route  path= "/cart-page" element={<CartPage/>} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/login" element={localStorage.getItem('auth-token') ? <AlreadyLogin /> : <AuthPage etat={true} />} />

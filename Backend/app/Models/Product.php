@@ -15,6 +15,7 @@ class Product extends Model
         'stock', 'category_id', 'brand', 'model', 'rating',
         'rating_count', 'sizes', 'colors'
     ];
+    protected $with  = ['category'];
 
     protected $casts = [
         'sizes' => 'array',
@@ -23,17 +24,13 @@ class Product extends Model
 
     public function category()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class, 'category_id', 'id');
     }
-
     public function images()
     {
         return $this->hasMany(ProductImage::class);
     }
-    public function getCategory($id)
-    {
-        return Category::find($id)->nom;
-    }
+
     public function comments()
     {
         return $this->hasMany(Comment::class);
