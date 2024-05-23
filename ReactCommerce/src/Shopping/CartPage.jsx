@@ -87,7 +87,7 @@ const CartPage = () => {
 
   return (
     <div>
-      <NavItems/>
+      <NavItems />
       <PageHeader title={t("Shop Cart")} curPage={t("cart Page")} />
       <div className="shop-cart padding-tb">
         <div className="container">
@@ -120,15 +120,15 @@ const CartPage = () => {
                         <div className="p-thumb">
                           <Link to={`/product/${item.id}`}>
                             <img
-                              src={item.img}
+                              src={`http://127.0.0.1:8001/storage/${item.img}`}
                               alt=""
                               style={{ width: "60px", height: "60px" }}
                             />
                           </Link>
                         </div>
                         <div className="p-content">
-                        <Link to={`/product/${item.id}`}>
-                          {item.name} </Link>
+                          <Link to={`/product/${item.id}`}>
+                            {item.name} </Link>
                         </div>
                       </td>
                       <td className="cat-price">${item.price}</td>
@@ -277,7 +277,7 @@ const CartPage = () => {
           </div>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 };

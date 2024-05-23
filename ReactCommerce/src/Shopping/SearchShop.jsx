@@ -8,6 +8,7 @@ import "./search.css";
 const SearchShop = ({ GridList }) => {
   const { t } = useTranslation(); // Initialize useTranslation
   const [searchTerm, setSearchTerm] = useState("");
+  
   const FilterProducts = Data.filter((d) =>
     d.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
