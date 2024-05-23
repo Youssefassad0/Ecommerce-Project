@@ -31,9 +31,10 @@ const NavItems = () => {
         localStorage.removeItem("auth-user");
         sessionStorage.removeItem("auth-token");
         sessionStorage.removeItem("auth-user");
-        Swal.fire('LogOut ', `Goodbye`, 'warning'); 
+        Swal.fire('LogOut ', `Goodbye`, 'warning');
         console.log('deleted successfully');
         navigate("/");
+        window.location.reload();
       }
     }).catch(error => {
       console.error("Logout failed:", error);
@@ -146,7 +147,7 @@ const NavItems = () => {
 
             <div className="menu-area">
               <div className="menu">
-                <ul className={`lab-ul ${menuToggle ? "active" : ""}`}  style={{ color:'red' }}>
+                <ul className={`lab-ul ${menuToggle ? "active" : ""}`} style={{ color: 'red' }}>
                   <Select
                     options={languageOptions}
                     onChange={handleLanguageChange}

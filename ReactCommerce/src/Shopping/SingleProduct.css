@@ -1,0 +1,31 @@
+/* Add custom styles for the Swiper navigation buttons */
+
+.pro-single-next,
+.pro-single-prev {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  cursor: pointer;
+  color: #fff; /* Adjust the color as needed */
+  font-size: 24px; /* Adjust the size as needed */
+  /* padding: 10px; */
+  /* background-color: rgba(0, 0, 0, 0.5); Add a background color for better visibility */
+  /* border-radius: 50%; Make it circular */
+}
+
+/* .pro-single-next {
+  right: 10px;
+}
+
+.pro-single-prev {
+  left: 10px;
+} */
+
+/* Add custom styles for the product images */
+
+.product-image {
+  width: 100%;
+  height: 400px; /* Set a fixed height for all images */
+  object-fit: cover; /* Ensure the images cover the area without distortion */
+}

@@ -3,28 +3,26 @@ import { useParams } from "react-router-dom";
 import PageHeader from "../components/PageHeader";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import { Autoplay } from "swiper/modules";
+import { Autoplay, Navigation } from "swiper/modules";
 import ProductDisplay from "./ProductDisplay";
 import Review from "./Review";
 import { useTranslation } from "react-i18next";
 import NavItems from "../components/NavItems";
 import Footer from "../components/Footer";
+import "./SingleProduct.css"; // Import the CSS file for styling
 
 const SingleProduct = () => {
   const { t } = useTranslation();
-  const [product, setProduct] = useState([]);
+  const [product, setProduct] = useState(null);
   const { id } = useParams();
 
   useEffect(() => {
-    fetch("http://localhost:8001/api/products")
+    fetch(`http://localhost:8001/api/products/${id}`) // Fetch the specific product
       .then((res) => res.json())
       .then((data) => {
         setProduct(data.data); // Ensure data is correctly set
       });
-  }, []);
-
-  const productId = parseInt(id, 10); // Convert id to a number
-  const result = Array.isArray(product) ? product.filter((p) => p.id === productId) : [];
+  }, [id]);
 
   return (
     <div>
@@ -48,26 +46,30 @@ const SingleProduct = () => {
                               delay: 2000,
                               disableOnInteraction: false,
                             }}
-                            modules={[Autoplay]}
+                            modules={[Autoplay, Navigation]}
                             navigation={{
                               prevEl: ".pro-single-prev",
                               nextEl: ".pro-single-next",
                             }}
                             className="mySwiper"
                           >
-                            {result.map((item, index) => (
+                            {product?.images.map((image, index) => (
                               <SwiperSlide key={index}>
                                 <div className="single-thumb">
-                                  <img src={`http://localhost:8001/storage/${item.first_image}`} alt="" />
+                                  <img
+                                    src={`http://localhost:8001/storage/${image}`}
+                                    alt={`Product image ${index + 1}`}
+                                    className="product-image" // Add class for styling
+                                  />
                                 </div>
                               </SwiperSlide>
                             ))}
                           </Swiper>
-                          <div className="pro-single-next">
-                            <i className="icofont-rounded-left"></i>
-                          </div>
-                          <div className="pro-single-prev">
+                          <div className="pro-single-next swiper-button-next">
                             <i className="icofont-rounded-right"></i>
+                          </div>
+                          <div className="pro-single-prev swiper-button-prev">
+                            <i className="icofont-rounded-left"></i>
                           </div>
                         </div>
                       </div>
@@ -75,20 +77,13 @@ const SingleProduct = () => {
 
                     <div className="col-md-6 col-12">
                       <div className="post-content">
-                        <div>
-                          {result.map((item, i) => (
-                            <ProductDisplay key={item.id} item={item} />
-                            // console.log(item)
-                            ))}
-                        </div>
+                        {product && <ProductDisplay item={product} />}
                       </div>
                     </div>
                   </div>
                 </div>
                 <div className="review">
-                  {/* {result.map((item) => (
-                    <Review key={item.id} img={item.img} />
-                  ))} */}
+                  {product && <Review img={product.img} />}
                 </div>
               </article>
             </div>

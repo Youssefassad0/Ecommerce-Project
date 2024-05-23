@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next"; // Import useTranslation
 const ProductDisplay = ({ item }) => {
   const { t } = useTranslation(); // Use useTranslation hook
   const descProduitSingle = t("descProduitSingle");
-  const [prequantity, setPrequantity] = useState(item.quantity);
+  const [prequantity, setPrequantity] = useState(0);
   const color = item.colors;
   const size = item.sizes;
   const [selectSize, setSelectSize] = useState("");
