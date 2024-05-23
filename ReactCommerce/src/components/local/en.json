@@ -64,9 +64,9 @@
   "selectSize": "Select Size",
   "selectColor": "Select Color",
   "addToCart": "Add To Cart",
-  "checkOut": "Check Out"
-,
-"Shop Cart": "Shop Cart",
+  "checkOut": "Check Out",
+  "noProductFound": "No Product Found ",
+  "Shop Cart": "Shop Cart",
   "cart Page": "Cart Page",
   "Product": "Product",
   "Price": "Price",
@@ -83,6 +83,7 @@
   "Cart Subtotal": "Cart Subtotal",
   "Shiping And Handling": "Shipping and Handling",
   "Order Total": "Order Total",
+  "Panier": "MY_Basket",
 
   "subTitle": "Get in touch with us",
   "title": "We're Always Eager To Hear From You!",

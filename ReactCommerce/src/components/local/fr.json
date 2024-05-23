@@ -12,7 +12,7 @@
   "womenBtn": "Femmes",
   "menBtn": "Hommes",
   "childrenBtn": "Enfants",
-  
+
   "chooseAnyProducts": "Choisissez n'importe quel produit",
   "buyEverythingWithUs": "Achetez tout avec nous",
   "getStartedNow": "Commencez maintenant",
@@ -22,7 +22,6 @@
   "bags": "Sacs",
   "phones": "Téléphones",
   "beauty": "Beauté",
-
 
   "saveTheDay": "Sauvez la journée !",
   "joinWorkshop": "Rejoignez l'atelier d'une journée pour",
@@ -45,12 +44,12 @@
 
   "appSectionDesc": "Faites de bons achats en un clic, n'oubliez pas d'utiliser notre application, ... Soyez fiers",
   "signUpForFree": "Inscrivez-vous gratuitement",
-  "shopAnyTimeAnywhere": "Faites vos achats à tout moment, n'importe où"
+  "shopAnyTimeAnywhere": "Faites vos achats à tout moment, n'importe où",
 
-  ,"showResult": "Affichage 01 - 12 de 139 résultats",
-  "pageHeaderTitle": "Notre page de boutique"
+  "showResult": "Affichage 01 - 12 de 139 résultats",
+  "pageHeaderTitle": "Notre page de boutique",
 
-  , "searchPlaceholder": "Chercher...",
+  "searchPlaceholder": "Chercher...",
 
   "allCategories": "Toutes les catégories",
   "allColors": "Toutes les couleurs",
@@ -63,9 +62,8 @@
   "selectColor": "Sélectionner la couleur",
   "addToCart": "Ajouter au panier",
   "checkOut": "Check Out",
-  "descProduitSingle": "Explorez les détails exquis de ce produit fantastique. Fabriqué avec précision et soin, il offre un mélange unique de style et de fonctionnalité. Que vous recherchiez un confort quotidien ou une touche d'élégance, ce produit a tout pour plaire. Rehaussez votre expérience avec une qualité qui parle d'elle-même."
-,
-"Shop Cart": "Panier d'achat",
+  "descProduitSingle": "Explorez les détails exquis de ce produit fantastique. Fabriqué avec précision et soin, il offre un mélange unique de style et de fonctionnalité. Que vous recherchiez un confort quotidien ou une touche d'élégance, ce produit a tout pour plaire. Rehaussez votre expérience avec une qualité qui parle d'elle-même.",
+  "Shop Cart": "Panier d'achat",
   "cart Page": "Page du panier",
   "Product": "Produit",
   "Price": "Prix",
@@ -82,7 +80,9 @@
   "Cart Subtotal": "Sous-total du panier",
   "Shiping And Handling": "Expédition et manutention",
   "Order Total": "Total de la commande",
-
+  "noProductFound": "Aucun Produit Trouvé",
+  
+  "Panier": "Mon panier",
   "subTitle": "Entrez en contact avec nous",
   "title": "Nous sommes toujours impatients d'avoir de vos nouvelles!",
   "conSubTitle": "Entrez en contact avec nous",
@@ -118,5 +118,4 @@
       "link": "localhost:5173"
     }
   ]
-
 }

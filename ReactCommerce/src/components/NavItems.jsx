@@ -52,6 +52,8 @@ const NavItems = () => {
               </Dropdown.Item>
               {user && user.role === 'admin' && <Dropdown.Item><Link to="/dashboard">Dashboard</Link></Dropdown.Item>}
               <Dropdown.Item onClick={logOut}>Logout</Dropdown.Item>
+              <Dropdown.Item> <Link to={"cart-page"} >   {t("Panier")}</Link></Dropdown.Item>
+
             </NavDropdown>
           </Nav>
         </>
@@ -92,6 +94,7 @@ const NavItems = () => {
               <Link to="/profile">Your Profile</Link>
             </Dropdown.Item>
             {user && user.role === 'admin' && <Dropdown.Item><Link to="/dashboard">Dashboard</Link></Dropdown.Item>}
+            <Dropdown.Item> <Link to={"cart-page"} >   {t("Panier")}</Link></Dropdown.Item>
             <Dropdown.Item onClick={logOut}>Logout</Dropdown.Item>
           </NavDropdown>
         </Nav>

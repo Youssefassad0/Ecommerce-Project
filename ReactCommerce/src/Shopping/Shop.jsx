@@ -126,14 +126,20 @@ const Shop = () => {
                   </div>
                 </div>
                 <div>
-                  <ProductsCard GridList={GridList} products={currentProducts} />
+                  {currentProducts.length > 0 ? (
+                    <ProductsCard GridList={GridList} products={currentProducts} />
+                  ) : (
+                    <p>{t("noProductFound")}</p>
+                  )}
                 </div>
-                <Pagination
-                  ProductsPerPage={ProductsPerPage}
-                  total={filteredProducts.length}
-                  paginate={paginate}
-                  activePage={currentPage}
-                />
+                {filteredProducts.length > 0 && (
+                  <Pagination
+                    ProductsPerPage={ProductsPerPage}
+                    total={filteredProducts.length}
+                    paginate={paginate}
+                    activePage={currentPage}
+                  />
+                )}
               </article>
             </div>
             <div className="col-lg-4 col-12">

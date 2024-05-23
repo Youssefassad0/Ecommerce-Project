@@ -1,17 +1,31 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Data from "../products.json";
 import { useTranslation } from "react-i18next"; // Import useTranslation
 import "./search.css";
 
 const SearchShop = ({ GridList }) => {
   const { t } = useTranslation(); // Initialize useTranslation
   const [searchTerm, setSearchTerm] = useState("");
-  
-  const FilterProducts = Data.filter((d) =>
-    d.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+
+  useEffect(() => {
+    // Fetch the data from the API
+    fetch("http://localhost:8001/api/products")
+      .then((res) => res.json())
+      .then((data) => {
+        setProducts(data.data); // Ensure data is correctly set
+      });
+  }, []);
+
+  useEffect(() => {
+    // Filter products based on the search term
+    const filtered = products.filter((product) =>
+      product.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredProducts(filtered);
+  }, [searchTerm, products]);
 
   return (
     <div className="widget widget-search">
@@ -20,32 +34,32 @@ const SearchShop = ({ GridList }) => {
           type="text"
           name="text"
           placeholder={t("searchPlaceholder")}
-          defaultValue={searchTerm}
+          value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           className="input"
         />
       </form>
-      {/* Showing Search  */}
+      {/* Showing Search */}
       <div>
         {searchTerm &&
-          FilterProducts.map((produit) => (
-            <Link key={produit.id} to={`/shop/${produit.id}`}>
+          filteredProducts.map((product) => (
+            <Link key={product.id} to={`/shop/${product.id}`}>
               <div className="d-flex gap-3 p-2">
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <div className="pro-thumb">
                     <img
-                      src={produit.img}
+                      src={`http://localhost:8001/storage/${product.first_image}`}
                       style={{
                         width: "50px",
                         height: "50px",
                         marginRight: "10px",
                       }}
-                      alt={produit.name}
+                      alt={product.name}
                     />
                   </div>
                   <div>
-                    <p style={{ margin: 0 }}>{produit.name}</p>
-                    <h6>$ {produit.price}</h6>
+                    <p style={{ margin: 0 }}>{product.name}</p>
+                    <h6>$ {product.original_price}</h6>
                   </div>
                 </div>
               </div>
