@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/images/logo/AssadShopLogo.png";
 import { useTranslation } from "react-i18next";
@@ -13,54 +13,49 @@ const NavItems = () => {
   const [menuToggle, setMenuToggle] = useState(false);
   const [socialToggle, setSocialToggle] = useState(false);
   const [headerFixed, setHeaderFixed] = useState(false);
-  const user = JSON.parse(localStorage.getItem('auth-user'));
-  // Function to handle logout
-  // const logOut = () => {
-  //   // Clear auth tokens and navigate to home page
-  //   localStorage.removeItem('auth-token');
-  //   localStorage.removeItem('auth-name');
-  //   navigate('/');
-  // }
 
+  // Function to retrieve user info from storage
+  const getUser = () => {
+    const user = localStorage.getItem('auth-user') || sessionStorage.getItem('auth-user');
+    return user ? JSON.parse(user) : null;
+  };
+
+  const user = getUser();
+
+  // Function to handle logout
   const logOut = (e) => {
-    // localStorage.removeItem("auth-token");
-    // localStorage.removeItem("auth-name");
-    // axios.post("http://localhost:8001/api/logout")
-    //   .then(response => {
-    //     navigate("/login");
-    //   })
-    //   .catch(error => { 
-    //     console.error("Logout failed:", error);
-    //   });
     e.preventDefault();
     axios.post('http://localhost:8001/api/logout').then(res => {
       if (res.data.status === 200) {
         localStorage.removeItem("auth-token");
         localStorage.removeItem("auth-user");
-        Swal.fire('LogOut ', `Good Bay  Mr `, 'warning'); 
-        console.log('deleted successfuly');
+        sessionStorage.removeItem("auth-token");
+        sessionStorage.removeItem("auth-user");
+        Swal.fire('LogOut ', `Goodbye`, 'warning'); 
+        console.log('deleted successfully');
         navigate("/");
-
       }
-    })
+    }).catch(error => {
+      console.error("Logout failed:", error);
+    });
   };
+
   const infouser = () => {
-    if (localStorage.getItem('auth-token')) {
+    if (localStorage.getItem('auth-token') || sessionStorage.getItem('auth-token')) {
       return (
         <>
           <Nav>
-            <NavDropdown alignRight title={<span>ahmed</span>}>
+            <NavDropdown alignRight title={<span>{user && user.name}</span>}>
               <Dropdown.Item>
                 <Link to="/profile">Your Profile</Link>
               </Dropdown.Item>
-              {user.role === 'admin' && <Dropdown.Item><Link to="/dashboard">Dashboard</Link></Dropdown.Item>}
+              {user && user.role === 'admin' && <Dropdown.Item><Link to="/dashboard">Dashboard</Link></Dropdown.Item>}
               <Dropdown.Item onClick={logOut}>Logout</Dropdown.Item>
             </NavDropdown>
           </Nav>
         </>
       )
-    }
-    else {
+    } else {
       return (
         <>
           <Link to="/register" className="lab-btn me-3">
@@ -73,7 +68,7 @@ const NavItems = () => {
   }
 
   const renderAuthButton = () => {
-    if (!localStorage.getItem('auth-token')) {
+    if (!localStorage.getItem('auth-token') && !sessionStorage.getItem('auth-token')) {
       return (
         <>
           <Link
@@ -91,12 +86,11 @@ const NavItems = () => {
     } else {
       return (
         <Nav className="me-3 d-none d-md-block" >
-          {/* { user && user.name  }  */}
-          <NavDropdown alignRight title={<span> <img src="/src/assets/images/author/03.jpg" alt="profile image" style={{ width: '50px', height: '50px' , borderRadius:'25px' }} /> </span>}>
+          <NavDropdown alignRight title={<span> <img src="/src/assets/images/author/03.jpg" alt="profile image" style={{ width: '50px', height: '50px', borderRadius: '25px' }} /> </span>}>
             <Dropdown.Item>
               <Link to="/profile">Your Profile</Link>
             </Dropdown.Item>
-            {user.role === 'admin' && <Dropdown.Item><Link to="/dashboard">Dashboard</Link></Dropdown.Item>}
+            {user && user.role === 'admin' && <Dropdown.Item><Link to="/dashboard">Dashboard</Link></Dropdown.Item>}
             <Dropdown.Item onClick={logOut}>Logout</Dropdown.Item>
           </NavDropdown>
         </Nav>
@@ -111,9 +105,11 @@ const NavItems = () => {
   ];
 
   // Add event listener for scroll
-  window.addEventListener("scroll", () => {
-    setHeaderFixed(window.scrollY > 200);
-  });
+  useEffect(() => {
+    const handleScroll = () => setHeaderFixed(window.scrollY > 200);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const handleLanguageChange = (selectedOption) => {
     const selectedLanguage = selectedOption.value;
@@ -157,7 +153,7 @@ const NavItems = () => {
                     isSearchable={false}
                     defaultValue={languageOptions[0]}
                   />
-                  <li  >
+                  <li>
                     <Link to="/">{t("home")}</Link>
                     <Link to="/shop">{t("shop")}</Link>
                     <Link to="/blog">{t("blog")}</Link>

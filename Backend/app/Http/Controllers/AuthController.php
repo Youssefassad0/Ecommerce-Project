@@ -15,8 +15,9 @@ class AuthController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
             'email' => 'required|email|max:200|unique:users,email',
-            'password' => 'required|min:6|',
+            'password' => 'required|min:6',
         ]);
+
         if ($validator->fails()) {
             return response()->json([
                 'errors' => $validator->messages()
@@ -40,30 +41,35 @@ class AuthController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'email' => 'required|email|max:200',
-            'password' => 'required|min:6|',
+            'password' => 'required|min:6',
+            'remember_me' => 'boolean'
         ]);
+
         if ($validator->fails()) {
             return response()->json([
                 'errors' => $validator->messages()
             ]);
-        } else {
-            $user = User::where('email', $request->email)->first();
-            if (!$user || !Hash::check($request->password, $user->password)) {
-                return response()->json([
-                    'status' => 404,
-                    'message' => 'invalid Password or email'
-                ]);
-            } else {
-                // $request->session()->regenerate();
-                $token =   $user->createToken($user->email . '_Token')->plainTextToken;
-                return response()->json([
-                    'status' => 200,
-                    'message' => 'Login With success !',
-                    'data' => $user,
-                    'token' => $token
-                ]);
-            }
         }
+
+        $user = User::where('email', $request->email)->first();
+
+        if (!$user || !Hash::check($request->password, $user->password)) {
+            return response()->json([
+                'status' => 404,
+                'message' => 'Invalid password or email'
+            ]);
+        }
+
+        $token = $user->createToken($user->email . '_Token')->plainTextToken;
+
+        $cookie = cookie('auth_token', $token, $request->remember_me ? 60 * 24 * 30 : 60); // 30 days for "remember me"
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'Login successful!',
+            'data' => $user,
+            'token' => $token
+        ])->withCookie($cookie);
     }
 
     public function logout()

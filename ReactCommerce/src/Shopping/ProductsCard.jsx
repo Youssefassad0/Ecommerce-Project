@@ -38,7 +38,7 @@ const ProductsCard = ({ GridList, products }) => {
             {/* Product Content */}
             <div className="product-content">
               <h5>
-                <Link to={`/shop/${product.id}`}>{product.name}</Link>
+                <Link to={`/product/${product.id}`}>{product.name}</Link>
               </h5>
               <p className="productRatting">
                 <Ratting />

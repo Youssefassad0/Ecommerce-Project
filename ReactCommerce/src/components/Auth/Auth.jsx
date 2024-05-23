@@ -13,46 +13,58 @@ function LoginForm() {
   const [loginInputs, setLogin] = useState({
     email: '',
     password: '',
+    remember_me: false,
     error_list: {}
-  })
+  });
   const handleInputs = (e) => {
-    e.persist();
     setLogin({
       ...loginInputs, [e.target.name]: e.target.value
-    })
-  }
+    });
+  };
+
+  const handleCheckbox = (e) => {
+    setLogin({
+      ...loginInputs, remember_me: e.target.checked
+    });
+  };
   const loginSubmit = (e) => {
     e.preventDefault();
+
 
     const data = {
       email: loginInputs.email,
       password: loginInputs.password,
+      remember_me: loginInputs.remember_me,
     };
 
-    axios.get('/sanctum/csrf-cookie')
-      .then(response => {
-        axios.post('http://localhost:8001/api/login', data)
-          .then(res => {
-            if (res.data.status === 200) {
-              localStorage.setItem('auth-token', res.data.token);
-              localStorage.setItem('auth-user', JSON.stringify(res.data.data));
-              Swal.fire('Success', `Welcome Back Mr. ${res.data.data.name}`, 'success'); navigate('/');
-            } else if (res.data.status === 404) {
-              Swal.fire('Warning', res.data.message, 'warning');
-            } else {
-              setLogin({
-                ...loginInputs,
-                error_list: res.data.errors,
-              });
-            }
-          })
-          .catch(error => {
-            console.error('Error:', error);
+    axios.get('/sanctum/csrf-cookie').then(response => {
+      axios.post('http://localhost:8001/api/login', data).then(res => {
+        if (res.data.status === 200) {
+          if (loginInputs.remember_me) {
+            localStorage.setItem('auth-token', res.data.token); // Persistent token
+            localStorage.setItem('auth-user', JSON.stringify(res.data.data));
+          } else {
+            sessionStorage.setItem('auth-token', res.data.token); // Session-only token
+            sessionStorage.setItem('auth-user', JSON.stringify(res.data.data));
+          }
+          Swal.fire('Success', `Welcome Back Mr. ${res.data.data.name}`, 'success');
+          navigate('/');
+        } else if (res.data.status === 404) {
+          Swal.fire('Warning', res.data.message, 'warning');
+        } else {
+          setLogin({
+            ...loginInputs,
+            error_list: res.data.errors,
           });
-      })
-      .catch(error => {
+        }
+      }).catch(error => {
         console.error('Error:', error);
+        Swal.fire('Error', 'Something went wrong, please try again.', 'error');
       });
+    }).catch(error => {
+      console.error('Error:', error);
+      Swal.fire('Error', 'Failed to get CSRF token, please try again.', 'error');
+    });
   };
   return (
     <form onSubmit={loginSubmit} className="formAuth">
@@ -81,6 +93,10 @@ function LoginForm() {
       <span className="text-danger">
         {loginInputs.error_list && loginInputs.error_list.password}
       </span>
+      <div className="input-field">
+        <input type="checkbox" onChange={handleCheckbox} checked={loginInputs.remember_me} name="remember_me" />
+        <label htmlFor="remember_me">Remember Me</label>
+      </div>
       <input type="submit" value="Login" className="btnS" />
       <p className="social-text">Or Sign in with social platforms</p>
       <div className="social-media">
@@ -209,7 +225,7 @@ function AuthPage({ etat }) {
             <div className="content">
               <h3>New here ?</h3>
               <p>
-              Rejoignez-nous pour découvrir une large sélection de produits de qualité, des vêtements tendance aux gadgets high-tech
+                Rejoignez-nous pour découvrir une large sélection de produits de qualité, des vêtements tendance aux gadgets high-tech
               </p>
               <button className="btn transparent" onClick={toggleMode}>Sign up</button>
             </div>
@@ -219,7 +235,7 @@ function AuthPage({ etat }) {
             <div className="content">
               <h3>One of us ?</h3>
               <p>
-              Rejoignez-nous pour découvrir une large sélection de produits de qualité, des vêtements tendance aux gadgets high-tech
+                Rejoignez-nous pour découvrir une large sélection de produits de qualité, des vêtements tendance aux gadgets high-tech
               </p>
               <button className="btn transparent" onClick={toggleMode}>Sign in</button>
             </div>
