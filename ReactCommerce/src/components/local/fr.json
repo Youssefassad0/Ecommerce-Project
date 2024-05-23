@@ -81,7 +81,7 @@
   "Shiping And Handling": "Expédition et manutention",
   "Order Total": "Total de la commande",
   "noProductFound": "Aucun Produit Trouvé",
-  
+
   "Panier": "Mon panier",
   "subTitle": "Entrez en contact avec nous",
   "title": "Nous sommes toujours impatients d'avoir de vos nouvelles!",
@@ -117,5 +117,7 @@
       "desc": "www.assadshop.com",
       "link": "localhost:5173"
     }
-  ]
+  ],
+  "outOfStock": "Rupture de stock",
+  "review": "avis"
 }

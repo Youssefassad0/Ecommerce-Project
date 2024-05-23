@@ -90,6 +90,9 @@
   "conSubTitle": "Get in touch with Contact us",
   "conTitle": "Fill The Form Below So We Can Get To Know You And Your Needs Better.",
   "btnText": "Send our Message",
+
+
+
   "contactList": [
     {
       "imgUrl": "/src/assets/images/icon/01.png",
@@ -119,5 +122,9 @@
       "desc": "www.assadshop.com",
       "link": "localhost:5173"
     }
-  ]
+  ],
+
+  "outOfStock": "Out of Stock",
+  "review": "review"  
+
 }

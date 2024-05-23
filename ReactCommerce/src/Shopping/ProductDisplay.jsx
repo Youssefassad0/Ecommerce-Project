@@ -1,16 +1,15 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useTranslation } from "react-i18next"; // Import useTranslation
+import { useTranslation } from "react-i18next";
 
 const ProductDisplay = ({ item }) => {
-  const { t } = useTranslation(); // Use useTranslation hook
-  const descProduitSingle = t("descProduitSingle");
-  const [prequantity, setPrequantity] = useState(0);
-  const color = item.colors;
-  const size = item.sizes;
+  const { t } = useTranslation();
+  const [prequantity, setPrequantity] = useState(1);
   const [selectSize, setSelectSize] = useState("");
   const [selectColor, setSelectColor] = useState("");
+  const color = item.colors;
+  const size = item.sizes;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -23,7 +22,6 @@ const ProductDisplay = ({ item }) => {
       size: selectSize,
       color: selectColor,
     };
-    console.log(product);
 
     const existingCart = JSON.parse(localStorage.getItem("cart")) || [];
     const existingProductIndex = existingCart.findIndex(
@@ -36,40 +34,35 @@ const ProductDisplay = ({ item }) => {
       existingCart.push(product);
     }
 
-    // Update LocalStorage
     localStorage.setItem("cart", JSON.stringify(existingCart));
     setSelectSize("");
     setSelectColor("");
-    setPrequantity(0);
+    setPrequantity(1);
   };
 
   return (
     <div>
-      <div className="">
-        <h4> {item.name} </h4>
+      <div>
+        <h4>{item.name}</h4>
         <p className="rating">
           <i className="icofont-star"></i>
           <i className="icofont-star"></i>
           <i className="icofont-star"></i>
           <i className="icofont-star"></i>
           <i className="icofont-star"></i>
-          <span>
-            {" "}
-            {item.rating_count}
-            review
-          </span>
+          <span>{item.rating_count} {t("review")}</span>
         </p>
-        <h4>$ {item.original_price}</h4>
+        <h4>${item.original_price}</h4>
         <h6>{item.brand}</h6>
-        <p> {item.description} </p>
+        <p>{item.description}</p>
       </div>
-      {/* Cart component */}
       <div>
         <form onSubmit={handleSubmit}>
           <div className="select-product size">
             <select
               value={selectSize}
               onChange={(e) => setSelectSize(e.target.value)}
+              disabled={item.stock === 0}
             >
               <option value="">{t("selectSize")}</option>
               {size.map((s, i) => (
@@ -84,6 +77,7 @@ const ProductDisplay = ({ item }) => {
             <select
               value={selectColor}
               onChange={(e) => setSelectColor(e.target.value)}
+              disabled={item.stock === 0}
             >
               <option value="">{t("selectColor")}</option>
               {color.map((c, i) => (
@@ -94,7 +88,6 @@ const ProductDisplay = ({ item }) => {
             </select>
             <i className="icofont-rounded-down"></i>
           </div>
-          {/* Minus plus */}
           <div className="cart-plus-minus">
             <div
               className="dec qtybutton"
@@ -103,6 +96,7 @@ const ProductDisplay = ({ item }) => {
                   setPrequantity(prequantity - 1);
                 }
               }}
+              disabled={item.stock === 0}
             >
               -
             </div>
@@ -110,24 +104,28 @@ const ProductDisplay = ({ item }) => {
               className="cart-plus-minus-box"
               type="text"
               name="qtybutton"
-              id="qtybutton"
               value={prequantity}
               onChange={(e) => setPrequantity(parseInt(e.target.value))}
+              disabled={item.stock === 0}
             />
             <div
               className="inc qtybutton"
               onClick={() => {
                 setPrequantity(prequantity + 1);
               }}
+              disabled={item.stock === 0}
             >
               +
             </div>
           </div>
-
-          <button type="submit" className="lab-btn">
-            <span>{t("addToCart")}</span>
-          </button>
-          <Link to="/cart-page" className="lab-btn bg-primary">
+          {item.stock > 0 ? (
+            <button type="submit" className="lab-btn">
+              <span>{t("addToCart")}</span>
+            </button>
+          ) : (
+            <del><div style={{ fontSize:'20px', marginRight:'20px' }} className="text-danger"  >{t("outOfStock")}</div></del>
+          )}
+          <Link to="/cart-page" className="lab-btn bg-primary ">
             <span>{t("checkOut")}</span>
           </Link>
         </form>

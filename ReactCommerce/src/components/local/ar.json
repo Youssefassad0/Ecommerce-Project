@@ -117,5 +117,7 @@
       "desc": "www.assadshop.com",
       "link": "localhost:5173"
     }
-  ]
+  ],
+  "outOfStock": "غير متوفر",
+  "review": "مراجعة"
 }
