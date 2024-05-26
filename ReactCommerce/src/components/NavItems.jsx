@@ -27,10 +27,10 @@ const NavItems = () => {
     e.preventDefault();
     axios.post('http://localhost:8001/api/logout').then(res => {
       if (res.data.status === 200) {
-        localStorage.removeItem("auth-token");
-        localStorage.removeItem("auth-user");
         sessionStorage.removeItem("auth-token");
         sessionStorage.removeItem("auth-user");
+        localStorage.removeItem("auth-token");
+        localStorage.removeItem("auth-user");
         Swal.fire('LogOut ', `Goodbye`, 'warning');
         console.log('deleted successfully');
         navigate("/");
@@ -94,7 +94,7 @@ const NavItems = () => {
               <Link to="/profile">Your Profile</Link>
             </Dropdown.Item>
             {user && user.role === 'admin' && <Dropdown.Item><Link to="/dashboard">Dashboard</Link></Dropdown.Item>}
-            <Dropdown.Item> <Link to={"cart-page"} >   {t("Panier")}</Link></Dropdown.Item>
+            <Dropdown.Item> <Link to={"/cart-page"} >   {t("Panier")}</Link></Dropdown.Item>
             <Dropdown.Item onClick={logOut}>Logout</Dropdown.Item>
           </NavDropdown>
         </Nav>

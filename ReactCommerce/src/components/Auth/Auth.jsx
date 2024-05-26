@@ -43,6 +43,7 @@ function LoginForm() {
           if (loginInputs.remember_me) {
             localStorage.setItem('auth-token', res.data.token); // Persistent token
             localStorage.setItem('auth-user', JSON.stringify(res.data.data));
+            window.location.reload();
           } else {
             sessionStorage.setItem('auth-token', res.data.token); // Session-only token
             sessionStorage.setItem('auth-user', JSON.stringify(res.data.data));
@@ -53,7 +54,7 @@ function LoginForm() {
           Swal.fire('Warning', res.data.message, 'warning');
         } else {
           setLogin({
-            ...loginInputs,
+            ...loginInputs, 
             error_list: res.data.errors,
           });
         }

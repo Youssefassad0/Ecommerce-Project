@@ -2,17 +2,33 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import Swal from "sweetalert2";
+import useAuth from "../Hooks/Auth";
 
 const ProductDisplay = ({ item }) => {
   const { t } = useTranslation();
   const [prequantity, setPrequantity] = useState(1);
   const [selectSize, setSelectSize] = useState("");
   const [selectColor, setSelectColor] = useState("");
-  const color = item.colors;
-  const size = item.sizes;
+  const { isAuthenticated, redirectToLogin } = useAuth();
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (!isAuthenticated) {
+      redirectToLogin();
+      return;
+    }
+
+    if (!selectSize || !selectColor) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Oops...',
+        text: 'Please select both size and color!',
+      });
+      return;
+    }
+
     const product = {
       id: item.id,
       img: item.first_image,
@@ -32,9 +48,18 @@ const ProductDisplay = ({ item }) => {
       existingCart[existingProductIndex].quantity += prequantity;
     } else {
       existingCart.push(product);
+      Swal.fire({
+        icon: 'success',
+        title: 'Success...',
+        text: 'the product has been added to your basket ',
+      });
     }
 
     localStorage.setItem("cart", JSON.stringify(existingCart));
+    resetSelections();
+  };
+
+  const resetSelections = () => {
     setSelectSize("");
     setSelectColor("");
     setPrequantity(1);
@@ -65,7 +90,7 @@ const ProductDisplay = ({ item }) => {
               disabled={item.stock === 0}
             >
               <option value="">{t("selectSize")}</option>
-              {size.map((s, i) => (
+              {item.sizes.map((s, i) => (
                 <option key={i} value={s}>
                   {s}
                 </option>
@@ -80,7 +105,7 @@ const ProductDisplay = ({ item }) => {
               disabled={item.stock === 0}
             >
               <option value="">{t("selectColor")}</option>
-              {color.map((c, i) => (
+              {item.colors.map((c, i) => (
                 <option key={i} value={c}>
                   {c}
                 </option>
@@ -110,9 +135,7 @@ const ProductDisplay = ({ item }) => {
             />
             <div
               className="inc qtybutton"
-              onClick={() => {
-                setPrequantity(prequantity + 1);
-              }}
+              onClick={() => setPrequantity(prequantity + 1)}
               disabled={item.stock === 0}
             >
               +
@@ -123,7 +146,14 @@ const ProductDisplay = ({ item }) => {
               <span>{t("addToCart")}</span>
             </button>
           ) : (
-            <del><div style={{ fontSize:'20px', marginRight:'20px' }} className="text-danger"  >{t("outOfStock")}</div></del>
+            <del>
+              <div
+                style={{ fontSize: '20px', marginRight: '20px' }}
+                className="text-danger"
+              >
+                {t("outOfStock")}
+              </div>
+            </del>
           )}
           <Link to="/cart-page" className="lab-btn bg-primary ">
             <span>{t("checkOut")}</span>

@@ -25,6 +25,7 @@ function Home() {
       <IndexHome/>
       </div>
       <Footer/>
+     
     </div>
   )
 }

@@ -34,6 +34,7 @@ function Navbar() {
         localStorage.removeItem("auth-token");
         localStorage.removeItem("auth-user");
         navigate("/");
+        window.location.reload();
       }
     })
   };
@@ -330,8 +331,8 @@ function Navbar() {
           aria-labelledby="exampleModalLabel"
           aria-hidden="true"
         >
-          <div className="modal-dialog" role="document">
-            <div className="modal-content">
+          <div className="modal-dialog"  role="document">
+            <div className="modal-content" style={{ height:'300px' }} >
               <div className="modal-header">
                 <h5 className="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
                 <button

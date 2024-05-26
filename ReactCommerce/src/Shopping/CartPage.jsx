@@ -6,6 +6,8 @@ import delIMG from "../assets/images/shop/del.png";
 import CheckOut from "./CheckOut";
 import NavItems from "../components/NavItems";
 import Footer from "../components/Footer";
+import axios from "axios";
+import Swal from "sweetalert2";
 const CartPage = () => {
   const { t } = useTranslation();
 
@@ -14,6 +16,7 @@ const CartPage = () => {
   const [codePost, setCodePost] = useState("");
   const [ville, setVille] = useState("");
   const [numeroRue, setNumeroRue] = useState("");
+  const [errors,setErrors]=useState([])
   const [isFormComplete, setIsFormComplete] = useState(false);
   const Pays = ["Morocco", "France", "America", "Hind", "Russia"];
   let tarif = 0;
@@ -23,6 +26,8 @@ const CartPage = () => {
     setCartItems(storedCartItems);
   }, []);
 
+
+  
   const calculerTotalPrice = (item) => {
     return item.price * item.quantity;
   };
@@ -78,11 +83,57 @@ const CartPage = () => {
 
   const orderTotal = cartSubtotal + parseFloat(tarif);
 
-  const handleFormSubmit = (e) => {
+  // const handleFormSubmit = (e) => {
+  //   e.preventDefault();
+  //   const isFormValid = codePost && ville && numeroRue;
+
+  //   setIsFormComplete(isFormValid);
+  // };
+
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
     const isFormValid = codePost && ville && numeroRue;
 
-    setIsFormComplete(isFormValid);
+    if (isFormValid) {
+      // Retrieve name and email from local storage
+      const authUser = JSON.parse(localStorage.getItem("auth-user"));
+      const name = authUser.name;
+      const email = authUser.email;
+
+      // Data to send
+      const formData = {
+        name: name,
+        email: email,
+        pays: selectPays,
+        city: codePost,
+        no_street: ville,
+        zipcode: numeroRue
+      };
+
+      try {
+        // Send data using axios.post
+        const response = await axios.post("http://localhost:8001/api/order", formData);
+
+    if(response.data.status===201){
+          // Handle response if needed
+          console.log("Data sent successfully:", response.data);
+          setErrors([]);
+
+    }
+else if(response.data.status===422){
+  setErrors(response.data.errors);
+  console.log(errors);
+  Swal('All Fields Are Mandetory !!!! ')
+}
+        // Reset form fields or perform any other actions upon successful submission
+        setIsFormComplete(true);
+      } catch (error) {
+        // Handle error
+        console.error("Error sending data:", error);
+      }
+    } else {
+      // Handle invalid form submission if needed
+    }
   };
 
   return (
@@ -239,7 +290,7 @@ const CartPage = () => {
                             onChange={(e) => setCodePost(e.target.value)}
                             required
                           />
-                          <button type="submit">
+                          <button type="submit" >
                             {t("Update Address")}
                           </button>
                         </div>

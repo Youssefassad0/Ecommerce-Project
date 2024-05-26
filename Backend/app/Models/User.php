@@ -47,6 +47,10 @@ class User extends Authenticatable
     // {
     //     return $this->hasMany(PersonalAccessToken::class);
     // }
+    public function hasRole(string $role): bool
+    {
+        return $this->role === $role;
+    }
     public function comments()
     {
         return $this->hasMany(Comment::class);

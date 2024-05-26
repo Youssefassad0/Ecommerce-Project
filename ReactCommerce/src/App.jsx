@@ -26,6 +26,8 @@ axios.interceptors.request.use(function (config) {
 
 export default function App() {
     const user = JSON.parse(localStorage.getItem('auth-user'));
+    // console.log(user.role);
+    // const user = JSON.parse(localStorage.getItem('auth-user'));
     const rememberMe = localStorage.getItem('remember-me') === 'true';
 
     return (
@@ -62,7 +64,7 @@ export default function App() {
                 />
                 <Route
                     path="/dashboard/*"
-                    element={user ? <MasterLAyouts /> : <Navigate to="/login" />}
+                    element={user && user.role==='admin' ? <MasterLAyouts /> : <Navigate to="/login" />}
                 />
             </Routes>
         </BrowserRouter>

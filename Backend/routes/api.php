@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CheckOutController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\ContactController;
@@ -24,13 +25,23 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// routes/web.php or routes/api.php
+
+// Route::middleware(['role:admin'])->group(function () {
+// Route::get('/dashboard', [DashboardController::class, 'index']);
+// Add other team routes here
+Route::resource('/products', ProductController::class);
+Route::resource('order', CheckOutController::class);
+// });
+
+
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
+
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
 });
 Route::resource('/category', CategoryController::class);
-Route::resource('/products', ProductController::class);
 // Route::resource('/comments', CommentsController::class);
 Route::post('/comments', [CommentController::class, 'store']);
 Route::get('/products/{productId}/comments', [CommentController::class, 'index']);
