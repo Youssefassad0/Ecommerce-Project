@@ -35,6 +35,7 @@ const ProductDisplay = ({ item }) => {
       name: item.name,
       price: item.original_price,
       quantity: prequantity,
+      total: item.original_price * prequantity, // Corrected line
       size: selectSize,
       color: selectColor,
     };
@@ -46,12 +47,13 @@ const ProductDisplay = ({ item }) => {
 
     if (existingProductIndex !== -1) {
       existingCart[existingProductIndex].quantity += prequantity;
+      existingCart[existingProductIndex].total += item.original_price * prequantity; // Update total for existing item
     } else {
       existingCart.push(product);
       Swal.fire({
         icon: 'success',
         title: 'Success...',
-        text: 'the product has been added to your basket ',
+        text: 'The product has been added to your basket.',
       });
     }
 

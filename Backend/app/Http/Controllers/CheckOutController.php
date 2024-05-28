@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
+use App\Models\OrderDetail;
+use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class CheckOutController extends Controller
@@ -12,7 +16,10 @@ class CheckOutController extends Controller
      */
     public function index()
     {
-        //
+        $id = auth('sanctum')->user()->id;
+        return response()->json([
+            'data' => $id
+        ]);
     }
 
     /**
@@ -27,30 +34,82 @@ class CheckOutController extends Controller
     {
         if (auth('sanctum')->check()) {
             $validator = Validator::make($request->all(), [
-                'name' => 'required|max:199',
-                'email' => 'required|email|exists:users,email',
-                'pays' => 'required|max:199',
-                'city' => 'required|max:199',
-                'no_street' => 'required|max:199',
-                'zipcode' => 'required|max:199',
+                'id_user' => 'required|numeric',
+                'name' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255',
+                'pays' => 'required|string|max:255',
+                'city' => 'required|string|max:255',
+                'no_street' => 'required|string|max:255',
+                'zipcode' => 'required|string|max:10',
+                'cartItems' => 'required|array',
             ]);
-            if ($validator->fails()) {
 
+            if ($validator->fails()) {
                 return response()->json([
                     'status' => 422,
                     'errors' => $validator->messages(),
                 ]);
             } else {
+                DB::beginTransaction();
+                try {
+                    $order = Order::create([
+                        'id_user' => $request->id_user,
+                        'name' => $request->name,
+                        'email' => $request->email,
+                        'pays' => $request->pays,
+                        'city' => $request->city,
+                        'no_street' => $request->no_street,
+                        'zipcode' => $request->zipcode,
+                        'tracking_no' => 'TRK' . strtoupper(uniqid()),
+                        'status' => 'pending',
+                    ]);
 
-                return response()->json([
-                    'status' => 201,
-                    'message' => $request->name
-                ]);
+                    foreach ($request->cartItems as $item) {
+                        $product = Product::find($item['id']);
+
+                        if ($product) {
+                            if ($product->stock >= $item['quantity']) {
+                                $product->stock -= $item['quantity'];
+                                $product->save();
+
+                                OrderDetail::create([
+                                    'order_id' => $order->id,
+                                    'product_id' => $item['id'],
+                                    'quantity' => $item['quantity'],
+                                    'price' => $item['total'],
+                                ]);
+                            } else {
+                                return response()->json([
+                                    'status' => 400,
+                                    'message' => 'Insufficient stock for product: ' . $product->name,
+                                ]);
+                            }
+                        } else {
+                            return response()->json([
+                                'status' => 404,
+                                'message' => 'Product not found: ' . $item['id'],
+                            ]);
+                        }
+                    }
+
+                    DB::commit();
+                    return response()->json([
+                        'status' => 201,
+                        'message' => 'Order placed successfully',
+                        'data' => $order
+                    ]);
+                } catch (\Exception $e) {
+                    DB::rollBack();
+                    return response()->json([
+                        'status' => 500,
+                        'message' => 'Error placing order: ' . $e->getMessage(),
+                    ]);
+                }
             }
         } else {
             return response()->json([
                 'status' => 401,
-                'message' => 'login To Continue ! '
+                'message' => 'Login to continue!'
             ]);
         }
     }

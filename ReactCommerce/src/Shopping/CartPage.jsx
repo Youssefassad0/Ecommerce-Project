@@ -3,20 +3,22 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import PageHeader from "../components/PageHeader";
 import delIMG from "../assets/images/shop/del.png";
-import CheckOut from "./CheckOut";
 import NavItems from "../components/NavItems";
 import Footer from "../components/Footer";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { Button } from "react-bootstrap";
+import CheckOut from "./CheckOut";
+
 const CartPage = () => {
   const { t } = useTranslation();
-
   const [cartItems, setCartItems] = useState([]);
   const [selectPays, setSelectPays] = useState("");
   const [codePost, setCodePost] = useState("");
   const [ville, setVille] = useState("");
   const [numeroRue, setNumeroRue] = useState("");
-  const [errors,setErrors]=useState([])
+  const [errors, setErrors] = useState([]);
+  const [UserID, setUserID] = useState(null);
   const [isFormComplete, setIsFormComplete] = useState(false);
   const Pays = ["Morocco", "France", "America", "Hind", "Russia"];
   let tarif = 0;
@@ -24,16 +26,19 @@ const CartPage = () => {
   useEffect(() => {
     const storedCartItems = JSON.parse(localStorage.getItem("cart")) || [];
     setCartItems(storedCartItems);
+    async function getIdUser() {
+      await axios.get('http://localhost:8001/api/place-order').then(res => setUserID(res.data.data));
+    }
+    getIdUser();
   }, []);
 
-
-  
   const calculerTotalPrice = (item) => {
     return item.price * item.quantity;
   };
 
   const handleIncrease = (item) => {
     item.quantity++;
+    item.total = calculerTotalPrice(item);
     setCartItems([...cartItems]);
     localStorage.setItem("cart", JSON.stringify(cartItems));
   };
@@ -41,6 +46,7 @@ const CartPage = () => {
   const decrease = (item) => {
     if (item.quantity > 1) {
       item.quantity -= 1;
+      item.total = calculerTotalPrice(item);
       setCartItems([...cartItems]);
       localStorage.setItem("cart", JSON.stringify(cartItems));
     }
@@ -83,56 +89,51 @@ const CartPage = () => {
 
   const orderTotal = cartSubtotal + parseFloat(tarif);
 
-  // const handleFormSubmit = (e) => {
-  //   e.preventDefault();
-  //   const isFormValid = codePost && ville && numeroRue;
-
-  //   setIsFormComplete(isFormValid);
-  // };
-
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+  
     const isFormValid = codePost && ville && numeroRue;
-
-    if (isFormValid) {
-      // Retrieve name and email from local storage
-      const authUser = JSON.parse(localStorage.getItem("auth-user"));
-      const name = authUser.name;
-      const email = authUser.email;
-
-      // Data to send
-      const formData = {
-        name: name,
-        email: email,
-        pays: selectPays,
-        city: codePost,
-        no_street: ville,
-        zipcode: numeroRue
-      };
-
-      try {
-        // Send data using axios.post
-        const response = await axios.post("http://localhost:8001/api/order", formData);
-
-    if(response.data.status===201){
-          // Handle response if needed
-          console.log("Data sent successfully:", response.data);
-          setErrors([]);
-
+  
+    if (!isFormValid) {
+      setErrors(['All fields are mandatory']);
+      Swal.fire('Error', 'All fields are mandatory', 'error');
+      return;
     }
-else if(response.data.status===422){
-  setErrors(response.data.errors);
-  console.log(errors);
-  Swal('All Fields Are Mandetory !!!! ')
-}
-        // Reset form fields or perform any other actions upon successful submission
-        setIsFormComplete(true);
-      } catch (error) {
-        // Handle error
-        console.error("Error sending data:", error);
+  
+    const authUser = JSON.parse(localStorage.getItem('auth-user'));
+    const name = authUser.name;
+    const email = authUser.email;
+    const formData = {
+      id_user: UserID,
+      name: name,
+      email: email,
+      pays: selectPays,
+      city: ville,
+      no_street: numeroRue,
+      zipcode: codePost,
+      cartItems: cartItems,
+    };
+  
+    try {
+      const response = await axios.post('http://localhost:8001/api/place-order', formData);
+  
+      if (response.data.status === 201) {
+        console.log('Data sent successfully:', response.data);
+        setErrors([]);
+        Swal.fire('Success', 'Order placed successfully', 'success');
+        localStorage.removeItem('cart');
+        setCartItems([]);
+      } else if (response.data.status === 422) {
+        setErrors(response.data.errors);
+        Swal.fire('Error', 'All fields are mandatory', 'error');
+      } else if (response.data.status === 400) {
+        setErrors([response.data.message]);
+        Swal.fire('Error', response.data.message, 'error');
       }
-    } else {
-      // Handle invalid form submission if needed
+    } catch (error) {
+      console.error('Error sending data:', error);
+      setErrors(['There was an error placing your order']);
+      Swal.fire('Error', 'There was an error placing your order', 'error');
     }
   };
 
@@ -179,11 +180,11 @@ else if(response.data.status===422){
                         </div>
                         <div className="p-content">
                           <Link to={`/product/${item.id}`}>
-                            {item.name} </Link>
+                            {item.name}
+                          </Link>
                         </div>
                       </td>
                       <td className="cat-price">${item.price}</td>
-
                       <td className="cat-quantity">
                         <div className="cart-plus-minus">
                           <div
@@ -197,6 +198,7 @@ else if(response.data.status===422){
                             className="cart-plus-minus-box"
                             name="qtybutton"
                             value={item.quantity}
+                            readOnly
                           />
                           <div
                             className="inc qtybutton"
@@ -207,10 +209,10 @@ else if(response.data.status===422){
                         </div>
                       </td>
                       <td className="cart-toprice">
-                        $ {calculerTotalPrice(item)}
+                        ${calculerTotalPrice(item)}
                       </td>
                       <td className="cat-edit">
-                        <a href="" onClick={() => HandleRemoveItem(item)}>
+                        <a href="#!" onClick={() => HandleRemoveItem(item)}>
                           <img src={delIMG} alt="" />
                         </a>
                       </td>
@@ -226,11 +228,10 @@ else if(response.data.status===422){
                 <form className="cart-checkout">
                   <input type="submit" value={t("Update Cart")} />
                   <div>
-                    <CheckOut
-                      pays={selectPays}
-                      ville={ville}
-                      postalCode={codePost}
-                      adresse={numeroRue}
+                    {/* <Button variant="primary" className="py-2" onClick={handleFormSubmit}>
+                      {t("Proceed To Checkout")}
+                    </Button> */}
+                  <CheckOut ville={ville} pays={selectPays} postalCode={codePost} adresse={numeroRue}
                     />
                   </div>
                 </form>
@@ -242,21 +243,22 @@ else if(response.data.status===422){
                     <div className="calculate-shiping">
                       <h3>{t("Product Order Form")}</h3>
                       <div className="outline-select"></div>
-                      <form onSubmit={handleFormSubmit}>
+                      <form>
                         <div className="outline-select">
                           <select
                             value={selectPays}
                             onChange={(e) => setSelectPays(e.target.value)}
                           >
-                            <option value="">
-                              {t("--Select Pays--")}
-                            </option>
+                            <option value="">{t("--Select Pays--")}</option>
                             {Pays.map((p, i) => (
                               <option value={p} key={i}>
                                 {p}
                               </option>
                             ))}
                           </select>
+                          <div className="text-danger">
+                            {errors.pays}
+                          </div>
                           <span className="select-icon">
                             <i className="icofont-rounded-down"></i>
                           </span>
@@ -272,6 +274,9 @@ else if(response.data.status===422){
                             onChange={(e) => setNumeroRue(e.target.value)}
                             required
                           />
+                          <div className="text-danger">
+                            {errors.no_street}
+                          </div>
                           <input
                             type="text"
                             className="m-2"
@@ -281,6 +286,9 @@ else if(response.data.status===422){
                             onChange={(e) => setVille(e.target.value)}
                             required
                           />
+                          <div className="text-danger">
+                            {errors.city}
+                          </div>
                           <input
                             type="text"
                             className="m-2"
@@ -290,7 +298,10 @@ else if(response.data.status===422){
                             onChange={(e) => setCodePost(e.target.value)}
                             required
                           />
-                          <button type="submit" >
+                          <div className="text-danger">
+                            {errors.zipcode}
+                          </div>
+                          <button type="submit">
                             {t("Update Address")}
                           </button>
                         </div>
@@ -305,11 +316,11 @@ else if(response.data.status===422){
                           <span className="pull-left">
                             {t("Cart Subtotal")}
                           </span>
-                          <p className="pull-right">$ {cartSubtotal}</p>
+                          <p className="pull-right">${cartSubtotal}</p>
                         </li>
                         <li>
                           <span className="pull-left">
-                            {t("Shiping And Handling")}
+                            {t("Shipping And Handling")}
                           </span>
                           <p className="pull-right">${tarif}</p>
                         </li>
@@ -317,7 +328,7 @@ else if(response.data.status===422){
                           <span className="pull-left">
                             {t("Order Total")}
                           </span>
-                          <p className="pull-right">$ {orderTotal}</p>
+                          <p className="pull-right">${orderTotal}</p>
                         </li>
                       </ul>
                     </div>

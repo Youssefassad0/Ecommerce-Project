@@ -5,8 +5,8 @@ import "./filter.css";
 
 const FilterShop = ({ filterByColor, filterBySize, filterByPrice }) => {
   const { t } = useTranslation();
-  const colorOptions = ["black", "white", "Pink", "red", "green", "gold", "blue"]; // Add more colors if needed
-  const sizeOptions = [10, 11, 12, 13, 15, 16, 17, 20, 24, 26, 30, 35, 38, 40]; // Add more sizes if needed
+  const colorOptions = ["Black", "white", "Pink", "red", "green", "gold", "blue"];
+  const sizeOptions = [10, 11, 12, 13, 15, 16, 17, 20, 24, 26, 30, 35, 38, 40]; 
 
   const [priceValue, setPriceValue] = useState(0);
 
@@ -48,14 +48,13 @@ const FilterShop = ({ filterByColor, filterBySize, filterByPrice }) => {
           ))}
         </select>
       </div>
-
       {/* Price filter */}
       <div>
         <h4>{t("price")}: ${priceValue}</h4>
         <input
           type="range"
           min="0"
-          max="450" // Adjust the maximum value as needed
+          max="450" 
           step="1"
           value={priceValue}
           onChange={handlePriceChange}

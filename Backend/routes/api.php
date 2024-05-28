@@ -31,7 +31,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Route::get('/dashboard', [DashboardController::class, 'index']);
 // Add other team routes here
 Route::resource('/products', ProductController::class);
-Route::resource('order', CheckOutController::class);
+Route::resource('place-order', CheckOutController::class);
 // });
 
 

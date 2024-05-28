@@ -8,6 +8,9 @@ const CheckOut = ({ pays, ville, postalCode, adresse }) => {
   const [show, setShow] = useState(false);
   const [activeTab, setActiveTab] = useState("Visa");
   const [isFormValid, setIsFormValid] = useState(true); // Added state for form validation
+  const authUser = JSON.parse(localStorage.getItem("auth-user"));
+      const name = authUser.name;
+      const email = authUser.email;
 
   // Handle Tab Change
 
@@ -15,8 +18,10 @@ const CheckOut = ({ pays, ville, postalCode, adresse }) => {
     setActiveTab(tabId);
   };
 
+  
   const handleShow = () => {    if (isFormValid) {
       setShow(true);
+
     } else {
       // If form is not valid, show a SweetAlert
       Swal.fire({
@@ -54,12 +59,14 @@ const CheckOut = ({ pays, ville, postalCode, adresse }) => {
     if (result.isConfirmed) {
       // Display a success alert
       Swal.fire("Ordered!", "Your order has been well.", "success");
-      localStorage.removeItem('cart');
+      // localStorage.removeItem('cart');
       Navigate('/home');
 
 
     }
   };
+
+  
 
   return (
     <div className="modalCard">
