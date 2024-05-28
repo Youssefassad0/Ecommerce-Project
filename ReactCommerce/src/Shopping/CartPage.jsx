@@ -110,6 +110,7 @@ const CartPage = () => {
       pays: selectPays,
       city: ville,
       no_street: numeroRue,
+      payment_mode:'OnDelivery',
       zipcode: codePost,
       cartItems: cartItems,
     };
@@ -225,8 +226,8 @@ const CartPage = () => {
             <div className="cart-bottom">
               <div className="cart-checkout-box">
                 <form className="coupon"></form>
-                <form className="cart-checkout">
-                  <input type="submit" value={t("Update Cart")} />
+                <form className="cart-checkout" onSubmit={handleFormSubmit}>
+                  <input type="submit"  value={t("Update Cart")} />
                   <div>
                     {/* <Button variant="primary" className="py-2" onClick={handleFormSubmit}>
                       {t("Proceed To Checkout")}

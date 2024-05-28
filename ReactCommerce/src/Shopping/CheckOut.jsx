@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import "./modal.css";
 import { Navigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 const CheckOut = ({ pays, ville, postalCode, adresse }) => {
   const [show, setShow] = useState(false);
   const [activeTab, setActiveTab] = useState("Visa");
@@ -11,6 +12,7 @@ const CheckOut = ({ pays, ville, postalCode, adresse }) => {
   const authUser = JSON.parse(localStorage.getItem("auth-user"));
       const name = authUser.name;
       const email = authUser.email;
+      const { t } = useTranslation();
 
   // Handle Tab Change
 
@@ -44,8 +46,8 @@ const CheckOut = ({ pays, ville, postalCode, adresse }) => {
   }, [pays, ville, postalCode, adresse]);
 
   const handleOrderConfirm = async () => {
-    // Display a confirmation dialog
-    const result = await Swal.fire({
+
+    /* const result = await Swal.fire({
       title: "Are you sure?",
       text: "You wanna buy this product !",
       icon: "warning",
@@ -54,16 +56,10 @@ const CheckOut = ({ pays, ville, postalCode, adresse }) => {
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, i want it!",
     });
-
-    // Check if the user clicked the 'Confirm' button
     if (result.isConfirmed) {
-      // Display a success alert
       Swal.fire("Ordered!", "Your order has been well.", "success");
-      // localStorage.removeItem('cart');
-      Navigate('/home');
-
-
-    }
+      Navigate('/');
+    } */
   };
 
   
@@ -71,7 +67,7 @@ const CheckOut = ({ pays, ville, postalCode, adresse }) => {
   return (
     <div className="modalCard">
       <Button variant="primary" className="py-2" onClick={handleShow}>
-        Proceed To Checkout
+      {t("Online Payment")}
       </Button>
 
       {isFormValid && (
@@ -195,7 +191,7 @@ const CheckOut = ({ pays, ville, postalCode, adresse }) => {
                             <button
                               type="submit"
                               className="btn btn-success btn-block"
-                              onClick={handleOrderConfirm}
+                              onClick={(e)=>handleOrderConfirm(e,'')}
                             >
                               Order
                             </button>
@@ -261,7 +257,7 @@ const CheckOut = ({ pays, ville, postalCode, adresse }) => {
                               <button
                                 className="btn btn-primary btn-block"
                                 type="submit"
-                                onClick={handleOrderConfirm}
+                                onClick={()=>handleOrderConfirm()}
                               >
                                 Order By Paypal
                               </button>

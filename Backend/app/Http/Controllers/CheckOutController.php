@@ -60,6 +60,7 @@ class CheckOutController extends Controller
                         'city' => $request->city,
                         'no_street' => $request->no_street,
                         'zipcode' => $request->zipcode,
+                        'payment_mode' => $request->payment_mode,
                         'tracking_no' => 'TRK' . strtoupper(uniqid()),
                         'status' => 'pending',
                     ]);

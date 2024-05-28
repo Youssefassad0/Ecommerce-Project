@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('no_street');
             $table->string('city');
             $table->string('zipcode');
+            $table->string('payment_mode')->nullable();
             $table->string('payment_id')->nullable();
             $table->string('tracking_no');
             $table->string('status')->default('pending');
