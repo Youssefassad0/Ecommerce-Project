@@ -125,6 +125,7 @@ const CartPage = () => {
         localStorage.removeItem('cart');
         setCartItems([]);
       } else if (response.data.status === 422) {
+        // console.log('HHHHHHHHHHHHH');
         setErrors(response.data.errors);
         Swal.fire('Error', 'All fields are mandatory', 'error');
       } else if (response.data.status === 400) {
@@ -232,7 +233,7 @@ const CartPage = () => {
                     {/* <Button variant="primary" className="py-2" onClick={handleFormSubmit}>
                       {t("Proceed To Checkout")}
                     </Button> */}
-                  <CheckOut ville={ville} pays={selectPays} postalCode={codePost} adresse={numeroRue}
+                  <CheckOut ville={ville} pays={selectPays} postalCode={codePost} numeroRue={numeroRue} UserID={UserID} cartItems={cartItems}
                     />
                   </div>
                 </form>

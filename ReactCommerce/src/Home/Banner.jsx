@@ -1,14 +1,23 @@
-import React, { useState } from "react";
-import productData from "../products.json";
+import React, { useEffect, useState } from "react";
+// import productData from "../products.json";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import SelectCategorie from "../components/selectCate";
 import "./button.css";
 
 const Banner = () => {
+  const [filterProducts, setFilterProducts] = useState();
+  const [productData, setProductData] = useState();
+  useEffect(() => {
+    // Fetch the data from the API
+    fetch("http://localhost:8001/api/products")
+      .then((res) => res.json())
+      .then((data) => {
+        setProductData(data.data); // Ensure data is correctly set
+      });
+  }, []);
   const { t, i18n } = useTranslation();
   const [searchInput, setSearchInput] = useState("");
-  const [filterProducts, setFilterProducts] = useState(productData);
 
   const handleSearch = (e) => {
     const searchTerm = e.target.value;
@@ -81,7 +90,7 @@ const Banner = () => {
               filterProducts.map((p, index) => (
                 <li key={index}>
                   <Link to={`/product/${p.id}`}>
-                    <img src={p.img} style={{ width: "40px", height: "40px" }} alt="" />
+                    <img src={`http://127.0.0.1:8001/storage/${p.first_image}`} style={{ width: "40px", height: "40px" }} alt="" />
                     {p.name}
                   </Link>
                 </li>

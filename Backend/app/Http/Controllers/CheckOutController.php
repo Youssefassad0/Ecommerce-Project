@@ -146,4 +146,37 @@ class CheckOutController extends Controller
     {
         //
     }
+    public function validateOrder(Request $request)
+    {
+
+        if (auth('sanctum')->check()) {
+            $validator = Validator::make($request->all(), [
+                'id_user' => 'required|numeric',
+                'name' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255',
+                'pays' => 'required|string|max:255',
+                'city' => 'required|string|max:255',
+                'no_street' => 'required|string|max:255',
+                'zipcode' => 'required|string|max:10',
+                'cartItems' => 'required|array',
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'status' => 422,
+                    'errors' => $validator->messages(),
+                ]);
+            } else {
+                return response()->json([
+                    'status' => 201,
+                    'message' => 'Order placed successfully',
+                ]);
+            }
+        } else {
+            return response()->json([
+                'status' => 401,
+                'message' => 'Login to continue!'
+            ]);
+        }
+    }
 }
