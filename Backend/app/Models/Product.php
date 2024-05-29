@@ -46,4 +46,8 @@ class Product extends Model
         // Delete the product
         $this->delete();
     }
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
 }

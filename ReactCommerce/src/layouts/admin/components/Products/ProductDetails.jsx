@@ -4,10 +4,13 @@ import StoreIcon from '@mui/icons-material/Store';
 import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
 import HouseSidingIcon from '@mui/icons-material/HouseSiding';
+// import './ProductDetails.css'; // Make sure to import your CSS file
+import './Product.css'
 function ProductDetails() {
     const { id } = useParams();
     const [product, setProduct] = useState(null);
     const [currentImage, setCurrentImage] = useState(null);
+    const [categories, setCategories] = useState([]);
 
     useEffect(() => {
         async function getProduct() {
@@ -17,13 +20,23 @@ function ProductDetails() {
                 if (response.data.data.images.length > 0) {
                     setCurrentImage(`http://localhost:8001/storage/${response.data.data.images[0]}`);
                 }
+                axios.get('http://127.0.0.1:8001/api/category')
+                .then(response => {
+                  setCategories(response.data.data);
+                })
+                .catch(error => {
+                  console.error('There was an error fetching the categories!', error);
+                });
             } catch (err) {
                 console.log('ERROR :: ' + err);
             }
         }
         getProduct();
     }, [id]);
-
+    const getCategoryName = (id) => {
+        const category = categories.find(cat => cat.id === id);
+        return category ? category.nom : 'Unknown';
+      };
     if (!product) return <div>Loading...</div>;
 
     const productSliderOptions = {
@@ -107,7 +120,7 @@ function ProductDetails() {
                                         </span>
                                     </div>
                                     <div className="col-sm-7 ">
-                                        : <span>{product.category_id}</span>
+                                        : <span>{getCategoryName(product.category_id)}</span>
                                     </div>
                                 </div>
                                 <div className="row mb-2">

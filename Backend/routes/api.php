@@ -7,6 +7,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ReviewController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -47,3 +48,4 @@ Route::post('/comments', [CommentController::class, 'store']);
 Route::get('/products/{productId}/comments', [CommentController::class, 'index']);
 Route::resource('/contact', ContactController::class);
 Route::post('/validate-order', [CheckOutController::class, 'validateOrder']);
+Route::post('/products/{productId}/reviews', [ReviewController::class, 'store']);

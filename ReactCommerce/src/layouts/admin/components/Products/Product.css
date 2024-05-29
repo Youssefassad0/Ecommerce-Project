@@ -248,3 +248,8 @@ table.v-align td .productBox {
   height: 100px; /* Set a fixed height for small slider images */
   /* object-fit: cover; Ensure the image covers the box without distorting */
 }
+/* Add this to your CSS file */
+.slider-image {
+  height: 150px; /* Set a fixed height for the images */
+  object-fit: cover; /* Ensure the image covers the area without stretching */
+}
