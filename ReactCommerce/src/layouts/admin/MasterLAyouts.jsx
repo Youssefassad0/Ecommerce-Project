@@ -15,6 +15,7 @@ import ProductDetails from './components/Products/ProductDetails';
 import Profile from './components/Profile/profile';
 import ProductComments from './components/Comments';
 import ProductUpdateForm from './components/Products/UpdateProduct';
+import NotFound from '../frontend/NotFound';
 
 function MasterLAyouts() {
 
@@ -41,6 +42,7 @@ function MasterLAyouts() {
 
                   <Routes>
                     <Route path="/" element={<Home />} />
+                    <Route  path='*' element={<NotFound link={"/dashboard/"} />} />
                     <Route path="/Profile" element={<Profile />} />
                     <Route path="/products" element={<Product />} />
                     <Route path="/category" element={<Category />} />

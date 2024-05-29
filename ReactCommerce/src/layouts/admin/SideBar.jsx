@@ -2,6 +2,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import { FaSolarPanel } from "react-icons/fa";
+import { MdCategory } from "react-icons/md";
 import LayersIcon from '@mui/icons-material/Layers';
 function SideBar() {
   const [style, setStyle] = useState("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion");
@@ -54,10 +55,10 @@ function SideBar() {
             aria-expanded="true"
             aria-controls="collapseTwo"
           >
-            <i >
+            <i>
               <LayersIcon />
             </i>
-            <span>Pages </span>
+            <span> Products</span>
           </a>
           <div
             id="collapseTwo"
@@ -68,7 +69,7 @@ function SideBar() {
             <div className="bg-white py-2 collapse-inner rounded">
               <h6 className="collapse-header">Custom Components:</h6>
               <Link className="collapse-item" to={'/dashboard/products'}>products</Link>
-              <Link className="collapse-item" to="/dashboard/category">Categories</Link>
+              <Link className="collapse-item" to={'/dashboard/add-product'}>Add Product</Link>
             </div>
           </div>
         </li>
@@ -83,8 +84,10 @@ function SideBar() {
             aria-expanded="true"
             aria-controls="collapseUtilities"
           >
-            <i className="fas fa-fw fa-wrench"></i>
-            <span>Utilities</span>
+            <i>
+            <MdCategory />
+            </i>
+            <span>Category</span>
           </a>
           <div
             id="collapseUtilities"
@@ -93,9 +96,9 @@ function SideBar() {
             data-parent="#accordionSidebar"
           >
             <div className="bg-white py-2 collapse-inner rounded">
-              <h6 className="collapse-header">Custom Utilities:</h6>
-              <a className="collapse-item" href="utilities-color.html">Colors</a>
-              <a className="collapse-item" href="utilities-border.html">Borders</a>
+              <h6 className="collapse-header">Category:</h6>
+              <Link className="collapse-item" to="/dashboard/category">Categories</Link>
+              <Link className="collapse-item" to="/dashboard//new/cate">Add Categories</Link>
               <a className="collapse-item" href="utilities-animation.html"
               >Animations</a>
               <a className="collapse-item" href="utilities-other.html">Other</a>

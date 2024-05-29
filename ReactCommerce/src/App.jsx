@@ -14,6 +14,8 @@ import LoginPage from "./components/Auth/LoginPage";
 import RegisterPage from "./components/Auth/RegisterPage";
 import AuthPage from "./components/Auth/Auth";
 import CartPage from "./Shopping/CartPage";
+import NotFound from "./layouts/frontend/NotFound";
+import LoaderShop from "./layouts/frontend/LoaderShop";
 
 axios.defaults.headers.post['Accept'] = 'application/json';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
@@ -34,6 +36,7 @@ export default function App() {
         <BrowserRouter>
             <Routes>
                 <Route exact path="/" element={<Home />} />
+                <Route exact path="/load" element={<LoaderShop />} />
                 <Route path="/blog" element={<Blog />} />
                 <Route path="/blog/singleblog/:id" element={<SingleBlog />} />
                 <Route path="/shop" element={<Shop />} />
@@ -42,6 +45,7 @@ export default function App() {
                 <Route path="/about" element={<About />} />
                 <Route path="/cart-page" element={<CartPage />} />
                 <Route path="/contact" element={<Contact />} />
+                <Route path="*" element={ <NotFound link={"/"}  /> }/> 
                 <Route
                     path="/login"
                     element={
@@ -66,6 +70,7 @@ export default function App() {
                     path="/dashboard/*"
                     element={user && user.role==='admin' ? <MasterLAyouts /> : <Navigate to="/login" />}
                 />
+
             </Routes>
         </BrowserRouter>
     );

@@ -10,6 +10,7 @@ import FilterShop from "./FilterShop";
 import NavItems from "../components/NavItems";
 import Footer from "../components/Footer";
 import axios from "axios";
+import LoaderShop from "../layouts/frontend/LoaderShop";  // Make sure to import the Loader component
 
 const Shop = () => {
   const { t } = useTranslation();
@@ -22,6 +23,7 @@ const Shop = () => {
   const [selectedSize, setSelectedSize] = useState(null);
   const [selectedPrice, setSelectedPrice] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [loading, setLoading] = useState(true);  // Initialize loading to true
 
   // Fetch data from backend
   useEffect(() => {
@@ -47,6 +49,8 @@ const Shop = () => {
         setCategories(categoriesData);
       } catch (error) {
         console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false);  // Set loading to false after data is fetched
       }
     };
     fetchData();
@@ -126,20 +130,26 @@ const Shop = () => {
                   </div>
                 </div>
                 <div>
-                  {currentProducts.length > 0 ? (
-                    <ProductsCard GridList={GridList} products={currentProducts} />
+                  {loading ? (
+                    <LoaderShop />  // Show loader while loading is true
                   ) : (
-                    <p>{t("noProductFound")}</p>
+                    <>
+                      {currentProducts.length > 0 ? (
+                        <ProductsCard GridList={GridList} products={currentProducts} />
+                      ) : (
+                        <p>{t("noProductFound")}</p>
+                      )}
+                      {filteredProducts.length > 0 && (
+                        <Pagination
+                          ProductsPerPage={ProductsPerPage}
+                          total={filteredProducts.length}
+                          paginate={paginate}
+                          activePage={currentPage}
+                        />
+                      )}
+                    </>
                   )}
                 </div>
-                {filteredProducts.length > 0 && (
-                  <Pagination
-                    ProductsPerPage={ProductsPerPage}
-                    total={filteredProducts.length}
-                    paginate={paginate}
-                    activePage={currentPage}
-                  />
-                )}
               </article>
             </div>
             <div className="col-lg-4 col-12">
