@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/images/logo/AssadShopLogo.png";
+import avatar from "../assets/images/clients/avater.jpg";
 import { useTranslation } from "react-i18next";
 import Select from "react-select";
 import axios from "axios";
@@ -89,7 +90,7 @@ const NavItems = () => {
     } else {
       return (
         <Nav className="me-3 d-none d-md-block" >
-          <NavDropdown alignRight title={<span> <img src="/src/assets/images/author/03.jpg" alt="profile image" style={{ width: '50px', height: '50px', borderRadius: '25px' }} /> </span>}>
+          <NavDropdown alignRight title={<span> <img src={avatar} alt="profile image" style={{ width: '50px', height: '50px', borderRadius: '25px' }} /> </span>}>
             <Dropdown.Item>
               <Link to="/profile">Your Profile</Link>
             </Dropdown.Item>
