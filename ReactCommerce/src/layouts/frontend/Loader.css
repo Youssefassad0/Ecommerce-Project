@@ -1,3 +1,8 @@
+.ll{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .pyramid-loader {
     position: relative;
     width: 300px;

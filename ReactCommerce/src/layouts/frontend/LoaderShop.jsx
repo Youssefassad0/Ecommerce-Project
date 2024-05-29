@@ -2,7 +2,7 @@ import React from 'react'
 import './Loader.css'
 function LoaderShop() {
     return (
-        <div>
+        <div className='ll' >
             <div className="pyramid-loader">
                 <div className="wrapperL">
                     <span className="side side1"></span>

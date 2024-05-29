@@ -10,8 +10,7 @@ import FilterShop from "./FilterShop";
 import NavItems from "../components/NavItems";
 import Footer from "../components/Footer";
 import axios from "axios";
-import LoaderShop from "../layouts/frontend/LoaderShop";  // Make sure to import the Loader component
-
+import LoaderShop from "../layouts/frontend/LoaderShop";
 const Shop = () => {
   const { t } = useTranslation();
   const [GridList, setGridList] = useState(true);
