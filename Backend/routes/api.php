@@ -1,15 +1,15 @@
 <?php
 
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\CheckOutController;
-use App\Http\Controllers\CommentController;
-use App\Http\Controllers\CommentsController;
-use App\Http\Controllers\ContactController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\ReviewController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CheckOutController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +41,8 @@ Route::post('login', [AuthController::class, 'login']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
+    Route::get('/user/profile', [ProfileController::class, 'index']);
+    Route::put('/user/profile/update', [ProfileController::class, 'update']);
 });
 Route::resource('/category', CategoryController::class);
 // Route::resource('/comments', CommentsController::class);
@@ -49,3 +51,6 @@ Route::get('/products/{productId}/comments', [CommentController::class, 'index']
 Route::resource('/contact', ContactController::class);
 Route::post('/validate-order', [CheckOutController::class, 'validateOrder']);
 Route::post('/products/{productId}/reviews', [ReviewController::class, 'store']);
+
+// Route::middleware('auth:api')->group(function () {
+// });

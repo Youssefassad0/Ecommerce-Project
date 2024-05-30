@@ -49,7 +49,7 @@ const NavItems = () => {
           <Nav>
             <NavDropdown alignRight title={<span>{user && user.name}</span>}>
               <Dropdown.Item>
-                <Link to="/profile">Your Profile</Link>
+                <Link to="/my-profile">Your Profile</Link>
               </Dropdown.Item>
               {user && user.role === 'admin' && <Dropdown.Item><Link to="/dashboard">Dashboard</Link></Dropdown.Item>}
               <Dropdown.Item onClick={logOut}>Logout</Dropdown.Item>

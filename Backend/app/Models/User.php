@@ -18,12 +18,15 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+    protected $table = "users";
     protected $fillable = [
         'name',
         'email',
         'password',
-        'role', 'mobile', 'location', 'avatar'
-
+        'role',
+        'mobile',
+        'location',
+        'avatar'
     ];
 
     /**
@@ -55,5 +58,9 @@ class User extends Authenticatable
     public function comments()
     {
         return $this->hasMany(Comment::class);
+    }
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
     }
 }

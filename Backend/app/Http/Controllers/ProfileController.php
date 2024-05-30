@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class ProfileController extends Controller
@@ -55,7 +56,7 @@ class ProfileController extends Controller
      */
     public function update(Request $request)
     {
-        $user = User::findOrFail(auth('sanctum')->user());
+        $user = User::findOrFail(auth('sanctum')->user()->id);
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'mobile' => 'required|string|max:15',
@@ -75,6 +76,21 @@ class ProfileController extends Controller
         $user->mobile = $request->mobile;
         $user->email = $request->email;
         $user->location = $request->location;
+        if ($request->password) {
+            $user->password = Hash::make($request->password);
+        }
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $fileName = time() . '.' . $extension;
+            $path = 'uploads/users';
+            $file->move($path, $fileName);
+
+            // Set image path
+            $user->avatar = $path . '/' . $fileName;
+        }
+        $user->save();
+        return response()->json(['message' => 'Profile updated successfully'], 200);
     }
 
     /**
