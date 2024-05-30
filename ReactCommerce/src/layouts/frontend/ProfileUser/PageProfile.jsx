@@ -3,6 +3,7 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import NavItems from '../../../components/NavItems';
 import { useNavigate } from 'react-router-dom';
+import { DataArraySharp } from '@mui/icons-material';
 
 function PageProfile() {
     const [formData, setFormData] = useState({
@@ -11,24 +12,29 @@ function PageProfile() {
         email: '',
         location: '',
         password: '',
-        password2: ''
+        password2: '',
+        avatar: null
     });
-    const nav=useNavigate();
+    const navigate = useNavigate();
 
     useEffect(() => {
         async function fetchData() {
             try {
                 const res = await axios.get('http://127.0.0.1:8001/api/user/profile');
-                setFormData(res.data);
+                setFormData({
+                    ...res.data,
+                    password: '',
+                    password2: ''
+                });
             } catch (error) {
-                nav('/')
+                navigate('/');
                 const er = error.response?.data?.message || 'An error occurred';
                 Swal.fire('Error', er, 'error');
                 console.error('Error fetching user data:', error);
             }
         }
         fetchData();
-    }, []);
+    }, [navigate]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -63,11 +69,12 @@ function PageProfile() {
         });
 
         try {
-            await axios.put('http://127.0.0.1:8001/api/user/profile/update', data, {
+            const response = await axios.post('http://127.0.0.1:8001/api/user/profile/update', data, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
             });
+            console.log('Server response:', response.data);
             Swal.fire({
                 icon: 'success',
                 title: 'Success',

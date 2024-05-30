@@ -62,7 +62,7 @@ class ProfileController extends Controller
             'mobile' => 'required|string|max:15',
             'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
             'location' => 'required|string|max:255',
-            'password' => 'nullable|string|min:8|confirmed',
+            'password' => 'nullable|string|min:6',
             'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
@@ -72,26 +72,32 @@ class ProfileController extends Controller
                 'errors' => $validator->messages(),
             ]);
         }
+
         $user->name = $request->name;
         $user->mobile = $request->mobile;
         $user->email = $request->email;
         $user->location = $request->location;
+
         if ($request->password) {
             $user->password = Hash::make($request->password);
         }
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
+
+        if ($request->hasFile('avatar')) {
+            $file = $request->file('avatar');
             $extension = $file->getClientOriginalExtension();
             $fileName = time() . '.' . $extension;
             $path = 'uploads/users';
-            $file->move($path, $fileName);
+            $file->move(public_path($path), $fileName);
 
             // Set image path
             $user->avatar = $path . '/' . $fileName;
         }
+
         $user->save();
+
         return response()->json(['message' => 'Profile updated successfully'], 200);
     }
+
 
     /**
      * Remove the specified resource from storage.
