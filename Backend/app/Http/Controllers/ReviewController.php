@@ -11,15 +11,12 @@ class ReviewController extends Controller
     public function store(Request $request, $productId)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255',
-            'message' => 'required|string',
+            'message' => 'required|string|max:500',
         ]);
-
+        $id = auth('sanctum')->user()->id;
         $review = new Review;
         $review->product_id = $productId;
-        $review->name = $request->name;
-        $review->email = $request->email;
+        $review->user_id = $id;
         $review->message = $request->message;
         $review->save();
 
@@ -33,10 +30,10 @@ class ReviewController extends Controller
     }
     public function listLastFiveReviews($productId)
     {
-        $reviews = Review::join('users', 'reviews.email', '=', 'users.email') // Eager load the user information
-            ->where('reviews.product_id', $productId)
-            ->orderBy('reviews.created_at', 'desc')
-            ->take(5)
+        $reviews = Review::with('user')
+            ->where('product_id', $productId)
+            ->orderBy('created_at', 'desc')
+            ->limit(5)
             ->get();
 
         return response()->json($reviews);
