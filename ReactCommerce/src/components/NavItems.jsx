@@ -62,7 +62,7 @@ const NavItems = () => {
     } else {
       return (
         <>
-          <Link to="/register" className="lab-btn me-3">
+          <Link to="/register" className="lab-btn mda-3">
             <span>{t("createAccount")}</span>
           </Link>
           <Link to="/login">{t("logIn")}</Link>
@@ -92,7 +92,7 @@ const NavItems = () => {
         <Nav className="me-3 d-none d-md-block" >
           <NavDropdown alignRight title={<span> <img src={avatar} alt="profile image" style={{ width: '50px', height: '50px', borderRadius: '25px' }} /> </span>}>
             <Dropdown.Item>
-              <Link to="/profile">Your Profile</Link>
+              <Link to="/my-profile">Your Profile</Link>
             </Dropdown.Item>
             {user && user.role === 'admin' && <Dropdown.Item><Link to="/dashboard">Dashboard</Link></Dropdown.Item>}
             <Dropdown.Item> <Link to={"/cart-page"} >   {t("Panier")}</Link></Dropdown.Item>

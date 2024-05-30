@@ -73,18 +73,24 @@ const ProductForm = () => {
     };
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+    
+        // Convert colors to lowercase
+        const updatedFormData = {
+            ...formData,
+            colors: formData.colors.split(',').map(color => color.trim().toLowerCase()).join(',')
+        };
+    
         const data = new FormData();
-        Object.keys(formData).forEach(key => {
+        Object.keys(updatedFormData).forEach(key => {
             if (key === 'sizes' || key === 'colors') {
-                data.append(key, JSON.stringify(formData[key].split(',')));
+                data.append(key, JSON.stringify(updatedFormData[key].split(',')));
             } else if (key === 'images') {
-                formData.images.forEach(image => data.append('images[]', image));
+                updatedFormData.images.forEach(image => data.append('images[]', image));
             } else {
-                data.append(key, formData[key]);
+                data.append(key, updatedFormData[key]);
             }
         });
-
+    
         try {
             let response;
             if (isUpdate) {
@@ -104,8 +110,8 @@ const ProductForm = () => {
                         icon: 'success',
                         title: 'Success',
                         text: 'Product added successfully!',
-                    })
-                    nav('/dashboard/products')
+                    });
+                    nav('/dashboard/products');
                 }
             }
             console.log('Product created/updated successfully:', response.data);
@@ -113,7 +119,7 @@ const ProductForm = () => {
             console.error('Error creating/updating product:', error.response ? error.response.data : error.message);
         }
     };
-
+    
     return (
         <form onSubmit={handleSubmit}>
             <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Name" required />

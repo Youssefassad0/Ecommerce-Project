@@ -5,8 +5,8 @@ import "./filter.css";
 
 const FilterShop = ({ filterByColor, filterBySize, filterByPrice }) => {
   const { t } = useTranslation();
-  const colorOptions = ["Black", "white", "Pink", "red", "green", "gold", "blue"];
-  const sizeOptions = [10, 11, 12, 13, 15, 16, 17, 20, 24, 26, 30, 35, 38, 40]; 
+  const colorOptions = ["black", "white", "pink", "red", "green", "gold", "blue"];
+  const sizeOptions = ["S","M","XL","XXL"]; 
 
   const [priceValue, setPriceValue] = useState(0);
 
@@ -41,8 +41,8 @@ const FilterShop = ({ filterByColor, filterBySize, filterByPrice }) => {
         <h4>{t("size")}</h4>
         <select onChange={(e) => filterBySize(parseInt(e.target.value, 10))}>
           <option value="">{t("allSizes")}</option>
-          {sizeOptions.map((size) => (
-            <option key={size} value={size}>
+          {sizeOptions.map((size,i) => (
+            <option key={i} value={size}>
               {size}
             </option>
           ))}
