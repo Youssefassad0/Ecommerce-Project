@@ -3,7 +3,6 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import NavItems from '../../../components/NavItems';
 import { useNavigate } from 'react-router-dom';
-import { DataArraySharp } from '@mui/icons-material';
 
 function PageProfile() {
     const [formData, setFormData] = useState({
@@ -15,6 +14,7 @@ function PageProfile() {
         password2: '',
         avatar: null
     });
+    const [avatarPreview, setAvatarPreview] = useState('http://ssl.gstatic.com/accounts/ui/avatar_2x.png');
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -26,6 +26,9 @@ function PageProfile() {
                     password: '',
                     password2: ''
                 });
+                if (res.data.avatar) {
+                    setAvatarPreview(`http://localhost:8001/${res.data.avatar}`);
+                }
             } catch (error) {
                 navigate('/');
                 const er = error.response?.data?.message || 'An error occurred';
@@ -45,10 +48,14 @@ function PageProfile() {
     };
 
     const handleFileChange = (e) => {
-        setFormData({
-            ...formData,
-            avatar: e.target.files[0]
-        });
+        const file = e.target.files[0];
+        if (file) {
+            setAvatarPreview(URL.createObjectURL(file));
+            setFormData({
+                ...formData,
+                avatar: file
+            });
+        }
     };
 
     const handleSubmit = async (e) => {
@@ -105,7 +112,7 @@ function PageProfile() {
                 <div className="row">
                     <div className="col-sm-3">
                         <div className="text-center">
-                            <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" className="avatar img-circle img-thumbnail" alt="avatar" />
+                            <img src={avatarPreview} className="avatar img-circle img-thumbnail" alt="avatar" />
                             <h6>Upload a different photo...</h6>
                             <input type="file" className="text-center center-block file-upload" onChange={handleFileChange} />
                         </div>
