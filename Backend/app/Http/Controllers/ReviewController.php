@@ -31,4 +31,14 @@ class ReviewController extends Controller
 
         return response()->json(['message' => 'Review submitted successfully'], 201);
     }
+    public function listLastFiveReviews($productId)
+    {
+        $reviews = Review::join('users', 'reviews.email', '=', 'users.email') // Eager load the user information
+            ->where('reviews.product_id', $productId)
+            ->orderBy('reviews.created_at', 'desc')
+            ->take(5)
+            ->get();
+
+        return response()->json($reviews);
+    }
 }

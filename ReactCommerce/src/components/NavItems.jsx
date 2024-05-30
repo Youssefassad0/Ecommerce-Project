@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/images/logo/AssadShopLogo.png";
-import avatar from "../assets/images/clients/avater.jpg";
+import defaultAvatar from "../assets/images/clients/avater.jpg";
 import { useTranslation } from "react-i18next";
 import Select from "react-select";
 import axios from "axios";
@@ -54,7 +54,6 @@ const NavItems = () => {
               {user && user.role === 'admin' && <Dropdown.Item><Link to="/dashboard">Dashboard</Link></Dropdown.Item>}
               <Dropdown.Item> <Link to={"cart-page"} >   {t("Panier")}</Link></Dropdown.Item>
               <Dropdown.Item onClick={logOut}>Logout</Dropdown.Item>
-
             </NavDropdown>
           </Nav>
         </>
@@ -88,9 +87,10 @@ const NavItems = () => {
         </>
       );
     } else {
+      const avatarUrl = user && user.avatar ? `http://localhost:8001/${user.avatar}` : defaultAvatar;
       return (
-        <Nav className="me-3 d-none d-md-block" >
-          <NavDropdown alignRight title={<span> <img src={avatar} alt="profile image" style={{ width: '50px', height: '50px', borderRadius: '25px' }} /> </span>}>
+        <Nav className="me-3 d-none d-md-block">
+          <NavDropdown alignRight title={<span> <img src={avatarUrl} alt="profile image" style={{ width: '50px', height: '50px', borderRadius: '25px' }} /> </span>}>
             <Dropdown.Item>
               <Link to="/my-profile">Your Profile</Link>
             </Dropdown.Item>
@@ -123,8 +123,7 @@ const NavItems = () => {
 
   return (
     <header
-      className={`header-section style-4 ${headerFixed ? "header-fixed fadeInUp" : ""
-        }`}
+      className={`header-section style-4 ${headerFixed ? "header-fixed fadeInUp" : ""}`}
     >
       <div className={`header-top d-md-none ${socialToggle ? "open" : ""}`}>
         <div className="container">

@@ -51,6 +51,7 @@ Route::get('/products/{productId}/comments', [CommentController::class, 'index']
 Route::resource('/contact', ContactController::class);
 Route::post('/validate-order', [CheckOutController::class, 'validateOrder']);
 Route::post('/products/{productId}/reviews', [ReviewController::class, 'store']);
+Route::get('/products/{productId}/reviews', [ReviewController::class, 'listLastFiveReviews']);
 
 // Route::middleware('auth:api')->group(function () {
 // });
