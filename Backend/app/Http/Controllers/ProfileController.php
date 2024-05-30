@@ -57,7 +57,7 @@ class ProfileController extends Controller
     {
         $user = User::findOrFail(auth('sanctum')->user());
         $validator = Validator::make($request->all(), [
-            'last_name' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
             'mobile' => 'required|string|max:15',
             'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
             'location' => 'required|string|max:255',

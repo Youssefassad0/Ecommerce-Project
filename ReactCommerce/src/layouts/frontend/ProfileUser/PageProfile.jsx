@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import NavItems from '../../../components/NavItems';
 
 function PageProfile() {
     const [formData, setFormData] = useState({
@@ -79,7 +80,11 @@ function PageProfile() {
     };
 
     return (
-        <div className="container bootstrap snippet">
+        <>
+        <div className="nav mb-5" style={ {height:"40px"}} >
+        <NavItems  />
+        </div>
+        <div className="container bootstrap snippet mt-5">
             <div className="row">
                 <div className="col-sm-10"><h1>User Profile</h1></div>
             </div>
@@ -103,7 +108,7 @@ function PageProfile() {
                             <hr />
                             <form className="form" onSubmit={handleSubmit} id="registrationForm">
                                 <div className="form-group">
-                                   
+
                                 </div>
                                 <div className="form-group">
                                     <div className="col-xs-6">
@@ -159,6 +164,7 @@ function PageProfile() {
                 </div>
             </div>
         </div>
+        </>
     );
 }
 

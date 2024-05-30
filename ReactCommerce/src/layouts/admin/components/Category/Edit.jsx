@@ -15,7 +15,7 @@ function Edit() {
         setInputs(values => ({ ...values, [name]: value }))
     }
     const uploadProduct = async (e) => {
-        e.preventDefault();
+        // e.preventDefault();
         const formData = new FormData();
         formData.append('_method', 'PUT');
         formData.append('nom', inputs.nom);

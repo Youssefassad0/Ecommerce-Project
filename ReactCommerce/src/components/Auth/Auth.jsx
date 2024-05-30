@@ -162,7 +162,7 @@ function RegisterForm() {
           onChange={handleInputs}
           name="name"
           value={registerInput.name}
-          placeholder="Username" />
+          placeholder="Assad Youssef" />
 
       </div>
       <span className="text-danger">
