@@ -16,11 +16,15 @@ function PageProfile() {
     });
     const [avatarPreview, setAvatarPreview] = useState('http://ssl.gstatic.com/accounts/ui/avatar_2x.png');
     const navigate = useNavigate();
-
+    const [reviewCount, setReviewCount] = useState(0);
+    const [orderCount, setOrderCount] = useState(0);
     useEffect(() => {
         async function fetchData() {
             try {
                 const res = await axios.get('http://127.0.0.1:8001/api/user/profile');
+                await axios.get('http://127.0.0.1:8001/api/getUserReviews').then(res=>setReviewCount(res.data.length)).catch(err=>console.log("ERROR DE : "+err))
+                await axios.get('http://127.0.0.1:8001/api/getUserOrders').then(res=>setOrderCount(res.data.length)).catch(err=>console.log("ERROR DE : "+err))
+
                 setFormData({
                     ...res.data,
                     password: '',
@@ -37,6 +41,7 @@ function PageProfile() {
             }
         }
         fetchData();
+
     }, [navigate]);
 
     const handleChange = (e) => {
@@ -105,8 +110,8 @@ function PageProfile() {
             </div>
             <div className="container bootstrap snippet mt-5">
                 <div className="row">
-                    <div className="col-sm-10">
-                        <h1>User Profile</h1>
+                    <div className="col-sm-10 mt-3">
+                        <h3 >User Profile</h3>
                     </div>
                 </div>
                 <div className="row">
@@ -119,8 +124,8 @@ function PageProfile() {
                         <br />
                         <ul className="list-group">
                             <li className="list-group-item text-muted">Activity</li>
-                            <li className="list-group-item text-right"><span className="pull-left"><strong>Reviews</strong></span> 125</li>
-                            <li className="list-group-item text-right"><span className="pull-left"><strong>Orders</strong></span> 13</li>
+                            <li className="list-group-item text-right"><span className="pull-left"><strong>Reviews</strong></span> {reviewCount}</li>
+                            <li className="list-group-item text-right"><span className="pull-left"><strong>Orders</strong></span>{orderCount} </li>
                         </ul>
                     </div>
                     <div className="col-sm-9">

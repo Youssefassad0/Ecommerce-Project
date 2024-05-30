@@ -43,6 +43,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
     Route::get('/user/profile', [ProfileController::class, 'index']);
     Route::post('/user/profile/update', [ProfileController::class, 'update']);
+    Route::get('/getUserReviews', [ProfileController::class, 'getUserReviews']);
+    Route::get('/getUserOrders', [ProfileController::class, 'getUserOrders']);
 });
 Route::resource('/category', CategoryController::class);
 // Route::resource('/comments', CommentsController::class);

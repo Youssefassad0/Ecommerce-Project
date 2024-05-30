@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
+use App\Models\Review;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -19,41 +21,7 @@ class ProfileController extends Controller
         }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request)
     {
         $user = User::findOrFail(auth('sanctum')->user()->id);
@@ -102,8 +70,24 @@ class ProfileController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+
+    public function getUserReviews()
     {
-        //
+        if (auth('sanctum')->check()) {
+
+            $id = auth()->user()->id;
+            $reviews = Review::where('user_id', $id)->get();
+            return response()->json($reviews);
+        }
+    }
+
+    // Get the authenticated user's orders
+    public function getUserOrders()
+    {
+        if (auth('sanctum')->check()) {
+            $id = auth()->user()->id;
+            $orders = Order::where('id_user', $id)->get();
+            return response()->json($orders);
+        }
     }
 }
