@@ -10,6 +10,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CheckOutController;
+use App\Http\Controllers\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +46,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/user/profile/update', [ProfileController::class, 'update']);
     Route::get('/getUserReviews', [ProfileController::class, 'getUserReviews']);
     Route::get('/getUserOrders', [ProfileController::class, 'getUserOrders']);
+    Route::get('/orders', [OrderController::class, 'index']);
 });
 Route::resource('/category', CategoryController::class);
 // Route::resource('/comments', CommentsController::class);

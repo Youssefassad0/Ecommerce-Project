@@ -18,6 +18,7 @@ import ProductUpdateForm from './components/Products/UpdateProduct';
 import NotFound from '../frontend/NotFound';
 import User from './components/Users/User';
 import ContactDetail from './components/Contacts/ContactDetails';
+import ListOrder from './components/Orders/ListOrder';
 
 function MasterLAyouts() {
 
@@ -55,6 +56,7 @@ function MasterLAyouts() {
                     <Route path='/edit-product/:id' element={<ProductUpdateForm />} />
                     <Route path='/comments' element={<ProductComments />} />
                     <Route path='/users' element={<User/>}  />
+                    <Route path='/orders' element={<ListOrder/>}  />
                     <Route path='/contact/:id' element={<ContactDetail/>} />
                   </Routes>
                 </div>

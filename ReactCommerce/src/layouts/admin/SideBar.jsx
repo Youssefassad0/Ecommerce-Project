@@ -132,8 +132,8 @@ function SideBar() {
             data-parent="#accordionSidebar"
           >
             <div className="bg-white py-2 collapse-inner rounded">
-              <h6 className="collapse-header">Login Screens:</h6>
-              <a className="collapse-item" href="login.html">Login</a>
+              <h6 className="collapse-header">Order</h6>
+              <Link to={'/dashboard/orders'} className="collapse-item">Orders</Link>
               <a className="collapse-item" href="register.html">Register</a>
               <a className="collapse-item" href="forgot-password.html"
               >Forgot Password</a >
