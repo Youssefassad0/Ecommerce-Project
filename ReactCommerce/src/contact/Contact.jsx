@@ -95,7 +95,7 @@ const Contact = () => {
           <div className="container">
             <div className="section-header text-center">
               <span className="subtitle"> {(`subTitle`)} </span>
-              <h2 className="title"> {(`title`)} </h2>
+              <h2 className="title"> {t(`title`)} </h2>
             </div>
             <div className="section-wrapper">
               <div className="row flex-row-reverse ">
@@ -172,7 +172,7 @@ const Contact = () => {
                   />
                   {errors.subject && <span className='text-danger'>{errors.subject[0]}</span>}
 
-            °    </div>
+             </div>
                 <div className="form-group w-100">
                   <textarea
                     name="message"

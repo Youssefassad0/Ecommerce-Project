@@ -17,6 +17,7 @@ import ProductComments from './components/Comments';
 import ProductUpdateForm from './components/Products/UpdateProduct';
 import NotFound from '../frontend/NotFound';
 import User from './components/Users/User';
+import ContactDetail from './components/Contacts/ContactDetails';
 
 function MasterLAyouts() {
 
@@ -54,6 +55,7 @@ function MasterLAyouts() {
                     <Route path='/edit-product/:id' element={<ProductUpdateForm />} />
                     <Route path='/comments' element={<ProductComments />} />
                     <Route path='/users' element={<User/>}  />
+                    <Route path='/contact/:id' element={<ContactDetail/>} />
                   </Routes>
                 </div>
               </div>

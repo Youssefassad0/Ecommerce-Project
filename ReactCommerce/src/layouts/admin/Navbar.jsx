@@ -6,6 +6,7 @@ import { FaRegMessage } from "react-icons/fa6";
 import { IoNotificationsOutline } from "react-icons/io5";
 import { CiSearch } from "react-icons/ci";
 import { BsList } from "react-icons/bs";
+import ContactList from './components/Contacts/Contact';
 
 function Navbar() {
   const [style, setStyle] = useState("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion");
@@ -194,7 +195,8 @@ function Navbar() {
             >
               <h6 className="dropdown-header">Message Center</h6>
               <a className="dropdown-item d-flex align-items-center" href="#">
-                <div className="dropdown-list-image mr-3">
+                <ContactList/>
+                {/* <div className="dropdown-list-image mr-3">
                   <img
                     className="rounded-circle"
                     src="img/undraw_profile_1.svg"
@@ -262,7 +264,7 @@ function Navbar() {
                   <div className="small text-gray-500">
                     Chicken the Dog · 2w
                   </div>
-                </div>
+                </div> */}
               </a>
               <a
                 className="dropdown-item text-center small text-gray-500"

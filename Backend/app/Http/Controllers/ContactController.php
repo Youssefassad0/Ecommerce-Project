@@ -14,7 +14,9 @@ class ContactController extends Controller
      */
     public function index()
     {
-        //
+        $contacts = Contact::orderBy('created_at', 'desc')->limit(5)->get();
+        // return view('dashboard.contacts', compact('contacts'));
+        return response()->json($contacts);
     }
 
     /**
@@ -72,7 +74,8 @@ class ContactController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $contact = Contact::findOrFail($id);
+        return response()->json($contact);
     }
 
     /**
