@@ -48,6 +48,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/getUserReviews', [ProfileController::class, 'getUserReviews']);
     Route::get('/getUserOrders', [ProfileController::class, 'getUserOrders']);
     Route::get('/orders', [OrderController::class, 'index']);
+    Route::get('/user/orders', [OrderController::class, 'getUserOrders']);
 });
 Route::resource('/category', CategoryController::class);
 // Route::resource('/comments', CommentsController::class);

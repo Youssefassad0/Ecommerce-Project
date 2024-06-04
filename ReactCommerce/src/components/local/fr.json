@@ -120,5 +120,7 @@
     }
   ],
   "outOfStock": "Rupture de stock",
-  "review": "avis"
+  "review": "avis",
+  "purchase": "mes achats"
+
 }

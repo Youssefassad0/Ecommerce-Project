@@ -52,4 +52,20 @@ class OrderController extends Controller
 
         return response()->json($orders);
     }
+    public function getUserOrders()
+    {
+        $userId = auth('sanctum')->user()->id;
+        $orders = Order::with('orderDetails')->where('id_user', $userId)->get();
+        $orders = $orders->map(function ($order) {
+            return [
+                'id' => $order->id,
+                'email' => $order->email,  // Assuming you have this column
+                'payment_mode' => $order->payment_mode,  // Assuming you have this column
+                'total' => $order->total_price,
+                'status' => $order->status,
+            ];
+        });
+
+        return response()->json($orders);
+    }
 }

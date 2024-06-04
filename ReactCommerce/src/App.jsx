@@ -17,6 +17,7 @@ import CartPage from "./Shopping/CartPage";
 import NotFound from "./layouts/frontend/NotFound";
 import LoaderShop from "./layouts/frontend/LoaderShop";
 import PageProfile from "./layouts/frontend/ProfileUser/PageProfile";
+import UserOrders from "./Shopping/Purshase/CartOrder";
 
 axios.defaults.headers.post['Accept'] = 'application/json';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
@@ -46,7 +47,8 @@ export default function App() {
                 <Route path="/about" element={<About />} />
                 <Route path="/cart-page" element={<CartPage />} />
                 <Route path="/contact" element={<Contact />} />
-                <Route path="/my-profile"   element={ <PageProfile/> } />
+                <Route path="/my-profile"  element={ <PageProfile/> } />
+                <Route path="/my-purshase"  element={ <UserOrders/> } />
                 <Route path="*" element={ <NotFound link={"/"}  /> }/> 
                 <Route
                     path="/login"
