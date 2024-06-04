@@ -1,0 +1,46 @@
+.user-orders-container {
+  padding: 20px;
+  padding-top: 100px;
+}
+
+.custom-card {
+  background: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.table-hover tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.table-full-width {
+  width: 100%;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.status {
+  padding: 5px;
+  border-radius: 5px;
+
+  &.accepted {
+    color: green;
+    background-color: rgba(0, 128, 0, 0.151);
+  }
+  &.pending {
+    color: goldenrod;
+    background-color: rgba(189, 189, 3, 0.103);
+  }
+  &.rejected {
+    color: rgba(124, 12, 12, 0.824);
+    background-color: rgba(203, 80, 80, 0.616);
+  }
+}

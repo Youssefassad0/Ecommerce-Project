@@ -63,6 +63,7 @@ class OrderController extends Controller
                 'payment_mode' => $order->payment_mode,  // Assuming you have this column
                 'total' => $order->total_price,
                 'status' => $order->status,
+                "city" => $order->city
             ];
         });
 
