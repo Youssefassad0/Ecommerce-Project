@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { Toaster, toast } from 'sonner'
 import {
   Badge,
   Button,
@@ -31,6 +32,7 @@ function ListOrder() {
         setOrders(orders.map(order =>
           order.id === id ? { ...order, status: 'accepted' } : order
         ));
+        toast.success('The Order Has Been accepted')
       })
       .catch(error => {
         console.error('There was an error accepting the order!', error);
@@ -43,6 +45,7 @@ function ListOrder() {
         setOrders(orders.map(order =>
           order.id === id ? { ...order, status: 'rejected' } : order
         ));
+        toast.info('The Order Has Been rejected')
       })
       .catch(error => {
         console.error('There was an error rejecting the order!', error);
@@ -51,6 +54,7 @@ function ListOrder() {
   return (
     <>
     <Container fluid>
+    <Toaster position="top-right" />
         <Row>
           <Col md="12">
             <Card className="strpied-tabled-with-hover">
