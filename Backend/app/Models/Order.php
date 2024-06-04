@@ -19,7 +19,7 @@ class Order extends Model
     public function getTotalPriceAttribute()
     {
         return $this->orderDetails->sum(function ($detail) {
-            return $detail->quantity * $detail->price;
+            return  $detail->price;
         });
     }
 }

@@ -19,6 +19,8 @@ import NotFound from '../frontend/NotFound';
 import User from './components/Users/User';
 import ContactDetail from './components/Contacts/ContactDetails';
 import ListOrder from './components/Orders/ListOrder';
+import ListOrderAccepted from './components/Orders/ListAccOrder';
+import ListOrderRejected from './components/Orders/ListRefOrder';
 
 function MasterLAyouts() {
 
@@ -57,6 +59,8 @@ function MasterLAyouts() {
                     <Route path='/comments' element={<ProductComments />} />
                     <Route path='/users' element={<User/>}  />
                     <Route path='/orders' element={<ListOrder/>}  />
+                    <Route path='/orders-accepted' element={<ListOrderAccepted/>}  />
+                    <Route path='/orders-rejected' element={<ListOrderRejected/>}  />
                     <Route path='/contact/:id' element={<ContactDetail/>} />
                   </Routes>
                 </div>

@@ -14,14 +14,13 @@ import {
   Col,
 } from "react-bootstrap";
 
-function ListOrder() {
+function ListOrderRejected() {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
     async function getOrders() {
-      axios.get("http://localhost:8001/api/orders").then(res => {
+      axios.get("http://localhost:8001/api/ordersRef").then(res => {
         setOrders(res.data);
-        // console.log(res.data);
       }).catch(err => {
         console.log('ERROR : ' + err);
       });
@@ -29,43 +28,18 @@ function ListOrder() {
     getOrders();
   }, []);
 
-  const handleAccept = (id) => {
-    axios.post(`http://localhost:8001/api/orders/${id}/accept`)
-      .then(response => {
-        setOrders(orders.map(order =>
-          order.id === id ? { ...order, status: 'accepted' } : order
-        ));
-        toast.success('The Order Has Been accepted');
-      })
-      .catch(error => {
-        console.error('There was an error accepting the order!', error);
-      });
-  };
-
-  const handleReject = (id) => {
-    axios.post(`http://localhost:8001/api/orders/${id}/reject`)
-      .then(response => {
-        setOrders(orders.map(order =>
-          order.id === id ? { ...order, status: 'rejected' } : order
-        ));
-        toast.info('The Order Has Been rejected');
-      })
-      .catch(error => {
-        console.error('There was an error rejecting the order!', error);
-      });
-  };
-
+  
   return (
     <>
       <Container fluid>
-        <Toaster richColors   position="top-right" />
+        <Toaster position="top-right" />
         <Row>
           <Col md="12">
             <Card className="strpied-tabled-with-hover">
               <Card.Header>
-                <Card.Title as="h4">All Orders Pending</Card.Title>
+                <Card.Title as="h4">All Orders Accepted</Card.Title>
                 <p className="card-category">
-                  You can accept or refuse an order
+
                 </p>
               </Card.Header>
               <Card.Body className="table-full-width table-responsive px-0">
@@ -77,7 +51,7 @@ function ListOrder() {
                       <th className="border-0">Payment Mode</th>
                       <th className="border-0">Total</th>
                       <th className="border-0">Status</th>
-                      <th className="border-0">Actions</th>
+
                     </tr>
                   </thead>
                   <tbody>
@@ -93,10 +67,6 @@ function ListOrder() {
                           <td>{order.payment_mode}</td>
                           <td>{order.total}</td>
                           <td> <span className={`status ${order.status}`} > {order.status}</span></td>
-                          <td>
-                            <Button variant="success" onClick={() => handleAccept(order.id)}>Accept</Button>
-                            <Button variant="danger" onClick={() => handleReject(order.id)}>Reject</Button>
-                          </td>
                         </tr>
                       ))
                     )}
@@ -111,4 +81,4 @@ function ListOrder() {
   );
 }
 
-export default ListOrder;
+export default ListOrderRejected;
