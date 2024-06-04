@@ -40,7 +40,7 @@ function UsersPage() {
     <div>
       <Box m="1.5rem 2.5rem">
         <h1>List Of Customers</h1>
-        <Box mt="40px">
+        <Box mt="40px"  sx={{ height: 400, width: '100%' }}>
           <DataGrid
             rows={data}
             columns={columns}
@@ -50,7 +50,7 @@ function UsersPage() {
             pageSize={10}
             rowsPerPageOptions={[10, 25, 50]}
             disableSelectionOnClick
-            disableColumnMenu
+            // disableColumnMenu
             density="compact"
             components={{
               Toolbar: () => null, // Hide toolbar
