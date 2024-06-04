@@ -3,7 +3,9 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import { FaSolarPanel } from "react-icons/fa";
 import { MdCategory } from "react-icons/md";
+import { FaUsers } from "react-icons/fa";
 import LayersIcon from '@mui/icons-material/Layers';
+import { FaJediOrder } from "react-icons/fa6";
 function SideBar() {
   const [style, setStyle] = useState("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion");
   const changeStyle = () => {
@@ -119,7 +121,9 @@ function SideBar() {
             aria-expanded="true"
             aria-controls="collapsePages"
           >
-            <i className="fas fa-fw fa-folder"></i>
+            <i>
+              <FaJediOrder />
+            </i>
             <span>Orders</span>
           </a>
           <div
@@ -141,9 +145,9 @@ function SideBar() {
 
         {/* <!-- Nav Item - Charts --> */}
         <li className="nav-item">
-          <a className="nav-link" href="charts.html">
-            <i className="fas fa-fw fa-chart-area"></i>
-            <span>Charts</span></a  >
+          <Link className="nav-link" to="/dashboard/users">
+            <i> <FaUsers /> </i>
+            <span>Customers</span></Link  >
         </li>
 
         {/* <!-- Nav Item - Tables --> */}

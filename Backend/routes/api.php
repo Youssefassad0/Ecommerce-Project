@@ -12,6 +12,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CheckOutController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\StatusProductController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,6 +52,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/user/orders', [OrderController::class, 'getUserOrders']);
 });
 Route::resource('/category', CategoryController::class);
+Route::resource('/users', UserController::class);
 // Route::resource('/comments', CommentsController::class);
 Route::post('/comments', [CommentController::class, 'store']);
 Route::get('/products/{productId}/comments', [CommentController::class, 'index']);
