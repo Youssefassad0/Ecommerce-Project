@@ -18,7 +18,12 @@ function Navbar() {
       setStyle('navbar-nav bg-gradient-primary sidebar sidebar-dark accordion')
     }
   }
-  const navigate = useNavigate();
+  const getUser = () => {
+    const user = localStorage.getItem('auth-user') || sessionStorage.getItem('auth-user');
+    return user ? JSON.parse(user) : null;
+  };
+
+  const user = getUser();  const navigate = useNavigate();
   const logOut = (e) => {
     // localStorage.removeItem("auth-token");
     // localStorage.removeItem("auth-name");
@@ -39,6 +44,9 @@ function Navbar() {
       }
     })
   };
+  const defaultAvatar="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSLU5_eUUGBfxfxRd4IquPiEwLbt4E_6RYMw&s"
+  const avatarUrl = user && user.avatar ? `http://localhost:8001/${user.avatar}` : defaultAvatar;
+
   return (
     <>
       <nav 
@@ -143,7 +151,7 @@ function Navbar() {
                   >A new monthly report is ready to download!</span>
                 </div>
               </a>
-              <a className="dropdown-item d-flex align-items-center" href="#">
+              {/* <a className="dropdown-item d-flex align-items-center" href="#">
                 <div className="mr-3">
                   <div className="icon-circle bg-success">
                     <i className="fas fa-donate text-white"></i>
@@ -165,7 +173,7 @@ function Navbar() {
                   Spending Alert: We ve noticed unusually high spending for
                   your account.
                 </div>
-              </a>
+              </a> */}
               <a
                 className="dropdown-item text-center small text-gray-500"
                 href="#"
@@ -196,75 +204,7 @@ function Navbar() {
               <h6 className="dropdown-header">Message Center</h6>
               <a className="dropdown-item d-flex align-items-center" href="#">
                 <ContactList/>
-                {/* <div className="dropdown-list-image mr-3">
-                  <img
-                    className="rounded-circle"
-                    src="img/undraw_profile_1.svg"
-                    alt="..."
-                  />
-                  <div className="status-indicator bg-success"></div>
-                </div>
-                <div className="font-weight-bold">
-                  <div className="text-truncate">
-                    Hi there ! I am wondering if you can help me with a
-                    problem I ve been having.
-                  </div>
-                  <div className="small text-gray-500">Emily Fowler · 58m</div>
-                </div>
-              </a>
-              <a className="dropdown-item d-flex align-items-center" href="#">
-                <div className="dropdown-list-image mr-3">
-                  <img
-                    className="rounded-circle"
-                    src="img/undraw_profile_2.svg"
-                    alt="..."
-                  />
-                  <div className="status-indicator"></div>
-                </div>
-                <div>
-                  <div className="text-truncate">
-                    I have the photos that you ordered last month, how would
-                    you like them sent to you?
-                  </div>
-                  <div className="small text-gray-500">Jae Chun · 1d</div>
-                </div>
-              </a>
-              <a className="dropdown-item d-flex align-items-center" href="#">
-                <div className="dropdown-list-image mr-3">
-                  <img
-                    className="rounded-circle"
-                    src="img/undraw_profile_3.svg"
-                    alt="..."
-                  />
-                  <div className="status-indicator bg-warning"></div>
-                </div>
-                <div>
-                  <div className="text-truncate">
-                    Last month s report looks great, I am very happy with
-                    the progress so far, keep up the good work!
-                  </div>
-                  <div className="small text-gray-500">Morgan Alvarez · 2d</div>
-                </div>
-              </a>
-              <a className="dropdown-item d-flex align-items-center" href="#">
-                <div className="dropdown-list-image mr-3">
-                  <img
-                    className="rounded-circle"
-                    src="https://source.unsplash.com/Mv9hjnEUHR4/60x60"
-                    alt="..."
-                  />
-                  <div className="status-indicator bg-success"></div>
-                </div>
-                <div>
-                  <div className="text-truncate">
-                    Am I a good boy? The reason I ask is because someone
-                    told me that people say this to all dogs, even if they
-                    aren t good...
-                  </div>
-                  <div className="small text-gray-500">
-                    Chicken the Dog · 2w
-                  </div>
-                </div> */}
+             
               </a>
               <a
                 className="dropdown-item text-center small text-gray-500"
@@ -290,7 +230,7 @@ function Navbar() {
               >Douglas McGee</span>
               <img
                 className="img-profile rounded-circle"
-                src="src/assets/images/author/03.jpg"
+                src={avatarUrl}
               />
             </a>
             {/* <!-- Dropdown - User Information --> */}
