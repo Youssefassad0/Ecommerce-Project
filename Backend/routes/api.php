@@ -58,8 +58,10 @@ Route::post('/validate-order', [CheckOutController::class, 'validateOrder']);
 Route::post('/products/{productId}/reviews', [ReviewController::class, 'store']);
 Route::get('/products/{productId}/reviews', [ReviewController::class, 'listLastFiveReviews']);
 
-// Route::middleware('auth:api')->group(function () {
-// });
 
+//changer status de Commande  
 Route::post('/orders/{id}/accept', [StatusProductController::class, 'acceptOrder']);
 Route::post('/orders/{id}/reject', [StatusProductController::class, 'rejectOrder']);
+// :Lister les Commandes par status
+Route::get('/ordersAcc', [OrderController::class, 'accepted']);
+Route::get('/ordersRef', [OrderController::class, 'refused']);
