@@ -99,9 +99,6 @@ function SideBar() {
               <h6 className="collapse-header">Category:</h6>
               <Link className="collapse-item" to="/dashboard/category">Categories</Link>
               <Link className="collapse-item" to="/dashboard//new/cate">Add Categories</Link>
-              <a className="collapse-item" href="utilities-animation.html"
-              >Animations</a>
-              <a className="collapse-item" href="utilities-other.html">Other</a>
             </div>
           </div>
         </li>
@@ -138,9 +135,6 @@ function SideBar() {
               <Link className="collapse-item" to="/dashboard/orders-rejected"
               >Orders Refused</Link >
               <div className="collapse-divider"></div>
-              <h6 className="collapse-header">Other Pages:</h6>
-              <a className="collapse-item" href="404.html">404 Page</a>
-              <a className="collapse-item" href="blank.html">Blank Page</a>
             </div>
           </div>
         </li>
