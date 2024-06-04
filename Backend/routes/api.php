@@ -11,6 +11,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CheckOutController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\StatusProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,3 +60,6 @@ Route::get('/products/{productId}/reviews', [ReviewController::class, 'listLastF
 
 // Route::middleware('auth:api')->group(function () {
 // });
+
+Route::post('/orders/{id}/accept', [StatusProductController::class, 'acceptOrder']);
+Route::post('/orders/{id}/reject', [StatusProductController::class, 'rejectOrder']);

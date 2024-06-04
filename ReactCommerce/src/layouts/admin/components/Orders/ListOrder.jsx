@@ -26,7 +26,7 @@ function ListOrder() {
     getOrders();
   }, [])
   const handleAccept = (id) => {
-    axios.post(`/api/orders/${id}/accept`)
+    axios.post(`http://localhost:8001/api/orders/${id}/accept`)
       .then(response => {
         setOrders(orders.map(order =>
           order.id === id ? { ...order, status: 'accepted' } : order
@@ -38,7 +38,7 @@ function ListOrder() {
   };
 
   const handleReject = (id) => {
-    axios.post(`/api/orders/${id}/reject`)
+    axios.post(`http://localhost:8001/api/orders/${id}/reject`)
       .then(response => {
         setOrders(orders.map(order =>
           order.id === id ? { ...order, status: 'rejected' } : order

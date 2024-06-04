@@ -123,7 +123,7 @@ function SideBar() {
             aria-controls="collapsePages"
           >
             <i className="fas fa-fw fa-folder"></i>
-            <span>Pages</span>
+            <span>Orders</span>
           </a>
           <div
             id="collapsePages"
@@ -132,11 +132,11 @@ function SideBar() {
             data-parent="#accordionSidebar"
           >
             <div className="bg-white py-2 collapse-inner rounded">
-              <h6 className="collapse-header">Order</h6>
-              <Link to={'/dashboard/orders'} className="collapse-item">Orders</Link>
-              <a className="collapse-item" href="register.html">Register</a>
+              <h6 className="collapse-header">All orders</h6>
+              <Link to={'/dashboard/orders'} className="collapse-item">Pending  Orders</Link>
+              <a className="collapse-item" href="register.html"> Orders Accepted</a>
               <a className="collapse-item" href="forgot-password.html"
-              >Forgot Password</a >
+              >Orders Refused</a >
               <div className="collapse-divider"></div>
               <h6 className="collapse-header">Other Pages:</h6>
               <a className="collapse-item" href="404.html">404 Page</a>
