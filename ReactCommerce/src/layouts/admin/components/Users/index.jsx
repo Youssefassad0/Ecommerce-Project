@@ -6,24 +6,64 @@ import axios from "axios";
 
 const ProfileTemplate = () => {
     const [activeTab, setActiveTab] = useState("account-general");
-const [user,setUser]=useState(null);
+    const [user, setUser] = useState(null);
+    const [file, setFile] = useState(null);
+    const [formData, setFormData] = useState({
+        name: '',
+        mobile: '',
+        email: '',
+        location: '',
+        password: '',
+        password2: '',
+        avatar: null
+    });
+    const [avatarPreview, setAvatarPreview] = useState('https://bootdey.com/img/Content/avatar/avatar1.png');
+    // console.log(user.avatar);
+
     const handleTabClick = (tab) => {
         setActiveTab(tab);
     };
-    const {id} = useParams();
-    useEffect(() => {
-        const fetchuser = async () => {
-            try {
-                console.log("ID : "+id);
-                const response = await axios.get(`http://localhost:8001/api/users/${id}`);
-              setUser(response.data);
-            //   console.log(user.name);
-            } catch (err) {
-                console.log('ERROR : '+err);
-            } 
+
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setAvatarPreview(URL.createObjectURL(file));
+            setFormData({
+                ...formData,
+                avatar: file
+            });
         }
-        fetchuser();
-    }, [id])
+    };
+
+    const handleReset = () => {
+        setAvatarPreview(user && user.avatar ? `http://localhost:8001/${user.avatar}` : 'https://bootdey.com/img/Content/avatar/avatar1.png');
+        setFormData({
+            ...formData,
+            avatar: null
+        });
+    };
+
+    const { id } = useParams();
+    useEffect(() => {
+        const fetchUser = async () => {
+            try {
+                console.log("ID : " + id);
+                const response = await axios.get(`http://localhost:8001/api/users/${id}`);
+                setUser(response.data);
+                setAvatarPreview(user.avatar || 'https://bootdey.com/img/Content/avatar/avatar1.png');
+                setFormData({
+                    ...formData,
+                    name: response.data.name,
+                    email: response.data.email,
+                    mobile: response.data.mobile,
+                    location: response.data.location,
+                });
+            } catch (err) {
+                console.log('ERROR : ' + err);
+            }
+        };
+        fetchUser();
+    }, [id]);
 
     return (
         <div className="container light-style flex-grow-1 container-p-y">
@@ -75,17 +115,17 @@ const [user,setUser]=useState(null);
                             <div className={`tab-pane fade ${activeTab === "account-general" ? "active show" : ""}`} id="account-general">
                                 <div className="card-body media align-items-center">
                                     <img
-                                        src="https://bootdey.com/img/Content/avatar/avatar1.png"
+                                        src={avatarPreview}
                                         alt="avatar"
                                         className="d-block ui-w-80"
                                     />
                                     <div className="media-body ml-4">
                                         <label className="btn btn-outline-primary">
                                             Upload new photo
-                                            <input type="file" className="account-settings-fileinput" />
+                                            <input type="file" className="account-settings-fileinput" onChange={handleFileChange} />
                                         </label>
                                         &nbsp;
-                                        <button type="button" className="btn btn-default md-btn-flat">
+                                        <button type="button" className="btn btn-default md-btn-flat" onClick={handleReset}>
                                             Reset
                                         </button>
                                         <div className="text-light small mt-1">Allowed JPG, GIF or PNG. Max size of 800K</div>
@@ -95,12 +135,11 @@ const [user,setUser]=useState(null);
                                 <div className="card-body">
                                     <div className="form-group">
                                         <label className="form-label">Username</label>
-                                        <input type="text" className="form-control mb-1" value={user.name} />
+                                        <input type="text" className="form-control mb-1" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} />
                                     </div>
-                                
                                     <div className="form-group">
                                         <label className="form-label">E-mail</label>
-                                        <input type="text" className="form-control mb-1" value={user.email} />
+                                        <input type="text" className="form-control mb-1" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} />
                                         <div className="alert alert-warning mt-3">
                                             Your email is not confirmed. Please check your inbox.
                                             <br />
@@ -109,7 +148,7 @@ const [user,setUser]=useState(null);
                                     </div>
                                     <div className="form-group">
                                         <label className="form-label">Company</label>
-                                        <input type="text" className="form-control" defaultValue="Company Ltd." />
+                                        <input type="text" className="form-control" value={formData.location} onChange={(e) => setFormData({ ...formData, location: e.target.value })} />
                                     </div>
                                 </div>
                             </div>

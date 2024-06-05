@@ -33,6 +33,7 @@ class CheckOutController extends Controller
     public function store(Request $request)
     {
         if (auth('sanctum')->check()) {
+            $userId = auth('sanctum')->user()->id;
             $validator = Validator::make($request->all(), [
                 'id_user' => 'required|numeric',
                 'name' => 'required|string|max:255',
@@ -53,7 +54,7 @@ class CheckOutController extends Controller
                 DB::beginTransaction();
                 try {
                     $order = Order::create([
-                        'id_user' => $request->id_user,
+                        'id_user' => $userId,
                         'name' => $request->name,
                         'email' => $request->email,
                         'pays' => $request->pays,
