@@ -173,7 +173,7 @@ function ProductDetails() {
                                         </span>
                                     </div>
                                     <div className="col-sm-7 ">
-                                        : <span>${product.original_price}</span>
+                                        : <span>${product.original_price}</span>  
                                     </div>
                                 </div>
                                 <div className="row mb-2">
@@ -186,7 +186,8 @@ function ProductDetails() {
                                         </span>
                                     </div>
                                     <div className="col-sm-7 ">
-                                        : <span>{product.stock}</span>
+                                        : <span>{product.stock}</span> 
+                    
                                     </div>
                                 </div>
                                 <div className="row mb-2">

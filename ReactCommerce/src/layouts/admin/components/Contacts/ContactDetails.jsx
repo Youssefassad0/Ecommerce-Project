@@ -43,7 +43,7 @@ const ContactDetail = () => {
                     </div>
                 </div>
                 <div className="contact-detail-actions">
-                    <Link to="/" className="back-button">Back to Contacts</Link>
+                    <Link to={`/dashboard/user/${contact.id_user}`} className="back-button"> See Details User  </Link>
                 </div>
             </div>
         </div>

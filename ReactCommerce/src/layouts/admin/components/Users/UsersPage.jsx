@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 function UsersPage() {
   const [data, setData] = useState([]);
@@ -30,6 +31,16 @@ function UsersPage() {
       headerName: 'Country',
       flex: 0.4,
     },
+    {
+      field: 'details',
+      headerName: 'Details',
+      flex: 0.5,
+      renderCell: (params) => (
+        <Link to={`/dashboard/user/${params.row.id}`} style={{ textDecoration: 'none', color: 'blue' }}>
+          View Details
+        </Link>
+      ),
+    },
   ];
 
   const formatPhoneNumber = (phoneNumber) => {
@@ -50,7 +61,6 @@ function UsersPage() {
             pageSize={10}
             rowsPerPageOptions={[10, 25, 50]}
             disableSelectionOnClick
-            // disableColumnMenu
             density="compact"
             components={{
               Toolbar: () => null, // Hide toolbar

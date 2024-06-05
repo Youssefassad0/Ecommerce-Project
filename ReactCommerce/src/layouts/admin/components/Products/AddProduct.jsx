@@ -3,7 +3,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom'; // To get the product ID from the URL
 import Swal from 'sweetalert2';
-
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const ProductForm = () => {
     const { id } = useParams(); // Get product ID from URL params
     const [category, setCategory] = useState([]);
@@ -106,12 +107,8 @@ const ProductForm = () => {
                     },
                 });
                 if (response.status === 201) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Success',
-                        text: 'Product added successfully!',
-                    });
                     nav('/dashboard/products');
+                    toast.success("Success added")
                 }
             }
             console.log('Product created/updated successfully:', response.data);
@@ -122,6 +119,7 @@ const ProductForm = () => {
     
     return (
         <form onSubmit={handleSubmit}>
+            <ToastContainer />
             <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Name" required />
             <textarea name="description" value={formData.description} onChange={handleChange} placeholder="Description"></textarea>
             <input type="text" name="gender" value={formData.gender} onChange={handleChange} placeholder="Gender" required />

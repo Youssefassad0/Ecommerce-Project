@@ -3,7 +3,9 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import NavItems from '../../../components/NavItems';
 import { useNavigate } from 'react-router-dom';
-
+// import { Toaster } from 'sonner';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function PageProfile() {
     const [formData, setFormData] = useState({
         name: '',
@@ -14,6 +16,17 @@ function PageProfile() {
         password2: '',
         avatar: null
     });
+    function reset(){
+        setFormData({
+            name: '',
+            mobile: '',
+            email: '',
+            location: '',
+            password: '',
+            password2: '',
+        })
+        toast.info('Your Information is Empty Now')
+    }
     const [avatarPreview, setAvatarPreview] = useState('http://ssl.gstatic.com/accounts/ui/avatar_2x.png');
     const navigate = useNavigate();
     const [reviewCount, setReviewCount] = useState(0);
@@ -86,12 +99,14 @@ function PageProfile() {
                     'Content-Type': 'multipart/form-data'
                 }
             });
-            console.log('Server response:', response.data);
-            Swal.fire({
-                icon: 'success',
-                title: 'Success',
-                text: 'Profile updated successfully!'
-            });
+            // console.log('Server response:', response.data);
+            // Swal.fire({
+            //     icon: 'success',
+            //     title: 'Success',
+            //     text: 'Profile updated successfully!'
+            // });
+
+            toast.success("Your Profile Has Been Updated!");
         } catch (error) {
             console.error('Error updating profile:', error);
             const er = error.response?.data?.message || 'An error occurred while updating your profile.';
@@ -108,6 +123,8 @@ function PageProfile() {
             <div className="nav mb-5" style={{ height: "40px" }}>
                 <NavItems />
             </div>
+            {/* <Toaster richColors   position="top-center" /> */}
+            <ToastContainer />
             <div className="container bootstrap snippet mt-5">
                 <div className="row">
                     <div className="col-sm-10 mt-3">
@@ -175,7 +192,7 @@ function PageProfile() {
                                             <button className="btn btn-lg btn-success" type="submit">
                                                 <i className="glyphicon glyphicon-ok-sign"></i> Save
                                             </button>
-                                            <button className="btn btn-lg" type="reset">
+                                            <button className="btn btn-lg" onClick={()=>reset()} type="reset">
                                                 <i className="glyphicon glyphicon-repeat"></i> Reset
                                             </button>
                                         </div>

@@ -48,7 +48,7 @@ function ListOrder() {
         setOrders(orders.map(order =>
           order.id === id ? { ...order, status: 'rejected' } : order
         ));
-        toast.info('The Order Has Been rejected');
+        toast.warning('The Order Has Been rejected');
       })
       .catch(error => {
         console.error('There was an error rejecting the order!', error);
@@ -58,7 +58,7 @@ function ListOrder() {
   return (
     <>
       <Container fluid>
-        <Toaster richColors   position="top-right" />
+        <Toaster richColors  position="top-right" />
         <Row>
           <Col md="12">
             <Card className="strpied-tabled-with-hover">
