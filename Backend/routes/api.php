@@ -58,8 +58,8 @@ Route::post('/validate-order', [CheckOutController::class, 'validateOrder']);
 Route::post('/products/{productId}/reviews', [ReviewController::class, 'store']);
 Route::get('/products/{productId}/reviews', [ReviewController::class, 'listLastFiveReviews']);
 Route::get('/orders', [OrderController::class, 'index']);
-
-
+Route::get('/reviews/{id}', [ProfileController::class, 'getReviewsUser']);
+// Route::get('/reviewUser/{id}', [ProfileController::class, 'getreviewforuser']);
 //changer status de Commande  
 Route::post('/orders/{id}/accept', [StatusProductController::class, 'acceptOrder']);
 Route::post('/orders/{id}/reject', [StatusProductController::class, 'rejectOrder']);

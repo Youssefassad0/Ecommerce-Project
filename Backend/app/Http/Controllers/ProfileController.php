@@ -80,7 +80,15 @@ class ProfileController extends Controller
             return response()->json($reviews);
         }
     }
-
+    public function getReviewsUser($id)
+    {
+        $reviews = Review::where('user_id', $id)->get();
+        return response()->json($reviews);
+    }
+    public function getreviewforuser($id)
+    {
+        return response()->json(['message' => 'hello from reviews']);
+    }
     // Get the authenticated user's orders
     public function getUserOrders()
     {

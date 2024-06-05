@@ -10,6 +10,7 @@ const ProfileTemplate = () => {
     const [activeTab, setActiveTab] = useState("account-general");
     const [user, setUser] = useState(null);
     const { id } = useParams();
+    const [reviews,setReviews]=useState([]);
     const [formData, setFormData] = useState({
         name: '',
         mobile: '',
@@ -31,8 +32,13 @@ const ProfileTemplate = () => {
         if (file) {
             setAvatarPreview(URL.createObjectURL(file));
             setFormData({
-                ...formData,
-                avatar: file
+                name: '',
+                mobile: '',
+                email: '',
+                location: '',
+                password: '',
+                password2: '',
+                avatar: null
             });
         }
     };
@@ -40,7 +46,12 @@ const ProfileTemplate = () => {
     const handleReset = () => {
         setAvatarPreview(user && user.avatar ? `http://localhost:8001/${user.avatar}` : defaultImgUrl);
         setFormData({
-            ...formData,
+            name: '',
+            mobile: '',
+            email: '',
+            location: '',
+            password: '',
+            password2: '',
             avatar: null
         });
         toast.warning('Avatar reset to default.');
@@ -50,7 +61,10 @@ const ProfileTemplate = () => {
         const fetchUser = async () => {
             try {
                 const response = await axios.get(`http://localhost:8001/api/users/${id}`);
+                const response2=await axios.get(`http://localhost:8001/api/reviews/${IdleDeadline}`)
                 const userData = response.data;
+                setReviews(userData.reviews);
+                // console.log(reviews);
                 setUser(userData);
                 setAvatarPreview(userData.avatar ? `http://localhost:8001/${userData.avatar}` : defaultImgUrl);
                 setFormData({
@@ -59,6 +73,7 @@ const ProfileTemplate = () => {
                     email: userData.email,
                     mobile: userData.mobile,
                     location: userData.location,
+                    password: userData.password
                 });
             } catch (err) {
                 console.error('Error fetching user data:', err);
@@ -70,7 +85,7 @@ const ProfileTemplate = () => {
 
     return (
         <div className="container light-style flex-grow-1 container-p-y">
-              <Toaster richColors   />
+            <Toaster richColors />
             <h4 className="font-weight-bold py-3 mb-4">Account settings</h4>
             <div className="card overflow-hidden">
                 <div className="row no-gutters row-bordered row-border-light">
@@ -86,13 +101,13 @@ const ProfileTemplate = () => {
                                 className={`list-group-item list-group-item-action ${activeTab === "account-change-password" ? "active" : ""}`}
                                 onClick={() => handleTabClick("account-change-password")}
                             >
-                                Reviews
+                                Password
                             </a>
                             <a
                                 className={`list-group-item list-group-item-action ${activeTab === "account-info" ? "active" : ""}`}
                                 onClick={() => handleTabClick("account-info")}
                             >
-                                Info
+                                Reviews
                             </a>
                             <a
                                 className={`list-group-item list-group-item-action ${activeTab === "account-social-links" ? "active" : ""}`}
@@ -119,7 +134,7 @@ const ProfileTemplate = () => {
                             <div className={`tab-pane fade ${activeTab === "account-general" ? "active show" : ""}`} id="account-general">
                                 <div className="card-body media align-items-center">
                                     <img
-                                       src={avatarPreview}
+                                        src={avatarPreview}
                                         alt="avatar"
                                         className="d-block ui-w-80"
                                     />
@@ -144,7 +159,7 @@ const ProfileTemplate = () => {
                                     <div className="form-group">
                                         <label className="form-label">E-mail</label>
                                         <input type="text" className="form-control mb-1" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} />
-                                        
+
                                     </div>
                                     <div className="form-group">
                                         <label className="form-label">Company</label>
@@ -156,7 +171,7 @@ const ProfileTemplate = () => {
                                 <div className="card-body pb-2">
                                     <div className="form-group">
                                         <label className="form-label">Current password</label>
-                                        <input type="password" className="form-control" />
+                                        <input type="password" value={formData.password} className="form-control" />
                                     </div>
                                     <div className="form-group">
                                         <label className="form-label">New password</label>
@@ -170,28 +185,13 @@ const ProfileTemplate = () => {
                             </div>
                             <div className={`tab-pane fade ${activeTab === "account-info" ? "active show" : ""}`} id="account-info">
                                 <div className="card-body pb-2">
-                                    <div className="form-group">
-                                        <label className="form-label">Bio</label>
-                                        <textarea
-                                            className="form-control"
-                                            rows="5"
-                                            defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris nunc arcu, dignissim sit amet sollicitudin iaculis, vehicula id urna. Sed luctus urna nunc. Donec fermentum, magna sit amet rutrum pretium, turpis dolor molestie diam, ut lacinia diam risus eleifend sapien. Curabitur ac nibh nulla. Maecenas nec augue placerat, viverra tellus non, pulvinar risus."
-                                        ></textarea>
-                                    </div>
-                                    <div className="form-group">
-                                        <label className="form-label">Birthday</label>
-                                        <input type="text" className="form-control" defaultValue="May 3, 1995" />
-                                    </div>
-                                    <div className="form-group">
-                                        <label className="form-label">Country</label>
-                                        <select className="custom-select">
-                                            <option>USA</option>
-                                            <option selected>Canada</option>
-                                            <option>UK</option>
-                                            <option>Germany</option>
-                                            <option>France</option>
-                                        </select>
-                                    </div>
+                                    <ul>
+                                    {
+                                        reviews.map((r,i)=>(
+                                            <li key={i} > {r.message} </li>
+                                        ))
+                                    }
+                                    </ul>
                                 </div>
                                 <hr className="border-light m-0" />
                                 <div className="card-body pb-2">
