@@ -10,7 +10,7 @@ const ProfileTemplate = () => {
     const [activeTab, setActiveTab] = useState("account-general");
     const [user, setUser] = useState(null);
     const { id } = useParams();
-    const [reviews,setReviews]=useState([]);
+    const [reviews, setReviews] = useState([]);
     const [formData, setFormData] = useState({
         name: '',
         mobile: '',
@@ -61,7 +61,7 @@ const ProfileTemplate = () => {
         const fetchUser = async () => {
             try {
                 const response = await axios.get(`http://localhost:8001/api/users/${id}`);
-                const response2=await axios.get(`http://localhost:8001/api/reviews/${IdleDeadline}`)
+                const response2 = await axios.get(`http://localhost:8001/api/reviews/${IdleDeadline}`)
                 const userData = response.data;
                 setReviews(userData.reviews);
                 // console.log(reviews);
@@ -186,11 +186,20 @@ const ProfileTemplate = () => {
                             <div className={`tab-pane fade ${activeTab === "account-info" ? "active show" : ""}`} id="account-info">
                                 <div className="card-body pb-2">
                                     <ul>
-                                    {
-                                        reviews.map((r,i)=>(
-                                            <li key={i} > {r.message} </li>
-                                        ))
-                                    }
+                                        {reviews.map((review, index) => (
+                                            <li key={index} className="mb-3">
+                                                <div>
+                                                    <strong>Review:</strong> {review.message}
+                                                </div>
+                                                <div>
+                                                    <strong>Rating:</strong> {review.rating}
+                                                </div>
+                                                <div>
+                                                    <strong>Product:</strong> {review.product.name}
+                                                </div>
+                                               
+                                            </li>
+                                        ))}
                                     </ul>
                                 </div>
                                 <hr className="border-light m-0" />
