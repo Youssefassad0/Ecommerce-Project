@@ -4,12 +4,12 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./style.css";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { Toaster, toast } from 'sonner'
 
 const ProfileTemplate = () => {
     const [activeTab, setActiveTab] = useState("account-general");
     const [user, setUser] = useState(null);
     const { id } = useParams();
-    // const [file, setFile] = useState(null);
     const [formData, setFormData] = useState({
         name: '',
         mobile: '',
@@ -19,8 +19,8 @@ const ProfileTemplate = () => {
         password2: '',
         avatar: null
     });
-    const [avatarPreview, setAvatarPreview] = useState('https://bootdey.com/img/Content/avatar/avatar1.png');
-    // console.log(user.avatar);
+    const defaultImgUrl = "https://bootdey.com/img/Content/avatar/avatar1.png";
+    const [avatarPreview, setAvatarPreview] = useState(defaultImgUrl);
 
     const handleTabClick = (tab) => {
         setActiveTab(tab);
@@ -38,36 +38,39 @@ const ProfileTemplate = () => {
     };
 
     const handleReset = () => {
-        setAvatarPreview(user && user.avatar ? `http://localhost:8001/${user.avatar}` : 'https://bootdey.com/img/Content/avatar/avatar1.png');
+        setAvatarPreview(user && user.avatar ? `http://localhost:8001/${user.avatar}` : defaultImgUrl);
         setFormData({
             ...formData,
             avatar: null
         });
+        toast.warning('Avatar reset to default.');
     };
+
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                // console.log("ID : " + id);
                 const response = await axios.get(`http://localhost:8001/api/users/${id}`);
-                console.log(response);
-                setUser(response.data);
-                setAvatarPreview(user.avatar || 'https://bootdey.com/img/Content/avatar/avatar1.png');
+                const userData = response.data;
+                setUser(userData);
+                setAvatarPreview(userData.avatar ? `http://localhost:8001/${userData.avatar}` : defaultImgUrl);
                 setFormData({
                     ...formData,
-                    name: response.data.name,
-                    email: response.data.email,
-                    mobile: response.data.mobile,
-                    location: response.data.location,
+                    name: userData.name,
+                    email: userData.email,
+                    mobile: userData.mobile,
+                    location: userData.location,
                 });
             } catch (err) {
-                console.log('ERROR : ' + err);
+                console.error('Error fetching user data:', err);
             }
         };
         fetchUser();
     }, [id]);
 
+
     return (
         <div className="container light-style flex-grow-1 container-p-y">
+              <Toaster richColors   />
             <h4 className="font-weight-bold py-3 mb-4">Account settings</h4>
             <div className="card overflow-hidden">
                 <div className="row no-gutters row-bordered row-border-light">
@@ -116,7 +119,7 @@ const ProfileTemplate = () => {
                             <div className={`tab-pane fade ${activeTab === "account-general" ? "active show" : ""}`} id="account-general">
                                 <div className="card-body media align-items-center">
                                     <img
-                                        src={avatarPreview}
+                                       src={avatarPreview}
                                         alt="avatar"
                                         className="d-block ui-w-80"
                                     />
@@ -141,11 +144,7 @@ const ProfileTemplate = () => {
                                     <div className="form-group">
                                         <label className="form-label">E-mail</label>
                                         <input type="text" className="form-control mb-1" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} />
-                                        <div className="alert alert-warning mt-3">
-                                            Your email is not confirmed. Please check your inbox.
-                                            <br />
-                                            <a href="javascript:void(0)">Resend confirmation</a>
-                                        </div>
+                                        
                                     </div>
                                     <div className="form-group">
                                         <label className="form-label">Company</label>
