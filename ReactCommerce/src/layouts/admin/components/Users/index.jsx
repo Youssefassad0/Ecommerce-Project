@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./style.css";
@@ -7,7 +8,8 @@ import axios from "axios";
 const ProfileTemplate = () => {
     const [activeTab, setActiveTab] = useState("account-general");
     const [user, setUser] = useState(null);
-    const [file, setFile] = useState(null);
+    const { id } = useParams();
+    // const [file, setFile] = useState(null);
     const [formData, setFormData] = useState({
         name: '',
         mobile: '',
@@ -42,13 +44,12 @@ const ProfileTemplate = () => {
             avatar: null
         });
     };
-
-    const { id } = useParams();
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                console.log("ID : " + id);
+                // console.log("ID : " + id);
                 const response = await axios.get(`http://localhost:8001/api/users/${id}`);
+                console.log(response);
                 setUser(response.data);
                 setAvatarPreview(user.avatar || 'https://bootdey.com/img/Content/avatar/avatar1.png');
                 setFormData({
