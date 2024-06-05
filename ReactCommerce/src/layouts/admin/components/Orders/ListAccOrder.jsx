@@ -48,6 +48,7 @@ function ListOrderAccepted() {
                   <thead>
                     <tr>
                       <th className="border-0">ID</th>
+                      <th className="border-0">Name</th>
                       <th className="border-0">Email</th>
                       <th className="border-0">Payment Mode</th>
                       <th className="border-0">Total</th>
@@ -64,6 +65,7 @@ function ListOrderAccepted() {
                       orders.map(order => (
                         <tr key={order.id}>
                           <td>{order.id}</td>
+                          <td>{order.name}</td>
                           <td>{order.email}</td>
                           <td>{order.payment_mode}</td>
                           <td>{order.total}</td>
