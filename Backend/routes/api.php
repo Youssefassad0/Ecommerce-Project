@@ -48,7 +48,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/user/profile/update', [ProfileController::class, 'update']);
     Route::get('/getUserReviews', [ProfileController::class, 'getUserReviews']);
     Route::get('/getUserOrders', [ProfileController::class, 'getUserOrders']);
-    Route::get('/orders', [OrderController::class, 'index']);
     Route::get('/user/orders', [OrderController::class, 'getUserOrders']);
 });
 Route::resource('/category', CategoryController::class);
@@ -60,6 +59,7 @@ Route::resource('/contact', ContactController::class);
 Route::post('/validate-order', [CheckOutController::class, 'validateOrder']);
 Route::post('/products/{productId}/reviews', [ReviewController::class, 'store']);
 Route::get('/products/{productId}/reviews', [ReviewController::class, 'listLastFiveReviews']);
+Route::get('/orders', [OrderController::class, 'index']);
 
 
 //changer status de Commande  
