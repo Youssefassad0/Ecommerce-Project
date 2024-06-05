@@ -66,3 +66,4 @@ Route::post('/orders/{id}/reject', [StatusProductController::class, 'rejectOrder
 // :Lister les Commandes par status
 Route::get('/ordersAcc', [OrderController::class, 'accepted']);
 Route::get('/ordersRef', [OrderController::class, 'refused']);
+Route::put('/api/user-update/{id}', [UserController::class, 'updateUser']);

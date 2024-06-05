@@ -98,4 +98,23 @@ class ProfileController extends Controller
             return response()->json($orders);
         }
     }
+    public function updateUser(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->mobile = $request->input('mobile');
+        $user->location = $request->input('location');
+
+        if ($request->hasFile('avatar')) {
+            $avatar = $request->file('avatar');
+            $path = $avatar->store('avatars', 'public');
+            $user->avatar = $path;
+        }
+
+        $user->save();
+
+        return response()->json($user, 200);
+    }
 }

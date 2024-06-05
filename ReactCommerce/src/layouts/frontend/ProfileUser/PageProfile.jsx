@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 // import { Toaster } from 'sonner';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
 function PageProfile() {
     const [formData, setFormData] = useState({
         name: '',
@@ -16,27 +17,21 @@ function PageProfile() {
         password2: '',
         avatar: null
     });
-    function reset(){
-        setFormData({
-            name: '',
-            mobile: '',
-            email: '',
-            location: '',
-            password: '',
-            password2: '',
-        })
-        toast.info('Your Information is Empty Now')
-    }
     const [avatarPreview, setAvatarPreview] = useState('http://ssl.gstatic.com/accounts/ui/avatar_2x.png');
-    const navigate = useNavigate();
     const [reviewCount, setReviewCount] = useState(0);
     const [orderCount, setOrderCount] = useState(0);
+    const navigate = useNavigate();
+
     useEffect(() => {
         async function fetchData() {
             try {
                 const res = await axios.get('http://127.0.0.1:8001/api/user/profile');
-                await axios.get('http://127.0.0.1:8001/api/getUserReviews').then(res=>setReviewCount(res.data.length)).catch(err=>console.log("ERROR DE : "+err))
-                await axios.get('http://127.0.0.1:8001/api/getUserOrders').then(res=>setOrderCount(res.data.length)).catch(err=>console.log("ERROR DE : "+err))
+                await axios.get('http://127.0.0.1:8001/api/getUserReviews')
+                    .then(res => setReviewCount(res.data.length))
+                    .catch(err => console.log("ERROR DE : " + err));
+                await axios.get('http://127.0.0.1:8001/api/getUserOrders')
+                    .then(res => setOrderCount(res.data.length))
+                    .catch(err => console.log("ERROR DE : " + err));
 
                 setFormData({
                     ...res.data,
@@ -54,7 +49,6 @@ function PageProfile() {
             }
         }
         fetchData();
-
     }, [navigate]);
 
     const handleChange = (e) => {
@@ -94,17 +88,11 @@ function PageProfile() {
         });
 
         try {
-            const response = await axios.post('http://127.0.0.1:8001/api/user/profile/update', data, {
+            const response = await axios.put(`http://127.0.0.1:8001/api/user-update/${formData.id}`, data, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
             });
-            // console.log('Server response:', response.data);
-            // Swal.fire({
-            //     icon: 'success',
-            //     title: 'Success',
-            //     text: 'Profile updated successfully!'
-            // });
 
             toast.success("Your Profile Has Been Updated!");
         } catch (error) {
@@ -118,6 +106,20 @@ function PageProfile() {
         }
     };
 
+    const reset = () => {
+        setFormData({
+            name: '',
+            mobile: '',
+            email: '',
+            location: '',
+            password: '',
+            password2: '',
+            avatar: null
+        });
+        setAvatarPreview('http://ssl.gstatic.com/accounts/ui/avatar_2x.png');
+        toast.info('Your Information is Empty Now');
+    };
+
     return (
         <>
             <div className="nav mb-5" style={{ height: "40px" }}>
@@ -128,7 +130,7 @@ function PageProfile() {
             <div className="container bootstrap snippet mt-5">
                 <div className="row">
                     <div className="col-sm-10 mt-3">
-                        <h3 >User Profile</h3>
+                        <h3>User Profile</h3>
                     </div>
                 </div>
                 <div className="row">
@@ -192,7 +194,7 @@ function PageProfile() {
                                             <button className="btn btn-lg btn-success" type="submit">
                                                 <i className="glyphicon glyphicon-ok-sign"></i> Save
                                             </button>
-                                            <button className="btn btn-lg" onClick={()=>reset()} type="reset">
+                                            <button className="btn btn-lg" onClick={reset} type="button">
                                                 <i className="glyphicon glyphicon-repeat"></i> Reset
                                             </button>
                                         </div>
