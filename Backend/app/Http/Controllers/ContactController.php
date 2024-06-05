@@ -14,8 +14,7 @@ class ContactController extends Controller
      */
     public function index()
     {
-        $contacts = Contact::orderBy('created_at', 'desc')->limit(5)->get();
-        // return view('dashboard.contacts', compact('contacts'));
+        $contacts = Contact::with('user')->orderBy('created_at', 'desc')->limit(5)->get();
         return response()->json($contacts);
     }
 
@@ -41,10 +40,10 @@ class ContactController extends Controller
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
         }
-
+        $id = auth('sanctum')->user()->id;
         // Enregistrer les données dans la table contacts
         Contact::create([
-            'user_id' => auth()->id(),
+            'id_user' => $id,
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
@@ -74,7 +73,7 @@ class ContactController extends Controller
      */
     public function show(string $id)
     {
-        $contact = Contact::findOrFail($id);
+        $contact = Contact::with('user')->findOrFail($id);
         return response()->json($contact);
     }
 

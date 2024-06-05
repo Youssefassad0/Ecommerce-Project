@@ -53,8 +53,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
 Route::resource('/category', CategoryController::class);
 Route::resource('/users', UserController::class);
 // Route::resource('/comments', CommentsController::class);
-Route::post('/comments', [CommentController::class, 'store']);
-Route::get('/products/{productId}/comments', [CommentController::class, 'index']);
 Route::resource('/contact', ContactController::class);
 Route::post('/validate-order', [CheckOutController::class, 'validateOrder']);
 Route::post('/products/{productId}/reviews', [ReviewController::class, 'store']);

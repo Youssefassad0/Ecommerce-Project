@@ -55,12 +55,13 @@ class User extends Authenticatable
     {
         return $this->role === $role;
     }
-    public function comments()
-    {
-        return $this->hasMany(Comment::class);
-    }
+
     public function reviews()
     {
         return $this->hasMany(Review::class);
+    }
+    public function contacts()
+    {
+        return $this->hasMany(Contact::class, 'id_user');
     }
 }
