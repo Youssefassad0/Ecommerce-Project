@@ -115,18 +115,7 @@ const ProfileTemplate = () => {
                             >
                                 Social links
                             </a>
-                            <a
-                                className={`list-group-item list-group-item-action ${activeTab === "account-connections" ? "active" : ""}`}
-                                onClick={() => handleTabClick("account-connections")}
-                            >
-                                Connections
-                            </a>
-                            <a
-                                className={`list-group-item list-group-item-action ${activeTab === "account-notifications" ? "active" : ""}`}
-                                onClick={() => handleTabClick("account-notifications")}
-                            >
-                                Notifications
-                            </a>
+                           
                         </div>
                     </div>
                     <div className="col-md-9">
@@ -192,6 +181,9 @@ const ProfileTemplate = () => {
                                                     <strong>Review:</strong> {review.message}
                                                 </div>
                                                 <div>
+                                                    <strong>Date de review:</strong> {new Date(review.created_at).toLocaleString()}
+                                                </div>
+                                                <div>
                                                     <strong>Rating:</strong> {review.rating}
                                                 </div>
                                                 <div>
@@ -203,17 +195,7 @@ const ProfileTemplate = () => {
                                     </ul>
                                 </div>
                                 <hr className="border-light m-0" />
-                                <div className="card-body pb-2">
-                                    <h6 className="mb-4">Contacts</h6>
-                                    <div className="form-group">
-                                        <label className="form-label">Phone</label>
-                                        <input type="text" className="form-control" defaultValue="+0 (123) 456 7891" />
-                                    </div>
-                                    <div className="form-group">
-                                        <label className="form-label">Website</label>
-                                        <input type="text" className="form-control" defaultValue="" />
-                                    </div>
-                                </div>
+                               
                             </div>
                             <div className={`tab-pane fade ${activeTab === "account-social-links" ? "active show" : ""}`} id="account-social-links">
                                 <div className="card-body pb-2">
@@ -225,120 +207,21 @@ const ProfileTemplate = () => {
                                         <label className="form-label">Facebook</label>
                                         <input type="text" className="form-control" defaultValue="https://www.facebook.com/user" />
                                     </div>
+                                    <div className="card-body pb-2">
+                                    <h6 className="mb-4">Contacts</h6>
                                     <div className="form-group">
-                                        <label className="form-label">Google+</label>
+                                        <label className="form-label">Phone</label>
+                                        <input type="text" className="form-control" value={formData.mobile}/>
+                                    </div>
+                                    <div className="form-group">
+                                        <label className="form-label">Website</label>
                                         <input type="text" className="form-control" defaultValue="" />
                                     </div>
-                                    <div className="form-group">
-                                        <label className="form-label">LinkedIn</label>
-                                        <input type="text" className="form-control" defaultValue="" />
-                                    </div>
-                                    <div className="form-group">
-                                        <label className="form-label">Instagram</label>
-                                        <input type="text" className="form-control" defaultValue="https://www.instagram.com/user" />
-                                    </div>
+                                </div>
                                 </div>
                             </div>
-                            <div className={`tab-pane fade ${activeTab === "account-connections" ? "active show" : ""}`} id="account-connections">
-                                <div className="card-body">
-                                    <button type="button" className="btn btn-twitter">
-                                        Connect to <strong>Twitter</strong>
-                                    </button>
-                                </div>
-                                <hr className="border-light m-0" />
-                                <div className="card-body">
-                                    <h5 className="mb-2">
-                                        <a href="javascript:void(0)" className="float-right text-muted text-tiny">
-                                            <i className="ion ion-md-close"></i> Remove
-                                        </a>
-                                        <i className="ion ion-logo-google text-google"></i> You are connected to Google:
-                                    </h5>
-                                    <a href="/cdn-cgi/l/email-protection" className="__cf_email__" data-cfemail="f9979498818e9c9595b994989095d79a9694">
-                                        [email&#160;protected]
-                                    </a>
-                                </div>
-                                <hr className="border-light m-0" />
-                                <div className="card-body">
-                                    <button type="button" className="btn btn-facebook">
-                                        Connect to <strong>Facebook</strong>
-                                    </button>
-                                </div>
-                                <hr className="border-light m-0" />
-                                <div className="card-body">
-                                    <button type="button" className="btn btn-instagram">
-                                        Connect to <strong>Instagram</strong>
-                                    </button>
-                                </div>
-                            </div>
-                            <div className={`tab-pane fade ${activeTab === "account-notifications" ? "active show" : ""}`} id="account-notifications">
-                                <div className="card-body pb-2">
-                                    <h6 className="mb-4">Activity</h6>
-                                    <div className="form-group">
-                                        <label className="switcher">
-                                            <input type="checkbox" className="switcher-input" defaultChecked />
-                                            <span className="switcher-indicator">
-                                                <span className="switcher-yes"></span>
-                                                <span className="switcher-no"></span>
-                                            </span>
-                                            <span className="switcher-label">Email me when someone comments on my article</span>
-                                        </label>
-                                    </div>
-                                    <div className="form-group">
-                                        <label className="switcher">
-                                            <input type="checkbox" className="switcher-input" defaultChecked />
-                                            <span className="switcher-indicator">
-                                                <span className="switcher-yes"></span>
-                                                <span className="switcher-no"></span>
-                                            </span>
-                                            <span className="switcher-label">Email me when someone answers on my forum thread</span>
-                                        </label>
-                                    </div>
-                                    <div className="form-group">
-                                        <label className="switcher">
-                                            <input type="checkbox" className="switcher-input" />
-                                            <span className="switcher-indicator">
-                                                <span className="switcher-yes"></span>
-                                                <span className="switcher-no"></span>
-                                            </span>
-                                            <span className="switcher-label">Email me when someone follows me</span>
-                                        </label>
-                                    </div>
-                                </div>
-                                <hr className="border-light m-0" />
-                                <div className="card-body pb-2">
-                                    <h6 className="mb-4">Application</h6>
-                                    <div className="form-group">
-                                        <label className="switcher">
-                                            <input type="checkbox" className="switcher-input" defaultChecked />
-                                            <span className="switcher-indicator">
-                                                <span className="switcher-yes"></span>
-                                                <span className="switcher-no"></span>
-                                            </span>
-                                            <span className="switcher-label">News and announcements</span>
-                                        </label>
-                                    </div>
-                                    <div className="form-group">
-                                        <label className="switcher">
-                                            <input type="checkbox" className="switcher-input" />
-                                            <span className="switcher-indicator">
-                                                <span className="switcher-yes"></span>
-                                                <span className="switcher-no"></span>
-                                            </span>
-                                            <span className="switcher-label">Weekly product updates</span>
-                                        </label>
-                                    </div>
-                                    <div className="form-group">
-                                        <label className="switcher">
-                                            <input type="checkbox" className="switcher-input" defaultChecked />
-                                            <span className="switcher-indicator">
-                                                <span className="switcher-yes"></span>
-                                                <span className="switcher-no"></span>
-                                            </span>
-                                            <span className="switcher-label">Weekly blog digest</span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
+                          
+                         
                         </div>
                     </div>
                 </div>
