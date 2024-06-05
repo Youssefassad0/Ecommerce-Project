@@ -1,18 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useParams } from 'react-router-dom';
+// UserDetail.js
 
-const UserDetails = () => {
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
+
+const UserDetail = () => {
+    const { id } = useParams();
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const userId = useParams();
+
     useEffect(() => {
         const fetchUserDetails = async () => {
             try {
-                const response = await axios.get(`http://localhost:8001/api/users/${userId}`);
-                setUser(response.data);
+                const response = await axios.get(`http://localhost:8001/api/users/${id}`);
                 console.log(response);
+                setUser(response.data);
             } catch (err) {
                 setError(err);
             } finally {
@@ -21,7 +24,7 @@ const UserDetails = () => {
         };
 
         fetchUserDetails();
-    }, [userId]);
+    }, [id]);
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
@@ -29,41 +32,43 @@ const UserDetails = () => {
     return (
         <div>
             <h1>User Details</h1>
-            <p><strong>Name:</strong> {user.name}</p>
-            <p><strong>Email:</strong> {user.email}</p>
+            {user && (
+                <div>
+                    <h2>{user.name}</h2>
+                    {/* Display other user details */}
+                    
+                    <h3>Reviews</h3>
+                    <ul>
+                        {user.reviews.map(review => (
+                            <li key={review.id}>
+                                <p>Product: {review.product.name}</p>
+                                <p>Review: {review.content}</p>
+                            </li>
+                        ))}
+                    </ul>
 
-            <h2>Orders</h2>
-            <ul>
-                {/* {user.orders.map(order => (
-                    <li key={order.id}>
-                        <p><strong>Product:</strong> {order.product_name}</p>
-                        <p><strong>Quantity:</strong> {order.quantity}</p>
-                        <p><strong>Price:</strong> ${order.price}</p>
-                        <h3>Reviews</h3>
-                        <ul>
-                            {order.reviews.map(review => (
-                                <li key={review.id}>
-                                    <p><strong>Review:</strong> {review.review}</p>
-                                    <p><strong>Rating:</strong> {review.rating}</p>
-                                </li>
-                            ))}
-                        </ul>
-                    </li>
-                ))} */}
-            </ul>
-
-            <h2>Reviews</h2>
-            <ul>
-                {user.reviews.map(review => (
-                    <li key={review.id}>
-                        <p><strong>Order ID:</strong> {review.order_id}</p>
-                        <p><strong>Review:</strong> {review.review}</p>
-                        <p><strong>Rating:</strong> {review.rating}</p>
-                    </li>
-                ))}
-            </ul>
+                    <h3>Orders</h3>
+                    <ul>
+                        {user.orders.map(order => (
+                            <li key={order.id}>
+                                <p>Order ID: {order.id}</p>
+                                <p>Total Price: {order.total_price}</p>
+                                <h4>Order Details</h4>
+                                <ul>
+                                    {order.order_details.map(detail => (
+                                        <li key={detail.id}>
+                                            <p>Product: {detail.product.name}</p>
+                                            <p>Price: {detail.price}</p>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            )}
         </div>
     );
 };
 
-export default UserDetails;
+export default UserDetail;

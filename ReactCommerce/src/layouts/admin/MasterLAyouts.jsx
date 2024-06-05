@@ -21,7 +21,7 @@ import ListOrder from './components/Orders/ListOrder';
 import ListOrderAccepted from './components/Orders/ListAccOrder';
 import ListOrderRejected from './components/Orders/ListRefOrder';
 import UsersPage from './components/Users/UsersPage';
-import UserDetails from './components/Users/UserDetails';
+import UserDetail from './components/Users/UserDetails';
 
 function MasterLAyouts() {
 
@@ -59,7 +59,7 @@ function MasterLAyouts() {
                     <Route path='/edit-product/:id' element={<ProductUpdateForm />} />
                     <Route path='/comments' element={<ProductComments />} />
                     <Route path='/users' element={<UsersPage/>}  />
-                    <Route path='/user/:id' element={<UserDetails/>}  />
+                    <Route path='/user/:id' element={<UserDetail/>}  />
                     <Route path='/orders' element={<ListOrder/>}  />
                     <Route path='/orders-accepted' element={<ListOrderAccepted/>}  />
                     <Route path='/orders-rejected' element={<ListOrderRejected/>}  />
