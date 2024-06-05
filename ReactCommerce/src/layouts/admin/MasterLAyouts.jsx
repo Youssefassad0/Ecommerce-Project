@@ -21,7 +21,7 @@ import ListOrder from './components/Orders/ListOrder';
 import ListOrderAccepted from './components/Orders/ListAccOrder';
 import ListOrderRejected from './components/Orders/ListRefOrder';
 import UsersPage from './components/Users/UsersPage';
-import UserDetail from './components/Users/UserDetails';
+import ProfileTemplate from './components/Users';
 
 function MasterLAyouts() {
 
@@ -45,7 +45,6 @@ function MasterLAyouts() {
               <Navbar changeStyle={changeStyle} />
               <div id="content">
                 <div className="container-fluid">
-
                   <Routes>
                     <Route path="/" element={<Home />} />
                     <Route  path='*' element={<NotFound link={"/dashboard/"} />} />
@@ -59,7 +58,7 @@ function MasterLAyouts() {
                     <Route path='/edit-product/:id' element={<ProductUpdateForm />} />
                     <Route path='/comments' element={<ProductComments />} />
                     <Route path='/users' element={<UsersPage/>}  />
-                    <Route path='/user/:id' element={<UserDetail/>}  />
+                    <Route path='/user/:id' element={<ProfileTemplate/>}  />
                     <Route path='/orders' element={<ListOrder/>}  />
                     <Route path='/orders-accepted' element={<ListOrderAccepted/>}  />
                     <Route path='/orders-rejected' element={<ListOrderRejected/>}  />
@@ -71,7 +70,6 @@ function MasterLAyouts() {
             </div>
           </div>
           <a className="scroll-to-top rounded" href="#page-top">
-            {/* <i className="fas fa-angle-up"></i> */}
             <FaArrowUp />
           </a>
         </body>
