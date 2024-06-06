@@ -1,4 +1,5 @@
 import React from 'react'
+import ChartDiagram from './Mountly'
 
 function Chart() {
   return (
@@ -9,7 +10,7 @@ function Chart() {
                           className="card-header py-3 d-flex flex-row align-items-center justify-content-between"
                         >
                           <h6 className="m-0 font-weight-bold text-primary">
-                            Earnings Overview
+                            Mountly Sales
                           </h6>
                           <div className="dropdown no-arrow">
                             <a
@@ -41,6 +42,7 @@ function Chart() {
                         {/* <!-- Card Body --> */}
                         <div className="card-body">
                           <div className="chart-area">
+                         <ChartDiagram />
                             {/* <canvas id="myAreaChart"></canvas> */}
                           </div>
                         </div>

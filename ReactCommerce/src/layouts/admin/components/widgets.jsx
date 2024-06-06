@@ -113,7 +113,7 @@ function Widgets() {
                                         Pending Requests
                                     </div>
                                     <div className="h5 mb-0 font-weight-bold text-gray-800">
-                                    {requests}
+                                    {requests} Requests
                                     </div>
                                 </div>
                                 <div className="col-auto mr-3">
