@@ -16,6 +16,7 @@ class OrderController extends Controller
                 'email' => $order->email,  // Assuming you have this column
                 'payment_mode' => $order->payment_mode,  // Assuming you have this column
                 'total' => $order->total_price,
+                "tracking_no" => $order->tracking_no,
                 'status' => $order->status,
             ];
         });
@@ -32,6 +33,8 @@ class OrderController extends Controller
                 'email' => $order->email,  // Assuming you have this column
                 'payment_mode' => $order->payment_mode,  // Assuming you have this column
                 'total' => $order->total_price,
+                "tracking_no" => $order->tracking_no,
+
                 'status' => $order->status,
             ];
         });
@@ -48,6 +51,8 @@ class OrderController extends Controller
                 'email' => $order->email,  // Assuming you have this column
                 'payment_mode' => $order->payment_mode,  // Assuming you have this column
                 'total' => $order->total_price,
+                "tracking_no" => $order->tracking_no,
+
                 'status' => $order->status,
             ];
         });

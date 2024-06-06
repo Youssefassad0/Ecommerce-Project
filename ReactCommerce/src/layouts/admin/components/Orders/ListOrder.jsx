@@ -75,7 +75,9 @@ function ListOrder() {
                       <th className="border-0">ID</th>
                       <th className="border-0">Name</th>
                       <th className="border-0">Email</th>
+                     
                       <th className="border-0">Payment Mode</th>
+                      <th className="border-0"> tracking_no</th>
                       <th className="border-0">Total</th>
                       <th className="border-0">Status</th>
                       <th className="border-0">Actions</th>
@@ -84,7 +86,7 @@ function ListOrder() {
                   <tbody>
                     {orders.length === 0 ? (
                       <tr>
-                        <td colSpan="6" className="text-center">No orders available.</td>
+                        <td colSpan="8" className="text-center">No orders available.</td>
                       </tr>
                     ) : (
                       orders.map(order => (
@@ -93,6 +95,7 @@ function ListOrder() {
                           <td>{order.name}</td>
                           <td>{order.email}</td>
                           <td>{order.payment_mode}</td>
+                          <td>{order.tracking_no}</td>
                           <td>{order.total}</td>
                           <td> <span className={`status ${order.status}`} > {order.status}</span></td>
                           <td>

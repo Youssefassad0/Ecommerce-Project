@@ -10,7 +10,7 @@ function Pie() {
                     className="card-header py-3 d-flex flex-row align-items-center justify-content-between"
                 >
                     <h6 className="m-0 font-weight-bold text-primary">
-                        Sales By Category 
+                        Sales By Category
                     </h6>
                     <div className="dropdown no-arrow">
                         <a
@@ -41,11 +41,11 @@ function Pie() {
                 </div>
                 {/* <!-- Card Body --> */}
                 <div className="card-body">
-                    <div className="chart-pie pt-4 pb-2">
-                        <BreakDown/>
+                    <div className="chart-pie pt-4 pb-2" style={{ height: '100%', width: '100%' }}>
+                        <BreakDown />
                     </div>
                     <div className="mt-4 text-center small">
-                        <span className="mr-2">
+                        {/* <span className="mr-2">
                             <i className="fas fa-circle text-primary"></i> Direct
                         </span>
                         <span className="mr-2">
@@ -53,7 +53,7 @@ function Pie() {
                         </span>
                         <span className="mr-2">
                             <i className="fas fa-circle text-info"></i> Referral
-                        </span>
+                        </span> */}
                     </div>
                 </div>
             </div>

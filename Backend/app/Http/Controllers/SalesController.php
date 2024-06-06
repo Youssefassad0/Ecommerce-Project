@@ -11,15 +11,14 @@ class SalesController extends Controller
     public function getSalesByCategory()
     {
         // Replace this with actual data fetching logic
-        // $data = [
-        //     'Electronics' => 1500,
-        //     'Furniture' => 900,
-        //     'Toys' => 1200,
-        //     'Groceries' => 500,
-        // ];
+        $data = [
+            'Electronics' => 1500,
+            'Furniture' => 900,
+            'Toys' => 1200,
+            'Groceries' => 500,
+        ];
 
-        // return response()->json(['salesbyCategory' => $data]);
-
+        return response()->json(['salesbyCategory' => $data]);
     }
 
     public function salesByCategory()
