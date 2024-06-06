@@ -125,7 +125,7 @@ const ProductForm = () => {
             <input type="text" name="gender" value={formData.gender} onChange={handleChange} placeholder="Gender" required />
             <input type="number" step="0.01" name="original_price" value={formData.original_price} onChange={handleChange} placeholder="Original Price" required />
             <input type="number" step="0.01" name="new_price" value={formData.new_price} onChange={handleChange} placeholder="New Price" />
-            <input type="number" name="stock" value={formData.stock} onChange={handleChange} placeholder="Stock" required />
+            <input type="number" name="stock" value={formData.stock} onChange={handleChange} placeholder="Stock" />
             <input type="file" name="images" onChange={handleFileChange} multiple />
             <select name="category_id" value={formData.category_id} onChange={handleChange}>
                 <option value="">Marque de produit</option>

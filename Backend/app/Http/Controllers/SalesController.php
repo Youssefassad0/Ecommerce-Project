@@ -50,7 +50,6 @@ class SalesController extends Controller
     }
     public function getMonthlySales()
     {
-        // Fetch monthly sales data
         $monthlyData = DB::table('order_details')
             ->join('orders', 'order_details.order_id', '=', 'orders.id')
             ->select(
@@ -59,7 +58,8 @@ class SalesController extends Controller
                 DB::raw('SUM(order_details.price * order_details.quantity) as totalSales')
             )
             ->groupBy('year', 'month')
-            ->orderBy('year', 'month')
+            ->orderBy('year', 'asc')
+            ->orderBy('month', 'asc')
             ->get()
             ->map(function ($data) {
                 return [
