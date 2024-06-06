@@ -55,6 +55,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 Route::resource('/products', ProductController::class);
 //           CRUD ORDERS  
 Route::resource('place-order', CheckOutController::class);
+Route::get('/getId', [CheckOutController::class, 'getId']);
 //          CRUD CAtegory 
 Route::resource('/category', CategoryController::class);
 //          CRUD USERS

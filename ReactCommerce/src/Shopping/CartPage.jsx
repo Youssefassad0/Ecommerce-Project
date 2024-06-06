@@ -27,7 +27,7 @@ const CartPage = () => {
     const storedCartItems = JSON.parse(localStorage.getItem("cart")) || [];
     setCartItems(storedCartItems);
     async function getIdUser() {
-      await axios.get('http://localhost:8001/api/place-order').then(res => setUserID(res.data.data));
+      await axios.get('http://localhost:8001/api/getId').then(res => setUserID(res.data.data));
     }
     getIdUser();
   }, []);
@@ -101,7 +101,7 @@ const CartPage = () => {
     }
   
     const authUser = JSON.parse(localStorage.getItem('auth-user'));
-    
+
     const name = authUser.name;
     const email = authUser.email;
     const formData = {

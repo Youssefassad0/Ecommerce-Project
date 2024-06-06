@@ -25,10 +25,12 @@ const BreakDown = () => {
     }
 
     const colors = [
-        theme.palette.secondary[500] || '#d32f2f', // default red
-        theme.palette.secondary[300] || '#f44336', // default lighter red
-        theme.palette.secondary[100] || '#e57373', // default even lighter red
-        theme.palette.secondary[700] || '#b71c1c', // default darker red
+        theme.palette.secondary[400] || '#D895DA', // default red
+        theme.palette.secondary[300] || '#D895DA', // default lighter red
+        theme.palette.secondary[100] || '#AF47D2', // default even lighter red
+        theme.palette.secondary[700] || '#FFD0D0', // default darker red
+        theme.palette.secondary[600] || '#FF9EAA', // default darker red
+        theme.palette.secondary[700] || '#D895DA', // default darker red
     ];
 
     const formattedData = data.map((item, i) => ({
@@ -46,7 +48,7 @@ const BreakDown = () => {
                 innerRadius={0.5}
                 padAngle={0.7}
                 cornerRadius={3}
-                colors={{ datum: 'data.color' }}  // Use the color defined in the data
+                colors={formattedData.map(d => d.color)}  // Assign colors directly from formattedData
                 borderWidth={1}
                 borderColor={{ from: 'color', modifiers: [['darker', 0.2]] }}
                 radialLabelsSkipAngle={10}

@@ -19,7 +19,11 @@ class CheckOutController extends Controller
         $orders = Order::with('orderDetails')->get();
         return response()->json($orders);
     }
-
+    public function getId()
+    {
+        $id = auth('sanctum')->user()->id;
+        return response()->json(['data' => $id]);
+    }
     /**
      * Show the form for creating a new resource.
      */
