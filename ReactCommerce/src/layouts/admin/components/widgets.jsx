@@ -7,16 +7,20 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 function Widgets() {
     const [users, setUsers] = useState(0);
     const [products, setProducts] = useState(0);
+    const [orders, setOrders] = useState(0);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const [usersRes, productsRes] = await Promise.all([
+                const [usersRes, productsRes,orders] = await Promise.all([
                     axios.get("http://localhost:8001/api/users"),
-                    axios.get("http://localhost:8001/api/products")
+                    axios.get("http://localhost:8001/api/products"),
+                    axios.get("http://localhost:8001/api/place-order")
                 ]);
                 setUsers(usersRes.data.length);
                 setProducts(productsRes.data.data.length);
+                setOrders(orders.data.length);
+
             } catch (error) {
                 console.error("Error fetching data: ", error);
             }
@@ -80,10 +84,10 @@ function Widgets() {
                             <div className="row no-gutters align-items-center">
                                 <div className="col mr-2">
                                     <div className="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                        Earnings (Monthly)
+                                       Total Orders
                                     </div>
                                     <div className="h5 mb-0 font-weight-bold text-gray-800">
-                                        $18,000
+                                        {orders} Orders
                                     </div>
                                 </div>
                                 <div className="col-auto">

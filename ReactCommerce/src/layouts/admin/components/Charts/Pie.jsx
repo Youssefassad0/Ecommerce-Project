@@ -1,4 +1,5 @@
 import React from 'react'
+import BreakDown from './BreakDown'
 
 function Pie() {
     return (
@@ -9,7 +10,7 @@ function Pie() {
                     className="card-header py-3 d-flex flex-row align-items-center justify-content-between"
                 >
                     <h6 className="m-0 font-weight-bold text-primary">
-                        Revenue Sources
+                        Sales By Category 
                     </h6>
                     <div className="dropdown no-arrow">
                         <a
@@ -41,7 +42,7 @@ function Pie() {
                 {/* <!-- Card Body --> */}
                 <div className="card-body">
                     <div className="chart-pie pt-4 pb-2">
-                        
+                        <BreakDown/>
                     </div>
                     <div className="mt-4 text-center small">
                         <span className="mr-2">

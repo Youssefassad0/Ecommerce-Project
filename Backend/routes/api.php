@@ -60,7 +60,7 @@ Route::resource('/category', CategoryController::class);
 Route::resource('/users', UserController::class);
 //          CRUD CONTACT
 Route::resource('/contact', ContactController::class);
-
+//  ajouter et afficher les commataires (reviews)
 Route::post('/products/{productId}/reviews', [ReviewController::class, 'store']);
 Route::get('/products/{productId}/reviews', [ReviewController::class, 'listLastFiveReviews']);
 Route::get('/orders', [OrderController::class, 'index']);
