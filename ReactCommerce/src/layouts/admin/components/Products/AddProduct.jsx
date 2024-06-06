@@ -1,10 +1,8 @@
-// src/components/ProductForm.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom'; // To get the product ID from the URL
-import Swal from 'sweetalert2';
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { Toaster, toast } from 'sonner'
+
 const ProductForm = () => {
     const { id } = useParams(); // Get product ID from URL params
     const [category, setCategory] = useState([]);
@@ -72,15 +70,16 @@ const ProductForm = () => {
             images: [...e.target.files],
         });
     };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-    
+
         // Convert colors to lowercase
         const updatedFormData = {
             ...formData,
             colors: formData.colors.split(',').map(color => color.trim().toLowerCase()).join(',')
         };
-    
+
         const data = new FormData();
         Object.keys(updatedFormData).forEach(key => {
             if (key === 'sizes' || key === 'colors') {
@@ -91,7 +90,7 @@ const ProductForm = () => {
                 data.append(key, updatedFormData[key]);
             }
         });
-    
+
         try {
             let response;
             if (isUpdate) {
@@ -100,6 +99,9 @@ const ProductForm = () => {
                         'Content-Type': 'multipart/form-data',
                     },
                 });
+                if (response.status === 200) {
+                    toast.success("Product updated successfully");
+                }
             } else {
                 response = await axios.post('http://127.0.0.1:8001/api/products', data, {
                     headers: {
@@ -108,18 +110,19 @@ const ProductForm = () => {
                 });
                 if (response.status === 201) {
                     nav('/dashboard/products');
-                    toast.success("Success added")
+                    toast.success("Product added successfully");
                 }
             }
             console.log('Product created/updated successfully:', response.data);
         } catch (error) {
             console.error('Error creating/updating product:', error.response ? error.response.data : error.message);
+            toast.error("Error creating/updating product");
         }
     };
-    
-    return (
+
+    return (<>
+           <Toaster />
         <form onSubmit={handleSubmit}>
-            <ToastContainer />
             <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Name" required />
             <textarea name="description" value={formData.description} onChange={handleChange} placeholder="Description"></textarea>
             <input type="text" name="gender" value={formData.gender} onChange={handleChange} placeholder="Gender" required />
@@ -131,7 +134,7 @@ const ProductForm = () => {
                 <option value="">Marque de produit</option>
                 {category.map((c, i) => (
                     <option value={c.id} key={i}>{c.nom}</option>
-                ))}
+                    ))}
             </select>
             <input type="text" name="brand" value={formData.brand} onChange={handleChange} placeholder="Brand" required />
             <input type="number" step="0.1" name="rating" value={formData.rating} onChange={handleChange} placeholder="Rating" readOnly />
@@ -140,6 +143,7 @@ const ProductForm = () => {
             <input type="text" name="colors" value={formData.colors} onChange={handleChange} placeholder="Colors (comma-separated)" />
             <button type="submit">{isUpdate ? 'Update Product' : 'Create Product'}</button>
         </form>
+                </>
     );
 };
 

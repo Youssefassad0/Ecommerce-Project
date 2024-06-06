@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ProductUpdateForm = () => {
     const { id } = useParams();
@@ -21,7 +23,6 @@ const ProductUpdateForm = () => {
         sizes: '',
         colors: '',
     });
-    const [successMessage, setSuccessMessage] = useState('');
 
     useEffect(() => {
         async function fetchData() {
@@ -89,19 +90,16 @@ const ProductUpdateForm = () => {
             const response = await axios.post(`http://127.0.0.1:8001/api/products/${id}`, data, {
                 headers: { 'Content-Type': "multipart/form-data" },
             });
-            setSuccessMessage('Product updated successfully!');
+            toast.success('Product updated successfully!');
         } catch (error) {
             console.error('Error updating product:', error);
+            toast.error('Error updating product');
         }
     };
 
     return (
         <div className="container mt-5">
-            {successMessage && (
-                <div className="alert alert-success" role="alert">
-                    {successMessage}
-                </div>
-            )}
+            <ToastContainer />
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">
                     <label htmlFor="name" className="form-label">Name</label>
