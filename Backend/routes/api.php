@@ -81,3 +81,4 @@ Route::put('/api/user-update/{id}', [UserController::class, 'updateUser']);
 
 Route::get('/sales-category', [SalesController::class, 'getSalesByCategory']);
 Route::get('/salesBYcategory', [SalesController::class, 'salesByCategory']);
+Route::get('/sales-monthly', [SalesController::class, 'getMonthlySales']);

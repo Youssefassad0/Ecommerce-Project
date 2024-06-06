@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SalesController extends Controller
 {
@@ -46,5 +47,27 @@ class SalesController extends Controller
         return response()->json([
             'salesByCategory' => $salesData
         ]);
+    }
+    public function getMonthlySales()
+    {
+        // Fetch monthly sales data
+        $monthlyData = DB::table('order_details')
+            ->join('orders', 'order_details.order_id', '=', 'orders.id')
+            ->select(
+                DB::raw('MONTH(orders.created_at) as month'),
+                DB::raw('YEAR(orders.created_at) as year'),
+                DB::raw('SUM(order_details.price * order_details.quantity) as totalSales')
+            )
+            ->groupBy('year', 'month')
+            ->orderBy('year', 'month')
+            ->get()
+            ->map(function ($data) {
+                return [
+                    'month' => date('F', mktime(0, 0, 0, $data->month, 10)), // Convert month number to month name
+                    'totalSales' => $data->totalSales,
+                ];
+            });
+
+        return response()->json(['monthlyData' => $monthlyData]);
     }
 }
