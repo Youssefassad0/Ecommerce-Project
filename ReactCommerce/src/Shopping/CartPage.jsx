@@ -101,6 +101,7 @@ const CartPage = () => {
     }
   
     const authUser = JSON.parse(localStorage.getItem('auth-user'));
+    
     const name = authUser.name;
     const email = authUser.email;
     const formData = {
@@ -125,7 +126,6 @@ const CartPage = () => {
         localStorage.removeItem('cart');
         setCartItems([]);
       } else if (response.data.status === 422) {
-        // console.log('HHHHHHHHHHHHH');
         setErrors(response.data.errors);
         Swal.fire('Error', 'All fields are mandatory', 'error');
       } else if (response.data.status === 400) {

@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import PendingActionsIcon from '@mui/icons-material/PendingActions';
+import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 function Widgets() {
     const [users, setUsers] = useState(0);
     const [products, setProducts] = useState(0);
@@ -93,8 +94,9 @@ function Widgets() {
                                         {orders} Orders
                                     </div>
                                 </div>
-                                <div className="col-auto">
-                                    <i className="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                <div className="col-auto mr-3">
+                                    <ShoppingBasketIcon />
+                                {/* <i style='font-size:24px' className='fas'>&#xf217;</i> */}
                                 </div>
                             </div>
                         </div>
@@ -114,7 +116,7 @@ function Widgets() {
                                     {requests}
                                     </div>
                                 </div>
-                                <div className="col-auto">
+                                <div className="col-auto mr-3">
                                     <i>
                                     <PendingActionsIcon/>
                                     </i>
