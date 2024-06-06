@@ -34,11 +34,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Route::middleware(['role:admin'])->group(function () {
 // Route::get('/dashboard', [DashboardController::class, 'index']);
 // Add other team routes here
-Route::resource('/products', ProductController::class);
-Route::resource('place-order', CheckOutController::class);
+
 // });
 
-
+//          Authtentification 
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 
@@ -50,19 +49,28 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/getUserOrders', [ProfileController::class, 'getUserOrders']);
     Route::get('/user/orders', [OrderController::class, 'getUserOrders']);
 });
+
+//          CRUD Products
+Route::resource('/products', ProductController::class);
+//           CRUD ORDERS  
+Route::resource('place-order', CheckOutController::class);
+//          CRUD CAtegory 
 Route::resource('/category', CategoryController::class);
+//          CRUD USERS
 Route::resource('/users', UserController::class);
-// Route::resource('/comments', CommentsController::class);
+//          CRUD CONTACT
 Route::resource('/contact', ContactController::class);
-Route::post('/validate-order', [CheckOutController::class, 'validateOrder']);
+
 Route::post('/products/{productId}/reviews', [ReviewController::class, 'store']);
 Route::get('/products/{productId}/reviews', [ReviewController::class, 'listLastFiveReviews']);
 Route::get('/orders', [OrderController::class, 'index']);
 Route::get('/reviews/{id}', [ProfileController::class, 'getReviewsUser']);
-// Route::get('/reviewUser/{id}', [ProfileController::class, 'getreviewforuser']);
 //changer status de Commande  
 Route::post('/orders/{id}/accept', [StatusProductController::class, 'acceptOrder']);
 Route::post('/orders/{id}/reject', [StatusProductController::class, 'rejectOrder']);
+
+//    ACCETPTER OU REFUSER COMMANDE 
+Route::post('/validate-order', [CheckOutController::class, 'validateOrder']);
 // :Lister les Commandes par status
 Route::get('/ordersAcc', [OrderController::class, 'accepted']);
 Route::get('/ordersRef', [OrderController::class, 'refused']);

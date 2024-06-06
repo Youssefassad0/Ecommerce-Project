@@ -16,10 +16,8 @@ class CheckOutController extends Controller
      */
     public function index()
     {
-        $id = auth('sanctum')->user()->id;
-        return response()->json([
-            'data' => $id
-        ]);
+        $orders = Order::with('orderDetails')->get();
+        return response()->json($orders);
     }
 
     /**

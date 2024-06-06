@@ -2,7 +2,8 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import LocalOfferIcon from '@mui/icons-material/LocalOffer';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 function Widgets() {
     const [users, setUsers] = useState(0);
     const [products, setProducts] = useState(0);
@@ -39,8 +40,10 @@ function Widgets() {
                                         {products} Products
                                     </div>
                                 </div>
-                                <div className="col-auto">
-                                    <i className="fas fa-boxes fa-2x text-gray-300"></i>
+                                <div className="col-auto mr-3">
+                                    <i>
+                                        <LocalOfferIcon />
+                                    </i>
                                 </div>
                             </div>
                         </div>
@@ -60,8 +63,10 @@ function Widgets() {
                                         {users} Users
                                     </div>
                                 </div>
-                                <div className="col-auto">
-                                    <i className="fas fa-users fa-2x text-gray-300"></i>
+                                <div className="col-auto mr-3">
+                                    <i>
+                                    <AccountCircleIcon />
+                                    </i>
                                 </div>
                             </div>
                         </div>
