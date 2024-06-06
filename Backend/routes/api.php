@@ -3,6 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\SalesController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ContactController;
@@ -10,9 +13,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CheckOutController;
-use App\Http\Controllers\OrderController;
 use App\Http\Controllers\StatusProductController;
-use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -75,3 +76,7 @@ Route::post('/validate-order', [CheckOutController::class, 'validateOrder']);
 Route::get('/ordersAcc', [OrderController::class, 'accepted']);
 Route::get('/ordersRef', [OrderController::class, 'refused']);
 Route::put('/api/user-update/{id}', [UserController::class, 'updateUser']);
+
+
+Route::get('/sales-category', [SalesController::class, 'getSalesByCategory']);
+Route::get('/salesBYcategory', [SalesController::class, 'salesByCategory']);
