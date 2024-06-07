@@ -70,4 +70,29 @@ class SalesController extends Controller
 
         return response()->json(['monthlyData' => $monthlyData]);
     }
+    public function getDailySales()
+    {
+        $currentYear = date('Y');
+        $currentMonth = date('m');
+
+        $dailyData = DB::table('order_details')
+            ->join('orders', 'order_details.order_id', '=', 'orders.id')
+            ->whereYear('orders.created_at', $currentYear)
+            ->whereMonth('orders.created_at', $currentMonth)
+            ->select(
+                DB::raw('DAY(orders.created_at) as day'),
+                DB::raw('SUM(order_details.price * order_details.quantity) as totalSales')
+            )
+            ->groupBy('day')
+            ->orderBy('day', 'asc')
+            ->get()
+            ->map(function ($data) {
+                return [
+                    'day' => $data->day,
+                    'totalSales' => $data->totalSales,
+                ];
+            });
+
+        return response()->json(['dailyData' => $dailyData]);
+    }
 }

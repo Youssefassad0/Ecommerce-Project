@@ -3,9 +3,9 @@ import { ChatEngine } from "react-chat-engine";
 
 const SupportAdmin = () => {
   return <ChatEngine 
-  projectID={"7e4250d3-9e9f-4e72-b0a7-e51b43a14f35"}
-  userName="Assad Shop"
-  userSecret='assadassad'
+  projectID={"1f1f2a87-c520-4184-aa87-a4f3828018c2"}
+  userName="AssadShop"
+  userSecret='1234'
   height='calc(100vh - 20px)'
   />;
 };

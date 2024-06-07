@@ -17,7 +17,7 @@ axios.put('https://api.chatengine.io/users/',
 
 },
 {
-    headers:{"Private-Key":"44e089c1-4fc8-4bad-98a0-c5c32d069eaf"
+    headers:{"Private-Key":"9f444a2d-0ba8-406b-81e6-9c51653dc7aa"
 }
 }
 ).then(r=>callback(r.data))
@@ -31,7 +31,7 @@ function getOrCreateChat(callback){
 
 },
 {
-    headers:{"Private-Key":"44e089c1-4fc8-4bad-98a0-c5c32d069eaf"
+    headers:{"Private-Key":"9f444a2d-0ba8-406b-81e6-9c51653dc7aa"
 }
 }
 ).then(r=>callback(r.data))

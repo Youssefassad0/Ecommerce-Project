@@ -12,7 +12,7 @@ const ChartDiagram = () => {
   useEffect(() => {
     async function getData() {
       try {
-        const response = await axios.get("http://localhost:8001/api/sales-monthly" );
+        const response = await axios.get("http://localhost:8001/api/sales-daily");
         setData(response.data);
         setLoading(false);
       } catch (err) {
@@ -26,19 +26,19 @@ const ChartDiagram = () => {
   const formattedData = useMemo(() => {
     if (!data) return [];
 
-    const { monthlyData } = data;
+    const { dailyData } = data;
     const totalSalesLine = {
       id: "totalSales",
       color: theme.palette.secondary.main,
       data: [],
     };
 
-    monthlyData.forEach(({ month, totalSales }) => {
-      totalSalesLine.data.push({ x: month, y: totalSales });
+    dailyData.forEach(({ day, totalSales }) => {
+      totalSalesLine.data.push({ x: day, y: totalSales });
     });
 
     return [totalSalesLine];
-  }, [data, theme.palette.secondary]);
+  }, [data, theme.palette.secondary.main]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -103,9 +103,9 @@ const ChartDiagram = () => {
             orient: "bottom",
             tickSize: 5,
             tickPadding: 5,
-            tickRotation: 90,
-            legend: "Month",
-            legendOffset: 60,
+            tickRotation: 0,
+            legend: "Day",
+            legendOffset: 40,
             legendPosition: "middle",
           }}
           axisLeft={{
