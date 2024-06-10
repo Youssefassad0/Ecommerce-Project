@@ -13,6 +13,7 @@ class OrderController extends Controller
         $orders = $orders->map(function ($order) {
             return [
                 'id' => $order->id,
+                'name' => $order->name,
                 'email' => $order->email,  // Assuming you have this column
                 'payment_mode' => $order->payment_mode,  // Assuming you have this column
                 'total' => $order->total_price,

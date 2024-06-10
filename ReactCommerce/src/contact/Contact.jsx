@@ -6,12 +6,12 @@ import NavItems from "../components/NavItems";
 import Footer from "../components/Footer";
 import IndexHome from "../ChatSupport/Home/IndexHome";
 import axios from "axios";
-import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import { toast, Toaster } from "sonner";
+
 const title = "We're Always Eager To Hear From You!";
 const conSubTitle = "Get in touch with Contact us";
-const conTitle =
-  "Fill The Form Below So We Can Get To Know You And Your Needs Better.";
+const conTitle = "Fill The Form Below So We Can Get To Know You And Your Needs Better.";
 
 const contactList = [
   {
@@ -63,33 +63,29 @@ const Contact = () => {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:8001/api/contact', formData);
-      alert(response.data.success)
       if (response.status === 201) {
-        Swal.fire({
-          icon: 'success',
-          title: 'Success',
-          text: 'the Message  sended  successfully!',
-        });
-
-        nav('/dashboard/category')
+        toast.success('The message was sent successfully!');
+        nav('/dashboard/category');
       }
-
     } catch (error) {
       if (error.response) {
         if (error.response.status === 422) {
           setErrors(error.response.data.errors);
           console.log(errors);
+        } else {
+          toast.error('An error occurred. Please try again later.');
         }
       } else {
         console.error('Request failed:', error.message);
       }
     }
   };
+
   return (
     <div>
       <NavItems />
+      <Toaster />
       <div className="">
-
         <PageHeader title={"Get In Touch With Us "} curPage={"Contact Us"} />
         <div className="map-address-section padding-tb section-bg">
           <div className="container">
@@ -172,7 +168,7 @@ const Contact = () => {
                   />
                   {errors.subject && <span className='text-danger'>{errors.subject[0]}</span>}
 
-             </div>
+                </div>
                 <div className="form-group w-100">
                   <textarea
                     name="message"

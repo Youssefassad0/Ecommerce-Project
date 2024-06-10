@@ -76,7 +76,7 @@ Route::post('/validate-order', [CheckOutController::class, 'validateOrder']);
 // :Lister les Commandes par status
 Route::get('/ordersAcc', [OrderController::class, 'accepted']);
 Route::get('/ordersRef', [OrderController::class, 'refused']);
-Route::put('/api/user-update/{id}', [UserController::class, 'updateUser']);
+Route::put('/user-update/{id}', [ProfileController::class, 'updateUser']);
 
 
 Route::get('/sales-category', [SalesController::class, 'getSalesByCategory']);
