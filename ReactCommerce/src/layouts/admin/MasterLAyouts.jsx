@@ -22,6 +22,7 @@ import ListOrderAccepted from './components/Orders/ListAccOrder';
 import ListOrderRejected from './components/Orders/ListRefOrder';
 import UsersPage from './components/Users/UsersPage';
 import ProfileTemplate from './components/Users';
+import { ChatEngine } from 'react-chat-engine';
 
 function MasterLAyouts() {
 
@@ -63,6 +64,7 @@ function MasterLAyouts() {
                     <Route path='/orders-accepted' element={<ListOrderAccepted/>}  />
                     <Route path='/orders-rejected' element={<ListOrderRejected/>}  />
                     <Route path='/contact/:id' element={<ContactDetail/>} />
+                    <Route path='messages' element={<ChatEngine/>} />
                   </Routes>
                 </div>
               </div>

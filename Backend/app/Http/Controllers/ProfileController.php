@@ -100,6 +100,14 @@ class ProfileController extends Controller
     }
     public function updateUser(Request $request, $id)
     {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'mobile' => 'nullable|string|max:20',
+            'location' => 'nullable|string|max:255',
+            'password' => 'nullable|string|min:6|confirmed',
+        ]);
+
         $user = User::findOrFail($id);
 
         $user->name = $request->input('name');
@@ -111,6 +119,10 @@ class ProfileController extends Controller
             $avatar = $request->file('avatar');
             $path = $avatar->store('avatars', 'public');
             $user->avatar = $path;
+        }
+
+        if ($request->filled('password')) {
+            $user->password = bcrypt($request->input('password'));
         }
 
         $user->save();

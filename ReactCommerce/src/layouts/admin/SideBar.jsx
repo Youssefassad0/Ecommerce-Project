@@ -152,9 +152,9 @@ function SideBar() {
 
         {/* <!-- Nav Item - Tables --> */}
         <li className="nav-item">
-          <a className="nav-link" href="tables.html">
+          <Link className="nav-link" to="/dashboard/messages">
             <i className="fas fa-fw fa-table"></i>
-            <span>Tables</span></a>
+            <span>REALTIME</span></Link>
         </li>
 
         {/* <!-- Divider --> */}

@@ -7,6 +7,7 @@ import { IoNotificationsOutline } from "react-icons/io5";
 import { CiSearch } from "react-icons/ci";
 import { BsList } from "react-icons/bs";
 import ContactList from './components/Contacts/Contact';
+import { IoIosRefresh } from "react-icons/io";
 
 function Navbar() {
   const [style, setStyle] = useState("navbar-nav bg-gradient-primary sidebar sidebar-dark accordion");
@@ -23,7 +24,7 @@ function Navbar() {
     return user ? JSON.parse(user) : null;
   };
 
-  const user = getUser();  const navigate = useNavigate();
+  const user = getUser(); const navigate = useNavigate();
   const logOut = (e) => {
     // localStorage.removeItem("auth-token");
     // localStorage.removeItem("auth-name");
@@ -44,12 +45,12 @@ function Navbar() {
       }
     })
   };
-  const defaultAvatar="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSLU5_eUUGBfxfxRd4IquPiEwLbt4E_6RYMw&s"
+  const defaultAvatar = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSLU5_eUUGBfxfxRd4IquPiEwLbt4E_6RYMw&s"
   const avatarUrl = user && user.avatar ? `http://localhost:8001/${user.avatar}` : defaultAvatar;
 
   return (
     <>
-      <nav 
+      <nav
         className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"
       >
         {/* <!-- Sidebar Toggle (Topbar) --> */}
@@ -58,7 +59,7 @@ function Navbar() {
           id="sidebarToggleTop"
           className="btn btn-link d-md-none rounded-circle mr-3"
         >
-         <BsList/>
+          <BsList />
         </button>
         {/* <!-- Topbar Search --> */}
         <form
@@ -74,10 +75,15 @@ function Navbar() {
             />
             <div className="input-group-append">
               <button className="btn btn-primary" type="button">
-                <CiSearch></CiSearch>              </button>
+                <CiSearch />
+              </button>
             </div>
+          <div onClick={()=>{window.location.reload()}} style={{ cursor:'pointer' }} className="input-group-append ml-2 mt-2" >
+        <IoIosRefresh />
+          </div>
           </div>
         </form>
+
 
         {/* <!-- Topbar Navbar --> */}
         <ul className="navbar-nav ml-auto">
@@ -203,8 +209,8 @@ function Navbar() {
             >
               <h6 className="dropdown-header">Message Center</h6>
               <a className="dropdown-item d-flex align-items-center" href="#">
-                <ContactList/>
-             
+                <ContactList />
+
               </a>
               <a
                 className="dropdown-item text-center small text-gray-500"
@@ -273,8 +279,8 @@ function Navbar() {
           aria-labelledby="exampleModalLabel"
           aria-hidden="true"
         >
-          <div className="modal-dialog"  role="document">
-            <div className="modal-content" style={{ height:'300px' }} >
+          <div className="modal-dialog" role="document">
+            <div className="modal-content" style={{ height: '300px' }} >
               <div className="modal-header">
                 <h5 className="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
                 <button

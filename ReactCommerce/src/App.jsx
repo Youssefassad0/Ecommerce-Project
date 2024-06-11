@@ -74,7 +74,6 @@ export default function App() {
                     path="/dashboard/*"
                     element={user && user.role==='admin' ? <MasterLAyouts /> : <Navigate to="/login" />}
                 />
-
             </Routes>
         </BrowserRouter>
     );

@@ -3,7 +3,6 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import NavItems from '../../../components/NavItems';
 import { useNavigate } from 'react-router-dom';
-// import { Toaster } from 'sonner';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -25,19 +24,31 @@ function PageProfile() {
     useEffect(() => {
         async function fetchData() {
             try {
-                const res = await axios.get('http://127.0.0.1:8001/api/user/profile');
-                await axios.get('http://127.0.0.1:8001/api/getUserReviews')
-                    .then(res => setReviewCount(res.data.length))
-                    .catch(err => console.log("ERROR DE : " + err));
-                await axios.get('http://127.0.0.1:8001/api/getUserOrders')
-                    .then(res => setOrderCount(res.data.length))
-                    .catch(err => console.log("ERROR DE : " + err));
+                const res = await axios.get('http://127.0.0.1:8001/api/user/profile', {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                });
+                const reviews = await axios.get('http://127.0.0.1:8001/api/getUserReviews', {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                });
+                const orders = await axios.get('http://127.0.0.1:8001/api/getUserOrders', {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                });
+
+                setReviewCount(reviews.data.length);
+                setOrderCount(orders.data.length);
 
                 setFormData({
                     ...res.data,
                     password: '',
                     password2: ''
                 });
+
                 if (res.data.avatar) {
                     setAvatarPreview(`http://localhost:8001/${res.data.avatar}`);
                 }
@@ -73,7 +84,16 @@ function PageProfile() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (formData.password !== formData.password2) {
+        if (!formData.name || !formData.email) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Name and Email are required!'
+            });
+            return;
+        }
+
+        if (formData.password && formData.password !== formData.password2) {
             Swal.fire({
                 icon: 'error',
                 title: 'Error',
@@ -83,13 +103,17 @@ function PageProfile() {
         }
 
         const data = new FormData();
+        data.append('_method', 'PUT');
         Object.keys(formData).forEach(key => {
-            data.append(key, formData[key]);
+            if (formData[key] !== null && formData[key] !== '') {
+                data.append(key, formData[key]);
+            }
         });
 
         try {
-            const response = await axios.put(`http://127.0.0.1:8001/api/user-update/${formData.id}`, data, {
+            const response = await axios.post(`http://127.0.0.1:8001/api/user/profile/update`, data, {
                 headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
                     'Content-Type': 'multipart/form-data'
                 }
             });
@@ -125,7 +149,6 @@ function PageProfile() {
             <div className="nav mb-5" style={{ height: "40px" }}>
                 <NavItems />
             </div>
-            {/* <Toaster richColors   position="top-center" /> */}
             <ToastContainer />
             <div className="container bootstrap snippet mt-5">
                 <div className="row">
@@ -161,7 +184,7 @@ function PageProfile() {
                                     <div className="form-group">
                                         <div className="col-xs-6">
                                             <label htmlFor="mobile"><h4>Mobile</h4></label>
-                                            <input type="text" className="form-control" name="mobile" id="mobile" value={formData.mobile} onChange={handleChange} placeholder="Mobile number" required />
+                                            <input type="text" className="form-control" name="mobile" id="mobile" value={formData.mobile} onChange={handleChange} placeholder="Mobile number"  />
                                         </div>
                                     </div>
                                     <div className="form-group">
@@ -173,7 +196,7 @@ function PageProfile() {
                                     <div className="form-group">
                                         <div className="col-xs-6">
                                             <label htmlFor="location"><h4>Location</h4></label>
-                                            <input type="text" className="form-control" name="location" id="location" value={formData.location} onChange={handleChange} placeholder="Location" required />
+                                            <input type="text" className="form-control" name="location" id="location" value={formData.location} onChange={handleChange} placeholder="Location"  />
                                         </div>
                                     </div>
                                     <div className="form-group">
